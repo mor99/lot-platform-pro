@@ -1,5 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
-export default () => {
-    return <h1>历史记录</h1>
- }
+import styles from './index.less'
+
+export default class DeviceState extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    render() {
+        return (
+            <PageHeaderWrapper className={styles.header}>
+                历史记录
+            </PageHeaderWrapper>
+        )
+    }
+}

@@ -6,6 +6,8 @@ import { RadioChangeEvent } from 'antd/es/radio';
 import { RangePickerProps } from 'antd/es/date-picker/generatePicker';
 import moment from 'moment';
 import { connect, Dispatch } from 'umi';
+// eslint-disable-next-line import/no-duplicates
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
 
 import PageLoading from './components/PageLoading';
 import { getTimeDistance } from './utils/utils';
@@ -156,6 +158,7 @@ class Userdata extends Component<
 
     const activeKey = currentTabKey || (offlineData[0] && offlineData[0].name);
     return (
+      <PageHeaderWrapper>
       <GridContent>
         <React.Fragment>
           <Suspense fallback={<PageLoading />}>
@@ -210,6 +213,7 @@ class Userdata extends Component<
           </Suspense>
         </React.Fragment>
       </GridContent>
+      </PageHeaderWrapper>
     );
   }
 }
