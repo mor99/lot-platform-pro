@@ -37,21 +37,6 @@ export default class DeviceState extends Component {
                         </Card>
                     </Col>
                 </Row>
-                {/*                 <div>
-                <Card size="bigger" title="设备1" extra={<a href="#">More</a>} style={{ width: '30%' }}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </Card>
-                </div>
-                <div>
-                <Card size="small" title="设备2" extra={<a href="#">More</a>} style={{ width: '30%' }}>
-                <p>Card content</p>
-                <p>Card content</p>
-                <p>Card content</p>
-                </Card>
-                </div> */}
-{/*             </div> */}
             </PageHeaderWrapper>
         )
     }
