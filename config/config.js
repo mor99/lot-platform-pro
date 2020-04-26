@@ -49,12 +49,12 @@ export default defineConfig({
               redirect: '/welcome',
             },
             {
-              name: '控制台',
+              name: 'console',
               icon: 'table',
               path: '/console',
               routes: [
                 {
-                  name: '用户数据',
+                  name: 'userdata',
                   path: '/console/userdata',
                   component: './console/userdata',
                 },
@@ -115,6 +115,11 @@ export default defineConfig({
                   component:'./gateway_control/history'
                 }
               ],
+            },
+            {
+              name: 'test',
+              path: '/test',
+              component: './test',
             },
             {
               path: '/welcome',

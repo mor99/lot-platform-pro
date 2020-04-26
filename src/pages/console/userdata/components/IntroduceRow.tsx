@@ -32,7 +32,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
           </Tooltip>
         }
         loading={loading}
-        total={() => <Yuan>126560</Yuan>}
+        total={() => 50}
         footer={<Field label="Daily Sales" value={`￥${numeral(12423).format('0,0')}`} />}
         contentHeight={46}
       >
