@@ -33,6 +33,11 @@ export default defineConfig({
           path: '/user/login',
           component: './user/login',
         },
+        {
+          name:'register',
+          path: '/user/register',
+          component: './user/register'
+        }
       ],
     },
     {
@@ -46,7 +51,7 @@ export default defineConfig({
           routes: [
             {
               path: '/',
-              redirect: '/welcome',
+              redirect: '/console/userdata',
             },
             {
               name: 'console',
@@ -120,12 +125,14 @@ export default defineConfig({
               name: 'test',
               path: '/test',
               component: './test',
+              authority: ['admin'],
             },
             {
               path: '/welcome',
               name: 'welcome',
               icon: 'smile',
               component: './Welcome',
+              authority: ['admin'],
             },
             {
               path: '/admin',
@@ -148,6 +155,7 @@ export default defineConfig({
               icon: 'table',
               path: '/list',
               component: './ListTableList',
+              authority: ['admin'],
             },
             {
               component: './404',
