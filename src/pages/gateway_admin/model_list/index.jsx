@@ -23,17 +23,17 @@ export default class DeviceState extends Component {
                     <Row gutter={100}>
                         <Col span={7}>
                             <p>我的模型</p>
-                            <h2>1个模型</h2>
+                            <h2>6个模型</h2>
                         </Col>
                         <Divider type='vertical' />
                         <Col span={7}>
                             <p>平均属性个数</p>
-                            <h2>2个模型</h2>
+                            <h2 style={{marginLeft:30}}>8</h2>
                         </Col>
                         <Divider type='vertical' />
                         <Col span={7}>
                             <p>上传的属性个数</p>
-                            <h2>3个模型</h2>
+                            <h2 style={{marginLeft:30}}>3</h2>
                         </Col>
                     </Row>
                 </div>
