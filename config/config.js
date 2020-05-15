@@ -83,7 +83,13 @@ export default defineConfig({
                 {
                   name:'模型列表',
                   path:'/gateway_admin/model_list',
-                  component:'./gateway_admin/model_list'
+                  component:'./gateway_admin/model_list',
+                },
+                {
+                  name:'添加网关',
+                  path:'/gateway_admin/gateway_add',
+                  component:'./gateway_admin/gateway_list/gateway_add.jsx',
+                  hideInMenu:true,
                 }
               ],
             },
@@ -122,10 +128,33 @@ export default defineConfig({
               ],
             },
             {
+              name:'设备管理',
+              path:'/device_admin',
+              hideInMenu:true,
+              routes:[
+                {
+                  name:'设备列表',
+                  path:'/device_admin/device_list',
+                  component:'./device_admin/device_list'
+                },
+                {
+                  name:'添加子设备',
+                  path:'/device_admin/device_add',
+                  component:'./device_admin/device_list/device_add.jsx'
+                }
+              ]
+            },
+            {
+              name:'属性列表',
+              path:'/attribute_list',
+              component:'./gateway_admin/attribute_list',
+              hideInMenu:true,
+            },
+            {
               name: 'test',
               path: '/test',
               component: './test',
-              authority: ['admin'],
+              hideInMenu:true,
             },
             {
               path: '/welcome',

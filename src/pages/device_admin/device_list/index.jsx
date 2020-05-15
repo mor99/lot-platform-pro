@@ -1,16 +1,43 @@
-/* eslint-disable no-console */
-import React ,{ useState} from 'react';
+import React from 'react'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
-import {Link} from 'umi'
-import { Button} from 'antd';
-import request from 'umi-request';
-import axios from 'axios'
-import {columns} from './columns'
+import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { Link } from 'umi'
 import styles from './index.less'
 
-
+const columns = [
+    {
+        title: '子设备ID',
+        dataIndex: 'name',
+        /* render: text => <a>{text}</a>, */
+    },
+    {
+        title: '描述',
+        dataIndex: 'age',
+        hideInSearch: true,
+    },
+    {
+        title: '从站(slave)',
+        dataIndex: 'da',
+        sorter: (a, b) => a.da - b.da,
+        hideInSearch: true,
+    },
+    {
+        title: '接入方式',
+        dataIndex: 'as1',
+        hideInSearch: true,
+        sorter: (a, b) => a.da - b.da,
+    },
+    {
+        title: '绑定模型',
+        dataIndex: 'state',
+        sorter: (a, b) => a.da - b.da,
+    },
+    {
+        title: '操作'
+    }
+]
 
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
@@ -25,37 +52,27 @@ const rowSelection = {
 };
 
 export default () => {
-    const [data, setData] = useState(0);
-    document.title = '网关列表'
-    axios.get('/api/gateway')
-    .then(
-        (response)=>{
-            response.data[0].status='running'
-            setData(response.data)
-            console.log(response.data)
-        }
-    )
     return (
         <PageHeaderWrapper>
-            <div className={styles.div1}>
+            <div className={styles.div}>
                 <ProTable
                     options={false}
                     rowSelection={rowSelection}
                     toolBarRender={() => [
-                        <Link to='gateway_add'>
                         <Button key="3" type="primary">
+                            <Link to = 'device_add'>
                             <PlusOutlined />
                                 新建
-                                </Button></Link>,
+                            </Link>
+                                </Button>,
                         <Button key="4" type="primary" danger>
                             删除
                                 </Button>,
                     ]}
-                    columns={columns} dataSource={data} />
+                    columns={columns}
+                    dataSource={null}
+                />
             </div>
-
         </PageHeaderWrapper>
     )
-
 }
-

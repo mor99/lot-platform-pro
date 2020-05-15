@@ -28,11 +28,15 @@ export default class HistoryData extends Component {
                 </div>
                 <br />
                 <div className={styles.div}>
-                    <h2><b>子设备1</b></h2>
+                    {/* <h2><b>子设备1</b></h2> */}
+                    <br />
+                    <br />
                 </div>
                 <br/>
                 <div className={styles.div}>
-                    <h2><b>子设备2</b></h2>
+                    {/* <h2><b>子设备2</b></h2> */}
+                    <br />
+                    <br />
                 </div>
             </PageHeaderWrapper>
         )

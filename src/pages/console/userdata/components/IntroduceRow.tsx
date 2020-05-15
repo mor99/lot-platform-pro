@@ -33,7 +33,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         }
         loading={loading}
         total={() => 50}
-        footer={<Field label="Daily Sales" value={`￥${numeral(12423).format('0,0')}`} />}
+        footer={<Field label="" value='123'/* {`￥${numeral(12423).format('0,0')}`} */ />}
         contentHeight={46}
       >
         <Trend
@@ -43,11 +43,11 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
           }}
         >
           Weekly Changes
-          <span className={styles.trendText}>12%</span>
+          <span className={styles.trendText}>12</span>
         </Trend>
         <Trend flag="down">
           Daily Changes
-          <span className={styles.trendText}>11%</span>
+          <span className={styles.trendText}>11</span>
         </Trend>
       </ChartCard>
     </Col>

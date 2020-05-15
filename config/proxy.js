@@ -8,17 +8,17 @@
 export default {
   dev: {
     '/api/': {
-      target: 'http://localhost:5000',
-     /*  https://preview.pro.ant.design */
+      /* target: 'http://localhost:5000', */
+      target:'http://192.168.1.211:3000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
       },
     },
   },
-  test: {
+  test: {  
     '/api/': {
-      target: 'http://localhost:5000',
+      target: 'http://192.168.1.211:3000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',
@@ -27,7 +27,7 @@ export default {
   },
   pre: {
     '/api/': {
-      target: 'http://localhost:5000',
+      target: 'http://192.168.1.211:3000',
       changeOrigin: true,
       pathRewrite: {
         '^': '',

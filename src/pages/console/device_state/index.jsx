@@ -10,6 +10,10 @@ export default class DeviceState extends Component {
         this.state = {}
     }
 
+    componentDidMount(){
+        document.title = '设备状态'
+    }
+
     render() {
         return (
             <PageHeaderWrapper>

@@ -48,7 +48,7 @@ const UserLayout = props => {
                 <span className={styles.title}>物联网平台</span>
               </Link>
             </div>
-            <div className={styles.desc}>Ant Design 是西湖区最具影响力的 Web 设计规范</div>
+            <div className={styles.desc}>Ant Design 是最具影响力的 Web 设计规范</div>
           </div>
           {children}
         </div>
