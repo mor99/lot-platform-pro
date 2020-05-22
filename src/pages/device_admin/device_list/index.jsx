@@ -1,76 +1,81 @@
-import React from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
-import { Link } from 'umi'
+import { Button ,message} from 'antd';
+import { Link, history } from 'umi'
+import { columns } from './columns'
+import { getDeviceList } from './service'
 import styles from './index.less'
 
-const columns = [
-    {
-        title: '子设备ID',
-        dataIndex: 'name',
-        /* render: text => <a>{text}</a>, */
-    },
-    {
-        title: '描述',
-        dataIndex: 'age',
-        hideInSearch: true,
-    },
-    {
-        title: '从站(slave)',
-        dataIndex: 'da',
-        sorter: (a, b) => a.da - b.da,
-        hideInSearch: true,
-    },
-    {
-        title: '接入方式',
-        dataIndex: 'as1',
-        hideInSearch: true,
-        sorter: (a, b) => a.da - b.da,
-    },
-    {
-        title: '绑定模型',
-        dataIndex: 'state',
-        sorter: (a, b) => a.da - b.da,
-    },
-    {
-        title: '操作'
+export default (props) => {
+    const ref = useRef();
+
+    // 数据初始化
+    const [data, setData] = useState()
+    const delectId= {idList:[]}
+    // 获取子设备列表
+    const fetchData = async () => {
+        const result = await getDeviceList(history.location.query.gatewayId)
+        setData(result.data)
     }
-]
 
-const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-        console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
-    onSelect: (record, selected, selectedRows) => {
-        console.log(record, selected, selectedRows);
-    },
-    onSelectAll: (selected, selectedRows, changeRows) => {
-        console.log(selected, selectedRows, changeRows);
-    },
-};
+    // 组件初始化
+    useEffect(() => {
+        fetchData();
+    },[])
 
-export default () => {
+    // 删除设备
+    const handleRemove = async selectedRows => {
+        const hide = message.loading('正在删除');
+        if (!selectedRows) return true;
+        try {
+            hide();
+            ref.current.reload();
+            message.success('删除成功，即将刷新');
+            fetchData()
+            return true;
+        } catch (error) {
+            hide();
+            message.error('删除失败，请重试');
+            return false;
+        }
+    };
+    // 选中操作
+    const rowSelection = {
+        onSelect: (record, selected, selectedRows) => {
+          delectId.idList.length = 0 ;
+          selectedRows.forEach(
+              (value)=> {
+                  delectId.idList.push(value.id)
+              }
+          )
+        },
+      };
+
     return (
         <PageHeaderWrapper>
             <div className={styles.div}>
                 <ProTable
+                    actionRef={ref}
+                    rowKey="name"
                     options={false}
                     rowSelection={rowSelection}
-                    toolBarRender={() => [
-                        <Button key="3" type="primary">
-                            <Link to = 'device_add'>
-                            <PlusOutlined />
+                    toolBarRender={(action, { selectedRows }) => [
+                        <Button key="button1" type="primary">
+                            <Link to={{pathname:'device_add',query:props.location.query}} >
+                                <PlusOutlined />
                                 新建
                             </Link>
-                                </Button>,
-                        <Button key="4" type="primary" danger>
+                        </Button>,
+                        <Button key="button2" type="primary" danger onClick={async ()=>{
+                            await handleRemove(selectedRows)
+                            action.reload()}}>
                             删除
                                 </Button>,
                     ]}
                     columns={columns}
-                    dataSource={null}
+                    dataSource={data}
                 />
             </div>
         </PageHeaderWrapper>

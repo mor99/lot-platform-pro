@@ -11,6 +11,7 @@ export default {
   menu: {
     locale: true,
   },
+  //title: 'LotPlatform',
   title: '物联网平台',
   pwa: false,
   iconfontUrl: '',

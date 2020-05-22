@@ -1,15 +1,8 @@
 import React from 'react';
-import {
-    Form,
-    Input,
-    Select,
-    Button,
-    Radio,
-} from 'antd';
-import request from 'umi-request'
-import axios from 'axios'
+import { history } from 'umi'
+import { Form, Input, Select, Button, message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-
+import { addDevice } from './service';
 import styles from './index.less'
 
 const { Option } = Select;
@@ -32,17 +25,42 @@ const tailFormItemLayout = {
     },
 };
 
-const DeviceAddForm = () => {
+const DeviceAddForm = (props) => {
     const [form] = Form.useForm();
+    console.log(props.location.query)
+    const onFinish = async (values) => {
+        // const value = JSON.stringify(values)
+            const value = {
+            deviceInfo: {
+                name: values.name,
+                description: values.description,
+                connectionMode: values.connectionMode,
+                slaveNo: values.slaveNo,
+                commConfig: {
+                    serialNo: values.slaveNo,
+                    baudRate: values.baudRate,
+                    dataLength: values.dataLength,
+                    parity: values.parity,
+                    stopBit: values.stopBit,
+                    ip: values.ip,
+                    port: values.port
+                }
+            }
+        }
+        const hide = message.loading('正在添加');
+        try {
+            await addDevice(props.location.query, value)
+            hide();
+            message.success('添加成功')
+            history.goBack()
+            return true
+        }
+        catch (error) {
+            hide();
+            message.error('添加失败！请重试!');
+            return false;
+        }
 
-    const onFinish = async(values) => {
-        await axios.post('/api/device',
-         JSON.stringify(values),
-         {headers: {'Content-Type': 'application/json'}}
-        )
-            .then((response) => {
-                console.log(response.data);
-            })
     };
 
     return (
@@ -78,11 +96,11 @@ const DeviceAddForm = () => {
                         label="设备描述"
                     >
                         <TextArea rows={4}
-                        placeholder='请输入你的设备描述' />
+                            placeholder='请输入你的设备描述' />
                     </Form.Item>
 
                     <Form.Item
-                        name="coreModule"
+                        name="connectionMode"
                         label="选择模式"
                         rules={[
                             {
@@ -101,7 +119,7 @@ const DeviceAddForm = () => {
 
                     <Form.Item
                         label="从站slave"
-                        name='dataPlan'
+                        name='slaveNo'
                         rules={[
                             {
                                 required: true,
@@ -114,7 +132,7 @@ const DeviceAddForm = () => {
 
                     <Form.Item
                         label="IP地址"
-                        name='dataPlan'
+                        name="ip"
                         rules={[
                             {
                                 required: true,
@@ -127,7 +145,7 @@ const DeviceAddForm = () => {
 
                     <Form.Item
                         label="端口号"
-                        name='dataPlan'
+                        name='port'
                         rules={[
                             {
                                 required: true,
@@ -137,11 +155,11 @@ const DeviceAddForm = () => {
                     >
                         <Input placeholder='请输入端口号' />
                     </Form.Item>
-                    <br/>
-                    <br/>
+                    <br />
+                    <br />
                     <Form.Item
                         label="串口号"
-                        name='dataPlan'
+                        name='serialNo'
                         rules={[
                             {
                                 required: true,
@@ -153,7 +171,7 @@ const DeviceAddForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="coreModule"
+                        name="baudRate"
                         label="波特率"
                         rules={[
                             {
@@ -170,7 +188,7 @@ const DeviceAddForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="coreModule"
+                        name="dataLength"
                         label="数据位"
                         rules={[
                             {
@@ -186,7 +204,7 @@ const DeviceAddForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="coreModule"
+                        name="parity"
                         label="校验"
                         rules={[
                             {
@@ -203,7 +221,7 @@ const DeviceAddForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        name="coreModule"
+                        name="stopBit"
                         label="停止位"
                         rules={[
                             {

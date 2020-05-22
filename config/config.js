@@ -64,88 +64,94 @@ export default defineConfig({
                   component: './console/userdata',
                 },
                 {
-                  name:'设备状态',
+                  name:'device-state',
                   path:'/console/device_state',
                   component:'./console/device_state'
                 }
               ],
             },
             {
-              name: '网关管理',
+              name: 'gateway-admin',
               icon: 'table',
               path: '/gateway_admin',
               routes: [
                 {
-                  name: '网关列表',
+                  name: 'gateway-list',
                   path: '/gateway_admin/gateway_list',
                   component: './gateway_admin/gateway_list',
                 },
                 {
-                  name:'模型列表',
+                  name:'model-list',
                   path:'/gateway_admin/model_list',
                   component:'./gateway_admin/model_list',
                 },
                 {
-                  name:'添加网关',
+                  name:'gateway-add',
                   path:'/gateway_admin/gateway_add',
                   component:'./gateway_admin/gateway_list/gateway_add.jsx',
                   hideInMenu:true,
+                },
+                {
+                  name:'gateway-edit',
+                  path:'/gateway_admin/gateway_edit',
+                  component:'./gateway_admin/gateway_list/gateway_edit.jsx',
+                  hideInMenu:true
                 }
               ],
             },
             {
-              name: '数据监控',
+              name: 'data-monitoring',
               icon: 'table',
               path: '/data_monitoring',
               routes: [
                 {
-                  name: '实时数据',
+                  name: 'real-time',
                   path: '/data_monitoring/real_time',
                   component: './data_monitoring/real_time',
                 },
                 {
-                  name:'历史数据',
+                  name:'history',
                   path:'/data_monitoring/history',
                   component:'./data_monitoring/history'
                 }
               ],
             },
             {
-              name: '网关控制',
+              name: 'gateway-control',
               icon: 'table',
               path: '/gateway_control',
               routes: [
                 {
-                  name: '下发命令',
+                  name: 'order',
                   path: '/gateway_control/order',
                   component: './gateway_control/order',
                 },
                 {
-                  name:'历史记录',
+                  name:'history',
                   path:'/gateway_control/history',
                   component:'./gateway_control/history'
                 }
               ],
             },
             {
-              name:'设备管理',
+              name:'device-admin',
               path:'/device_admin',
               hideInMenu:true,
               routes:[
                 {
-                  name:'设备列表',
+                  name:'device-list',
                   path:'/device_admin/device_list',
                   component:'./device_admin/device_list'
                 },
                 {
-                  name:'添加子设备',
+                  name:'device-add',
                   path:'/device_admin/device_add',
                   component:'./device_admin/device_list/device_add.jsx'
                 }
               ]
             },
             {
-              name:'属性列表',
+              name:'attribute-list',
               path:'/attribute_list',
               component:'./gateway_admin/attribute_list',
               hideInMenu:true,

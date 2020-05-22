@@ -1,7 +1,32 @@
 export default {
   'menu.welcome': '欢迎',
+  
   'menu.console':'控制台',
   'menu.console.userdata':'用户数据',
+  'menu.console.device-state':'设备状态',
+
+  'menu.gateway-admin':'网关管理',
+  'menu.gateway-admin.gateway-list':'网关列表',
+  'menu.gateway-admin.model-list':'模型列表',
+  'menu.gateway-admin.gateway-add':'添加网关',
+  'menu.gateway-admin.gateway-edit':'编辑网关',
+
+  'menu.data-monitoring':'数据监控',
+  'menu.data-monitoring.real-time':'实时数据',
+  'menu.data-monitoring.history':'历史数据',
+
+  'menu.gateway-control':'网关控制',
+  'menu.gateway-control.order':'下发命令',
+  'menu.gateway-control.history':'历史记录',
+
+  'menu.device-admin':'设备管理',
+  'menu.device-admin.device-list':'设备列表',
+  'menu.device-admin.device-add':'添加子设备',
+
+  'menu.attribute-list':'属性列表',
+
+  'menu.test':'测试',
+
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.admin': '管理页',
