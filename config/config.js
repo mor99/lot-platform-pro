@@ -147,6 +147,11 @@ export default defineConfig({
                   name:'device-add',
                   path:'/device_admin/device_add',
                   component:'./device_admin/device_list/device_add.jsx'
+                },
+                {
+                  name:'device-edit',
+                  path:'/device_admin/device_edit',
+                  component:'./device_admin/device_list/device_edit'
                 }
               ]
             },

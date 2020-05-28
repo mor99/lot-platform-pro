@@ -4,7 +4,7 @@ import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
 import { Link } from 'umi'
-import { Button, message,Alert } from 'antd';
+import { Button, message, Result, Col, Row } from 'antd';
 import { columns } from './columns'
 import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
@@ -12,8 +12,8 @@ import styles from './index.less'
 export default (props) => {
     const ref = useRef();
     const [data, setData] = useState();
-    const [visible,setVisible] = useState(false)
-    const delectId= { idList: [] }
+    const [visible, setVisible] = useState(false)
+    const delectId = { idList: [] }
     // 获取网关列表
     const fetchData = async () => {
         const result = await getGateway()
@@ -29,11 +29,10 @@ export default (props) => {
     }, []
     )
     // 删除网关
-    const handleRemove = async selectedRows => {
+    const handleRemove = async (selectedRows) => {
         const hide = message.loading('正在删除');
         if (!selectedRows) return true;
         try {
-            console.log(delectId)
             await deleteGateway(delectId)
             hide();
             ref.current.reload();
@@ -45,7 +44,7 @@ export default (props) => {
             message.error('删除失败，请重试');
             return false;
         }
-    };
+    }
 
     // 选择项处理
     const rowSelection = {
@@ -58,31 +57,55 @@ export default (props) => {
             )
         },
     };
+
+    const { gatewayInfo } = props.location.query
+    // const secreKey = gatewayInfo.secreKey ? gatewayInfo.secreKey : '无'
+    /*   const tmessage =  `ID:${gatewayInfo.ID} \xa0\xa0\xa0\xa0 通信密码:${gatewayInfo.key} \xa0\xa0\xa0\xa0 密钥:${secreKey}`  */
     return (
         <PageHeaderWrapper>
             <div className={styles.div1}>
-            {visible ? (
-                    <Alert message="新建网关成功!" type="success" description={props.location.query.message} showIcon closable/>
-                ) : null}
-                <ProTable
-                    actionRef={ref}
-                    rowKey='id'
-                    options={false}
-                    rowSelection={rowSelection}
-                    toolBarRender={(action, { selectedRows }) => [
-                        <Link to='gateway_add'>
-                            <Button key="3" type="primary">
-                                <PlusOutlined />
+                {visible ? (
+                    <Result
+                        status='success'
+                        title='提交成功!'
+                        subTitle='文本'
+                        extra={[
+                            <Button type="primary" key="back" onClick={()=>{setVisible(false)}}>
+                                返回列表
+                            </Button>,
+                            <Button key="buy">下载配置文件</Button>,
+                        ]}>
+                        <Row>
+                            <Col offset={3}><h2>网关信息:</h2></Col>
+                        </Row>
+                        <Row>
+                            <Col span={8} offset={3}><h3>网关 ID:{gatewayInfo.ID}</h3></Col>
+                            <Col span={8}><h3>通信密码:{gatewayInfo.key}</h3></Col>
+                        </Row>
+                        <Row>
+                            <Col offset={3}><h3>通信密钥:{gatewayInfo.secreKey?gatewayInfo.secreKey:'无'}</h3></Col>
+                        </Row>
+                    </Result>)
+                    :
+                    <ProTable
+                        actionRef={ref}
+                        rowKey='id'
+                        options={false}
+                        rowSelection={rowSelection}
+                        toolBarRender={(action, { selectedRows }) => [
+                            <Link to='gateway_add'>
+                                <Button key="3" type="primary">
+                                    <PlusOutlined />
                                 新建
                                 </Button></Link>,
-                        <Button key="4" type="primary" danger onClick={async () => {
-                            await handleRemove(selectedRows);
-                            action.reload()
-                        }}>
-                            删除
+                            <Button key="4" type="primary" danger onClick={async () => {
+                                await handleRemove(selectedRows);
+                                action.reload()
+                            }}>
+                                删除
                         </Button>,
-                    ]}
-                    columns={columns} dataSource={data} />
+                        ]}
+                        columns={columns} dataSource={data} />}
             </div>
         </PageHeaderWrapper>
     )

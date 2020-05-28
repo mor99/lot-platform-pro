@@ -22,6 +22,7 @@ export default {
   'menu.device-admin':'设备管理',
   'menu.device-admin.device-list':'设备列表',
   'menu.device-admin.device-add':'添加子设备',
+  'menu.device-admin.device-edit':'更新设备',
 
   'menu.attribute-list':'属性列表',
 

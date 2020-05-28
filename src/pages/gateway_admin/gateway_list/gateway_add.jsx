@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input, Select, Button, Radio, message} from 'antd';
-import axios from 'axios'
+import { Form, Input,Space, Select, Button, Radio, message,InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
+import { addGateway } from './service'
 import styles from './index.less'
 
 const { Option } = Select;
@@ -19,29 +19,22 @@ const tailFormItemLayout = {
         },
         sm: {
             span: 12,
-            offset: 10,
+            offset: 7,
         },
     },
 };
 
 const GatewayAddForm = () => {
-    let gatewayInfo={}
     const [form] = Form.useForm();
     // 添加数据
     const onFinish = async (values) => {
         const hide = message.loading('正在添加');
         try {
-            await axios.post('/api/gateway',
-                JSON.stringify({ "gatewayInfo": values }),
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }).then((res) => {
+            await addGateway(values)
+                .then((res) => {
                     hide();
-                    gatewayInfo = { ...res.data.gatewayInfo }
-                    const secreKey = gatewayInfo.secreKey?gatewayInfo.secreKey:'无'
-                    history.push({pathname:'gateway_list',query:{message:`ID:${gatewayInfo.ID} \xa0\xa0\xa0\xa0 通信密码:${gatewayInfo.key} \xa0\xa0\xa0\xa0 密钥:${secreKey}`,visible:true}})
+                    const gatewayInfo = { ...res.data.gatewayInfo }
+                    history.push({ pathname: 'gateway_list', query: { gatewayInfo, visible: true } })
                 })
             return true
         }
@@ -127,15 +120,28 @@ const GatewayAddForm = () => {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item
-                        label="流量限额"
+                        label="流量限额(MB)"
                         name='dataPlan'
+                        rules={[
+                            {
+                                required: true,
+                                message: '请输入整数',
+                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                                whitespace: true,
+                            },
+                        ]}
                     >
-                        <Input placeholder='请输入流量限额,单位MB' type='number' />
+                        <InputNumber/>
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
-                            提交
-                         </Button>
+                        <Space size={10}>
+                            <Button type="primary" htmlType="submit">
+                                提交
+                            </Button>
+                            <Button type='default' onClick={()=>{history.goBack()}}>
+                                取消
+                            </Button>
+                        </Space>
                     </Form.Item>
                 </Form>
             </div>

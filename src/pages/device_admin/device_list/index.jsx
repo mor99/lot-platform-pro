@@ -5,7 +5,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button ,message} from 'antd';
 import { Link, history } from 'umi'
 import { columns } from './columns'
-import { getDeviceList } from './service'
+import { getDeviceList ,deleteDevice} from './service'
 import styles from './index.less'
 
 export default (props) => {
@@ -13,7 +13,7 @@ export default (props) => {
 
     // 数据初始化
     const [data, setData] = useState()
-    const delectId= {idList:[]}
+    const deleteIds= {deviceList:[]}
     // 获取子设备列表
     const fetchData = async () => {
         const result = await getDeviceList(history.location.query.gatewayId)
@@ -27,9 +27,11 @@ export default (props) => {
 
     // 删除设备
     const handleRemove = async selectedRows => {
+        const {gatewayId} = props.location.query;
         const hide = message.loading('正在删除');
         if (!selectedRows) return true;
         try {
+            await deleteDevice(gatewayId,deleteIds)
             hide();
             ref.current.reload();
             message.success('删除成功，即将刷新');
@@ -44,10 +46,10 @@ export default (props) => {
     // 选中操作
     const rowSelection = {
         onSelect: (record, selected, selectedRows) => {
-          delectId.idList.length = 0 ;
+          deleteIds.deviceList.length = 0 ;
           selectedRows.forEach(
               (value)=> {
-                  delectId.idList.push(value.id)
+                  deleteIds.deviceList.push(value.id)
               }
           )
         },

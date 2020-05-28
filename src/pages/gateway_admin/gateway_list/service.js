@@ -36,6 +36,11 @@ export async function getGatewayInfo(id){
 export async function getGateway(){
     return instance.get('/api/gateway')
 }
+
+// 添加网关
+export async function addGateway(params){
+    return instance.post(`/api/gateway`,JSON.stringify({gatewayInfo:params}))
+}
 // 编辑网关
 export async function editGateway(id,params){
     return instance.put(`/api/gateway/${id}`,

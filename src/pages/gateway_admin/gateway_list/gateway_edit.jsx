@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Button, Radio, message } from 'antd';
+import { Form, Input, Select, Space,Button, Radio, message,InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { editGateway} from './service'
@@ -19,11 +19,11 @@ const tailFormItemLayout = {
         },
         sm: {
             span: 12,
-            offset: 10,
+            offset: 7,
         },
     },
 };
-const GatewayAddForm = () => {
+const GatewayEditForm = () => {
     const [form] = Form.useForm();
     const {gateway} = history.location.query;
     // 添加数据
@@ -69,7 +69,7 @@ const GatewayAddForm = () => {
                             },
                         ]}
                     >
-                        <Input placeholder={gateway.name} />
+                        <Input defaultValue={gateway.name} />
                     </Form.Item>
 
                     <Form.Item
@@ -77,7 +77,7 @@ const GatewayAddForm = () => {
                         label="网关描述"
                     >
                         <TextArea rows={4}
-                            placeholder={gateway.description} />
+                            defaultValue={gateway.description} />
                     </Form.Item>
 
                     <Form.Item
@@ -85,12 +85,12 @@ const GatewayAddForm = () => {
                         label="核心模块"
                         rules={[
                             {
-                                required: true,
+                                required: false,
                                 message: '选择核心模块!',
                             },
                         ]}
                     >
-                        <Select placeholder={`当前选择:${gateway.coreModule}`} >
+                        <Select defaultValue={gateway.coreModule} >
                             <Option value="ARM">ARM</Option>
                             <Option value="MIPS">MIPS</Option>
                         </Select>
@@ -102,12 +102,12 @@ const GatewayAddForm = () => {
                         label="通信协议"
                         rules={[
                             {
-                                required: true,
+                                required: false,
                                 message: '选择协议!',
                             },
                         ]}
                     >
-                        <Select placeholder={`当前选择:${gateway.protocol}`} >
+                        <Select defaultValue={gateway.protocol} >
                             <Option value="MQTT">MQTT</Option>
                             <Option value="COAP">COAP</Option>
                             <Option value="HTTP">HTTP</Option>
@@ -125,16 +125,29 @@ const GatewayAddForm = () => {
                     </Form.Item>
 
                     <Form.Item
-                        label="流量限额"
+                        label="流量限额(MB)"
                         name='dataPlan'
+                        rules={[
+                            {
+                                required: false,
+                                message: '输入整数!',
+                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                                whitespace:true
+                            },
+                        ]}
                     >
-                        <Input placeholder={`当前限额:${gateway.dataPlan}M`} type='number' />
+                        <InputNumber defaultValue={gateway.dataPlan} />
                     </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>
-                        <Button type="primary" htmlType="submit">
-                            提交
-                         </Button>
+                        <Space size={30}>
+                            <Button type="primary" htmlType="submit">
+                                提交
+                            </Button>
+                            <Button type='default' onClick={()=>{history.goBack()}}>
+                                返回
+                            </Button>
+                            </Space>
                     </Form.Item>
                 </Form>
             </div>
@@ -142,4 +155,4 @@ const GatewayAddForm = () => {
     );
 };
 
-export default GatewayAddForm 
+export default GatewayEditForm 

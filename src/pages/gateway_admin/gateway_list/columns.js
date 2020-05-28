@@ -8,8 +8,14 @@ export const columns = [
     {
         title: '名称',
         dataIndex: 'name',
-        width: 150
-        /* render: text => <a>{text}</a>, */
+        width: 150,
+        render: (text, row) =>
+            <Link to={{
+                pathname: 'gateway_edit',
+                query: { gateway: row }
+            }}>
+                {text}
+             </Link>,
     },
     {
         title: '描述',
@@ -21,6 +27,7 @@ export const columns = [
         title: '子设备数量',
         dataIndex: 'childDeviceNum',
         width: 150,
+        align:'center',
         hideInSearch: true,
     },
     {
@@ -34,6 +41,8 @@ export const columns = [
         title: '状态',
         dataIndex: 'status',
         initialValue: 'all',
+        width:150,
+        align:'center',
         valueEnum: {
             inactive: { text: '未激活', status: 'Default' },
             abnormal: {
@@ -53,18 +62,29 @@ export const columns = [
     {
         title: '更新时间',
         dataIndex: 'createTime',
-        valueType:'date'
+        valueType: 'date',
+        width:180,
+        align:'center'
     },
     {
         title: '操作',
         valueType: 'option',
+        align:'center',
+        width:250,
         render: (text, row) => [
             <Link to={{
                 pathname: '/device_admin/device_list',
-                query: {gatewayId:row.id}
+                query: { gatewayId: row.id }
             }}>
                 子设备管理
-                        </Link>,
+            </Link>,
+            <Divider type='vertical' />,
+            <Link to={{
+                pathname: '#',
+                query: {}
+            }}>
+                配置下发
+            </Link>,
             <Divider type='vertical' />,
             <TableDropdown
                 onSelect={(key) => {
@@ -76,15 +96,7 @@ export const columns = [
                     [
                         {
                             key: 'edit',
-                            name: '编辑',
-                        },
-                        {
-                            key: 'a',
-                            name: '配置下发'
-                        },
-                        {
-                            key: 'b',
-                            name: '禁用'
+                            name: '编辑网关',
                         },
                         {
                             key: 'c',
