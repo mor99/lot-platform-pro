@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input,Space, Select, Button, Radio, message,InputNumber } from 'antd';
+import { Form, Input, Space, Select, Button, Radio, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { addGateway } from './service'
@@ -131,14 +131,14 @@ const GatewayAddForm = () => {
                             },
                         ]}
                     >
-                        <InputNumber/>
+                        <InputNumber />
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={10}>
                             <Button type="primary" htmlType="submit">
                                 提交
                             </Button>
-                            <Button type='default' onClick={()=>{history.goBack()}}>
+                            <Button type='default' onClick={() => { history.goBack() }}>
                                 取消
                             </Button>
                         </Space>

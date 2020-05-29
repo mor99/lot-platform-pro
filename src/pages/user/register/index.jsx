@@ -1,18 +1,6 @@
-import React  from 'react';
-import {
-  Form,
-  Input,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-} from 'antd';
-import request from 'umi-request'
+import React from 'react';
+import { Form, Input, Row, Col, Checkbox, Button, } from 'antd';
 import axios from 'axios'
-import styles from './index.less'
-
-const { Option } = Select;
 
 const formItemLayout = {
   labelCol: { span: 10 },
@@ -34,192 +22,143 @@ const tailFormItemLayout = {
 const RegistrationForm = () => {
   const [form] = Form.useForm();
 
-  const onFinish =  async (values) => {
-/*         // eslint-disable-next-line no-console
-        console.log('Received values of form: ', (values));
-        await request.post('/api/user/register',
-          {data:JSON.stringify(values)}
-        )
-        .then((response)=> {
-          // eslint-disable-next-line no-console
-          console.log(response)
-          console.log('123')
-        })
- */
+  const onFinish = async (values) => {
     axios.post('/api/user/register', values
     )
-    .then((response) => {
-      console.log(response);
-    })
-  .catch((error)=> {
-    console.log(error);
-  });
-
   };
 
-/*   const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}
-      >
-        <Option value="86">+86</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  ); */
-
-return (
-  <Form
-    {...formItemLayout}
-    form={form}
-    name="register"
-    onFinish={onFinish}
-    initialValues={{
-      residence: ['zhejiang', 'hangzhou', 'xihu'],
-      prefix: '86',
-    }}
-    scrollToFirstError
-  >
-    {/*       <Form.Item
-        name="email"
-        label="邮箱"
+  return (
+    <Form
+      {...formItemLayout}
+      form={form}
+      name="register"
+      onFinish={onFinish}
+      initialValues={{
+        residence: ['zhejiang', 'hangzhou', 'xihu'],
+        prefix: '86',
+      }}
+      scrollToFirstError
+    >
+      <Form.Item
+        name="name"
+        label={
+          <span>
+            用户名&nbsp;
+          </span>
+        }
         rules={[
           {
-            type: 'email',
-            message: '请输入正确的邮箱!',
-          },
-          {
             required: true,
-            message: '请输入你的邮箱!',
+            message: '请输入你的用户名!',
+            whitespace: true,
           },
         ]}
       >
         <Input />
-      </Form.Item> */}
+      </Form.Item>
 
-    <Form.Item
-      name="name"
-      label={
-        <span>
-          用户名&nbsp;
-          </span>
-      }
-      rules={[
-        {
-          required: true,
-          message: '请输入你的用户名!',
-          whitespace: true,
-        },
-      ]}
-    >
-      <Input />
-    </Form.Item>
-
-    <Form.Item
-      name="password"
-      label="密码"
-      rules={[
-        {
-          required: true,
-          message: '请输入你的密码!',
-        },
-      ]}
-      hasFeedback
-    >
-      <Input.Password />
-    </Form.Item>
-
-    <Form.Item
-      name="password"
-      label="确认密码"
-      dependencies={['password']}
-      hasFeedback
-      rules={[
-        {
-          required: true,
-          message: '请再次输入你的密码!',
-        },
-        ({ getFieldValue }) => ({
-          validator(rule, value) {
-            if (!value || getFieldValue('password') === value) {
-              return Promise.resolve();
-            }
-
-            // eslint-disable-next-line prefer-promise-reject-errors
-            return Promise.reject('输入的密码不一致!');
+      <Form.Item
+        name="password"
+        label="密码"
+        rules={[
+          {
+            required: true,
+            message: '请输入你的密码!',
           },
-        }),
-      ]}
-    >
-      <Input.Password />
-    </Form.Item>
+        ]}
+        hasFeedback
+      >
+        <Input.Password />
+      </Form.Item>
 
+      <Form.Item
+        name="password"
+        label="确认密码"
+        dependencies={['password']}
+        hasFeedback
+        rules={[
+          {
+            required: true,
+            message: '请再次输入你的密码!',
+          },
+          ({ getFieldValue }) => ({
+            validator(rule, value) {
+              if (!value || getFieldValue('password') === value) {
+                return Promise.resolve();
+              }
 
-    <Form.Item
-      name="phone"
-      label="电话"
-      rules={[
-        {
-          required: true,
-          message: '请输入你的电话号码!',
-        },
-      ]}
-    >
-      <Input
-        // addonBefore={prefixSelector}
-        style={{
-          width: '100%',
-        }}
-      />
-    </Form.Item>
+              // eslint-disable-next-line prefer-promise-reject-errors
+              return Promise.reject('输入的密码不一致!');
+            },
+          }),
+        ]}
+      >
+        <Input.Password />
+      </Form.Item>
 
-    <Form.Item label="验证码">
-      <Row gutter={8}>
-        <Col span={12}>
-          <Form.Item
-            name="verificationCode"
-            noStyle
-            rules={[
-              {
-                required: true,
-                message: '请输入验证码!',
-              },
-            ]}
-          >
-            <Input />
-          </Form.Item>
-        </Col>
-        <Col span={12}>
-          <Button>获取验证码</Button>
-        </Col>
-      </Row>
-    </Form.Item>
+      <Form.Item
+        name="phone"
+        label="电话"
+        rules={[
+          {
+            required: true,
+            message: '请输入你的电话号码!',
+          },
+        ]}
+      >
+        <Input
+          // addonBefore={prefixSelector}
+          style={{
+            width: '100%',
+          }}
+        />
+      </Form.Item>
 
-    <Form.Item
-      name="agreement"
-      valuePropName="checked"
-      rules={[
-        {
-          validator: (_, value) =>
-            // eslint-disable-next-line prefer-promise-reject-errors
-            value ? Promise.resolve() : Promise.reject('请阅读协议后再进行注册！'),
-        },
-      ]}
-      {...tailFormItemLayout}
-    >
-      <Checkbox>
-        我已经阅读并同意 <a href="#">注册须知</a>
-      </Checkbox>
-    </Form.Item>
-    <Form.Item {...tailFormItemLayout}>
-      <Button type="primary" htmlType="submit">
-        提交
+      <Form.Item label="验证码">
+        <Row gutter={8}>
+          <Col span={12}>
+            <Form.Item
+              name="verificationCode"
+              noStyle
+              rules={[
+                {
+                  required: true,
+                  message: '请输入验证码!',
+                },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={12}>
+            <Button>获取验证码</Button>
+          </Col>
+        </Row>
+      </Form.Item>
+
+      <Form.Item
+        name="agreement"
+        valuePropName="checked"
+        rules={[
+          {
+            validator: (_, value) =>
+              // eslint-disable-next-line prefer-promise-reject-errors
+              value ? Promise.resolve() : Promise.reject('请阅读协议后再进行注册！'),
+          },
+        ]}
+        {...tailFormItemLayout}
+      >
+        <Checkbox>
+          我已经阅读并同意 <a href="#">注册须知</a>
+        </Checkbox>
+      </Form.Item>
+      <Form.Item {...tailFormItemLayout}>
+        <Button type="primary" htmlType="submit">
+          提交
         </Button>
-    </Form.Item>
-  </Form>
-);
+      </Form.Item>
+    </Form>
+  );
 };
 
 export default RegistrationForm

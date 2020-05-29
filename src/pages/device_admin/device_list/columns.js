@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link ,history} from 'umi'
+import { Link, history } from 'umi'
 
 export const columns = [
     {
@@ -7,10 +7,12 @@ export const columns = [
         dataIndex: 'name',
         key: 'name',
         width: 160,
-        render: (text,row) => <Link to={{
+        render: (text, row) => <Link to={{
             pathname: '/device_admin/device_edit',
-            query: { device: row ,
-                    gatewayId:history.location.query.gatewayId}
+            query: {
+                device: row,
+                gatewayId: history.location.query.gatewayId
+            }
         }}>
             {text}
         </Link>,
@@ -27,7 +29,7 @@ export const columns = [
         title: '从站(slave)',
         dataIndex: 'slaveNo',
         key: 'slaveNo',
-        align:'center',
+        align: 'center',
         width: 180,
         sorter: (a, b) => a.slaveNo - b.slaveNo,
         hideInSearch: true,
@@ -49,8 +51,8 @@ export const columns = [
     {
         title: '操作',
         valueType: 'option',
-        align:'center',
-        width:230,
+        align: 'center',
+        width: 230,
         render: (text, row) => [
             <Link to={{
                 pathname: '#',
@@ -60,8 +62,10 @@ export const columns = [
             </Link>,
             <Link to={{
                 pathname: '/device_admin/device_edit',
-                query: { device: row ,
-                        gatewayId:history.location.query.gatewayId}
+                query: {
+                    device: row,
+                    gatewayId: history.location.query.gatewayId
+                }
             }}>
                 修改
             </Link>,

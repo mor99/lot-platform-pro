@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable from '@ant-design/pro-table';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button ,message} from 'antd';
+import { Button, message } from 'antd';
 import { Link, history } from 'umi'
 import { columns } from './columns'
-import { getDeviceList ,deleteDevice} from './service'
+import { getDeviceList, deleteDevice } from './service'
 import styles from './index.less'
 
 export default (props) => {
@@ -13,7 +13,7 @@ export default (props) => {
 
     // 数据初始化
     const [data, setData] = useState()
-    const deleteIds= {deviceList:[]}
+    const deleteIds = { deviceList: [] }
     // 获取子设备列表
     const fetchData = async () => {
         const result = await getDeviceList(history.location.query.gatewayId)
@@ -23,15 +23,15 @@ export default (props) => {
     // 组件初始化
     useEffect(() => {
         fetchData();
-    },[])
+    }, [])
 
     // 删除设备
     const handleRemove = async selectedRows => {
-        const {gatewayId} = props.location.query;
+        const { gatewayId } = props.location.query;
         const hide = message.loading('正在删除');
         if (!selectedRows) return true;
         try {
-            await deleteDevice(gatewayId,deleteIds)
+            await deleteDevice(gatewayId, deleteIds)
             hide();
             ref.current.reload();
             message.success('删除成功，即将刷新');
@@ -46,14 +46,14 @@ export default (props) => {
     // 选中操作
     const rowSelection = {
         onSelect: (record, selected, selectedRows) => {
-          deleteIds.deviceList.length = 0 ;
-          selectedRows.forEach(
-              (value)=> {
-                  deleteIds.deviceList.push(value.id)
-              }
-          )
+            deleteIds.deviceList.length = 0;
+            selectedRows.forEach(
+                (value) => {
+                    deleteIds.deviceList.push(value.id)
+                }
+            )
         },
-      };
+    };
 
     return (
         <PageHeaderWrapper>
@@ -65,14 +65,15 @@ export default (props) => {
                     rowSelection={rowSelection}
                     toolBarRender={(action, { selectedRows }) => [
                         <Button key="button1" type="primary">
-                            <Link to={{pathname:'device_add',query:props.location.query}} >
+                            <Link to={{ pathname: 'device_add', query: props.location.query }} >
                                 <PlusOutlined />
                                 新建
                             </Link>
                         </Button>,
-                        <Button key="button2" type="primary" danger onClick={async ()=>{
+                        <Button key="button2" type="primary" danger onClick={async () => {
                             await handleRemove(selectedRows)
-                            action.reload()}}>
+                            action.reload()
+                        }}>
                             删除
                                 </Button>,
                     ]}

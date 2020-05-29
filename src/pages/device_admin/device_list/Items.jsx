@@ -21,7 +21,7 @@ export const tailFormItemLayout = {
     },
 };
 // 子设备添加
-    // TCP表单项
+// TCP表单项
 export const TcpA = (
     <span>
         <Form.Item
@@ -42,7 +42,7 @@ export const TcpA = (
             rules={[
                 {
                     required: true,
-                    message: '输入整数!',
+                    message: '输入端口号,必须为整数!',
                     pattern: new RegExp(/^[1-9]\d*$/, "g"),
                     whitespace: true
                 },
@@ -51,7 +51,7 @@ export const TcpA = (
             <InputNumber placeholder='端口号' />
         </Form.Item>
     </span>)
-    // RTU表单项
+// RTU表单项
 export const RtuA = (
     <span>
         <Form.Item
@@ -60,7 +60,8 @@ export const RtuA = (
             rules={[
                 {
                     required: true,
-                    message: '输入串口号!',
+                    pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                    message: '请输入串口号,必须为整数!',
                 },
             ]}
         >
@@ -137,117 +138,115 @@ export const RtuA = (
 )
 
 // 编辑子设备
-            // TCP表单项
-export const TcpE = (value)=>{ return (
-    <span>
-        <Form.Item
-            label="IP地址"
-            name="ip"
-            rules={[
-                {
-                    required: true,
-                    message: '输入ip地址!',
-                },
-            ]}
-        >
-            <Input defaultValue={value.ip} />
-        </Form.Item>
-        <Form.Item
-            label="端口号"
-            name='port'
-            rules={[
-                {
-                    required: true,
-                    message: '输入整数!',
-                    pattern: new RegExp(/^[1-9]\d*$/, "g"),
-                    whitespace: true
-                },
-            ]}
-        >
-            <InputNumber defaultValue={value.port} />
-        </Form.Item>
-    </span>)}
-        // RTU表单项
-export const RtuE = (value)=>{ return(
-    <span>
-        <Form.Item
-            label="串口号"
-            name='serialNo'
-            rules={[
-                {
-                    required: true,
-                    message: '输入串口号!',
-                },
-            ]}
-        >
-            <Input defaultValue={value.serialNo} />
-        </Form.Item>
+// TCP表单项
+export const TcpE = (value) => {
+    return (
+        <span>
+            <Form.Item
+                label="IP地址"
+                name="ip"
+                rules={[
+                    {
+                        message: '输入ip地址!',
+                    },
+                ]}
+            >
+                <Input defaultValue={value.ip} />
+            </Form.Item>
+            <Form.Item
+                label="端口号"
+                name='port'
+                rules={[
+                    {
+                        message: '请输入端口号,必须为整数!',
+                        pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                        whitespace: true
+                    },
+                ]}
+            >
+                <InputNumber defaultValue={value.port} />
+            </Form.Item>
+        </span>)
+}
+// RTU表单项
+export const RtuE = (value) => {
+    return (
+        <span>
+            <Form.Item
+                label="串口号"
+                name='serialNo'
+                rules={[
+                    {
+                        pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                        message: '请输入串口号,必须为整数!',
+                    },
+                ]}
+            >
+                <Input defaultValue={value.serialNo} />
+            </Form.Item>
 
-        <Form.Item
-            name="baudRate"
-            label="波特率"
-            rules={[
-                {
-                    required: true,
-                    message: '选择波特率!',
-                },
-            ]}
-        >
-            <Select defaultValue={value.baudRate} >
-                <Option value="9600">9600</Option>
-                <Option value="9600">115200</Option>
-                <Option value="MIPS">1830000</Option>
-            </Select>
-        </Form.Item>
+            <Form.Item
+                name="baudRate"
+                label="波特率"
+                rules={[
+                    {
+                        message: '选择波特率!',
+                    },
+                ]}
+            >
+                <Select defaultValue={value.baudRate} >
+                    <Option value="9600">9600</Option>
+                    <Option value="9600">115200</Option>
+                    <Option value="MIPS">1830000</Option>
+                </Select>
+            </Form.Item>
 
-        <Form.Item
-            name="dataLength"
-            label="数据位"
-            rules={[
-                {
-                    required: true,
-                    message: '选择数据位!',
-                },
-            ]}
-        >
-            <Select defaultValue={value.dataLength} >
-                <Option value="7">7</Option>
-                <Option value="8">8</Option>
-            </Select>
-        </Form.Item>
+            <Form.Item
+                name="dataLength"
+                label="数据位"
+                rules={[
+                    {
+                        message: '选择数据位!',
+                    },
+                ]}
+            >
+                <Select defaultValue={value.dataLength} >
+                    <Option value="7">7</Option>
+                    <Option value="8">8</Option>
+                </Select>
+            </Form.Item>
 
-        <Form.Item
-            name="parity"
-            label="校验"
-            rules={[
-                {
-                    required: true,
-                    message: '请选择模式!',
-                },
-            ]}
-        >
-            <Select
-                defaultValue={value.parity} >
-                <Option value="无校验">无校验</Option>
-                <Option value="奇校验">奇校验</Option>
-                <Option value="偶校验">偶校验</Option>
-            </Select>
-        </Form.Item>
+            <Form.Item
+                name="parity"
+                label="校验"
+                rules={[
+                    {
+                        message: '请选择模式!',
+                    },
+                ]}
+            >
+                <Select
+                    defaultValue={value.parity} >
+                    <Option value="无校验">无校验</Option>
+                    <Option value="奇校验">奇校验</Option>
+                    <Option value="偶校验">偶校验</Option>
+                </Select>
+            </Form.Item>
 
-        <Form.Item
-            name="stopBit"
-            label="停止位"
-            rules={[
-                {
-                    required: true,
-                    message: '请选择模式!',
-                },
-            ]}
-        >
-            <Select defaultValue={value.stopBit} >
-                <Option value="1">1</Option>
-                <Option value="2">2</Option>
-            </Select>
-        </Form.Item>
-    </span>
-)}
+            <Form.Item
+                name="stopBit"
+                label="停止位"
+                rules={[
+                    {
+                        message: '请选择模式!',
+                    },
+                ]}
+            >
+                <Select defaultValue={value.stopBit} >
+                    <Option value="1">1</Option>
+                    <Option value="2">2</Option>
+                </Select>
+            </Form.Item>
+        </span>
+    )
+}

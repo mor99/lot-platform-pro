@@ -15,7 +15,7 @@ export const columns = [
                 query: { gateway: row }
             }}>
                 {text}
-             </Link>,
+            </Link>,
     },
     {
         title: '描述',
@@ -27,7 +27,7 @@ export const columns = [
         title: '子设备数量',
         dataIndex: 'childDeviceNum',
         width: 150,
-        align:'center',
+        align: 'center',
         hideInSearch: true,
     },
     {
@@ -41,8 +41,8 @@ export const columns = [
         title: '状态',
         dataIndex: 'status',
         initialValue: 'all',
-        width:150,
-        align:'center',
+        width: 150,
+        align: 'center',
         valueEnum: {
             inactive: { text: '未激活', status: 'Default' },
             abnormal: {
@@ -63,14 +63,14 @@ export const columns = [
         title: '更新时间',
         dataIndex: 'createTime',
         valueType: 'date',
-        width:180,
-        align:'center'
+        width: 180,
+        align: 'center'
     },
     {
         title: '操作',
         valueType: 'option',
-        align:'center',
-        width:250,
+        align: 'center',
+        width: 250,
         render: (text, row) => [
             <Link to={{
                 pathname: '/device_admin/device_list',

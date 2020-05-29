@@ -14,8 +14,8 @@ export const columns = [
         hideInSearch: true,
     },
     {
-      title:'网关名称',
-      dataIndex:'gateway_name',  
+        title: '网关名称',
+        dataIndex: 'gateway_name',
     },
     {
         title: '子设备',
@@ -24,8 +24,8 @@ export const columns = [
     },
     {
         title: '状态',
-        dataIndex:'state',
-        valueEnum: {    
+        dataIndex: 'state',
+        valueEnum: {
             run: {
                 text: '运行中',
                 status: 'Default',
@@ -34,22 +34,22 @@ export const columns = [
                 text: '关闭',
                 status: 'Error',
             },
-            error:{
-                text:'异常',
-                status:'Warning'
+            error: {
+                text: '异常',
+                status: 'Warning'
             }
         },
 
     },
     {
         title: '控制内容',
-        dataIndex:'content',
+        dataIndex: 'content',
         hideInSearch: true,
     },
     {
         title: '操作',
-        valueType:'option',
-        renderText : ()=> <a href='#'>查看失败原因</a>
+        valueType: 'option',
+        renderText: () => <a href='#'>查看失败原因</a>
 
     }
 ]
@@ -85,7 +85,7 @@ export  const columns = [
         title: '状态',
         dataIndex: 'state',
         initialValue: 'all',
-        valueEnum: {    
+        valueEnum: {
             all: {
                 text: '全部',
                 status: 'Default',

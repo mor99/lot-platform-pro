@@ -7,9 +7,13 @@ export default {
 
   'menu.gateway-admin':'网关管理',
   'menu.gateway-admin.gateway-list':'网关列表',
-  'menu.gateway-admin.model-list':'模型列表',
   'menu.gateway-admin.gateway-add':'添加网关',
   'menu.gateway-admin.gateway-edit':'编辑网关',
+
+  'menu.gateway-admin.model-list':'模型列表',
+  'menu.gateway-admin.model-add':'添加模型',
+  'menu.gateway-admin.model-edit':'编辑模型',
+
 
   'menu.data-monitoring':'数据监控',
   'menu.data-monitoring.real-time':'实时数据',

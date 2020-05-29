@@ -1,23 +1,37 @@
-import React, { useState } from 'react';
-import { Form, Input, Select, Button, message, Space, InputNumber } from 'antd';
+import React from 'react';
+import { Form, Input, Select, Space, Button, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import { editDevice } from './service'
-import { TcpE, RtuE, formItemLayout, tailFormItemLayout } from './Items'
+import { editModel } from './service'
 import styles from './index.less'
 
-const { Option } = Select;
+const { Option } = Select
 const { TextArea } = Input
+const formItemLayout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 9 }
+};
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 12,
+            offset: 9,
+        },
+        sm: {
+            span: 12,
+            offset: 7,
+        },
+    },
+};
 
-const DeviceEditForm = (props) => {
+export default () => {
     const [form] = Form.useForm();
-    const { gatewayId, device } = props.location.query;
-    const [items, setItems] = useState((device.connectionMode === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
-    // 修改属性
+    const { model } = history.location.query;
+    // 添加数据
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
         try {
-            await editDevice(gatewayId, device.id, { deviceInfo: values })
+            await editModel(model.id, values)
             hide();
             message.success('修改成功')
             history.goBack()
@@ -33,64 +47,57 @@ const DeviceEditForm = (props) => {
 
     return (
         <PageHeaderWrapper>
-            <div className={styles.div}>
+            <div className={styles.div1}>
                 <Form
                     {...formItemLayout}
                     form={form}
-                    name="Device_edit"
+                    name="device_edit"
                     onFinish={onFinish}
-                    scrollToFirstError>
+                    scrollToFirstError
+                >
                     <Form.Item
                         name="name"
-                        label={<span>设备名称&nbsp;</span>}
+                        label={
+                            <span>
+                                模型名称&nbsp;
+                            </span>
+                        }
                         rules={[
                             {
-                                message: '请输入设备名称',
+                                message: '请输入模型名称',
                                 whitespace: true,
                             },
                         ]}
                     >
-                        <Input defaultValue={device.name} />
+                        <Input defaultValue={model.name} />
                     </Form.Item>
                     <Form.Item
                         name="description"
-                        label="设备描述"
+                        label="模型描述"
                     >
                         <TextArea rows={4}
-                            defaultValue={device.description} />
+                            defaultValue={model.description} />
+                        <span />
                     </Form.Item>
+
                     <Form.Item
-                        name="slaveNo"
-                        label="从站slave"
+                        name="protocol"
+                        label="通信协议"
                         rules={[
                             {
-                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
-                                message: '填写从站编号,必须为整数!',
+                                message: '选择通信协议!',
                             },
                         ]}
                     >
-                        <Input defaultValue={device.slaveNo} />
-                    </Form.Item>
-                    <Form.Item
-                        name="connectionMode"
-                        label="选择模式"
-                        rules={[
-                            {
-                                message: '选择模式!',
-                            },
-                        ]}
-                    >
-                        <Select defaultValue={device.connectionMode} onChange={(value) => {
-                            setItems((value === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
-                        }}>
+                        <Select defaultValue={model.protocol} >
                             <Option value="TCP">TCP</Option>
                             <Option value="RTU">RTU</Option>
-                            <Option value="MIPS">选项3</Option>
+                            <Option value="NEMA">NEMA</Option>
                         </Select>
                     </Form.Item>
-                    {items}
+
                     <Form.Item {...tailFormItemLayout}>
-                        <Space size={30}>
+                        <Space size={10}>
                             <Button type="primary" htmlType="submit">
                                 提交
                             </Button>
@@ -105,4 +112,3 @@ const DeviceEditForm = (props) => {
     );
 };
 
-export default DeviceEditForm 

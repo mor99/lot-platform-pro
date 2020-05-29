@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { history } from 'umi'
-import { Form, Input, Select, Button, message ,Space} from 'antd';
+import { Form, Input, Select, Button, message, Space, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { addDevice } from './service';
-import { TcpA, RtuA , formItemLayout, tailFormItemLayout} from './Items'
+import { TcpA, RtuA, formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
 
 const { Option } = Select;
@@ -84,10 +84,11 @@ const DeviceAddForm = (props) => {
                         rules={[
                             {
                                 required: true,
-                                message: '填写从站编号!',
+                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                                message: '填写从站编号,必须为整数!',
                             },
                         ]}>
-                        <Input placeholder='从站编号' />
+                        <InputNumber placeholder='从站编号' />
                     </Form.Item>
                     <Form.Item
                         name="connectionMode"
@@ -113,7 +114,7 @@ const DeviceAddForm = (props) => {
                             <Button type="primary" htmlType="submit">
                                 提交
                             </Button>
-                            <Button type='default' onClick={()=>{history.goBack()}}>
+                            <Button type='default' onClick={() => { history.goBack() }}>
                                 取消
                             </Button>
                         </Space>

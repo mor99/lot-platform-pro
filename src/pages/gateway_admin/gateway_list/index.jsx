@@ -17,13 +17,11 @@ export default (props) => {
     // 获取网关列表
     const fetchData = async () => {
         const result = await getGateway()
-        console.log(result.data[0])
         setData(result.data)
     };
     // 组件初始化
     useEffect(() => {
         setVisible(props.location.query.visible)
-        console.log(props)
         document.title = '网关列表'
         fetchData();
     }, []
@@ -70,7 +68,7 @@ export default (props) => {
                         title='提交成功!'
                         subTitle='文本'
                         extra={[
-                            <Button type="primary" key="back" onClick={()=>{setVisible(false)}}>
+                            <Button type="primary" key="back" onClick={() => { setVisible(false) }}>
                                 返回列表
                             </Button>,
                             <Button key="buy">下载配置文件</Button>,
@@ -83,7 +81,7 @@ export default (props) => {
                             <Col span={8}><h3>通信密码:{gatewayInfo.key}</h3></Col>
                         </Row>
                         <Row>
-                            <Col offset={3}><h3>通信密钥:{gatewayInfo.secreKey?gatewayInfo.secreKey:'无'}</h3></Col>
+                            <Col offset={3}><h3>通信密钥:{gatewayInfo.secreKey ? gatewayInfo.secreKey : '无'}</h3></Col>
                         </Row>
                     </Result>)
                     :

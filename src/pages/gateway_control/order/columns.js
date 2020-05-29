@@ -25,8 +25,8 @@ export const columns = [
     },
     {
         title: '状态',
-        dataIndex:'state',
-        valueEnum: {    
+        dataIndex: 'state',
+        valueEnum: {
             run: {
                 text: '运行中',
                 status: 'Default',
@@ -35,22 +35,22 @@ export const columns = [
                 text: '关闭',
                 status: 'Error',
             },
-            error:{
-                text:'异常',
-                status:'Warning'
+            error: {
+                text: '异常',
+                status: 'Warning'
             }
         },
 
     },
     {
         title: '更新时间',
-        dataIndex:'time',
+        dataIndex: 'time',
         hideInSearch: true,
     },
     {
         title: '操作',
-        valueType:'option',
-        renderText : ()=> <a href='#'>下发控制命令</a>
+        valueType: 'option',
+        renderText: () => <a href='#'>下发控制命令</a>
 
     }
 ]

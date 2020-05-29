@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {Select,Button} from 'antd'
+import { Select, Button } from 'antd'
 
 import styles from './index.less'
 
@@ -15,12 +15,12 @@ export default class RealTime extends Component {
             <PageHeaderWrapper>
                 <div className={styles.div}>
                     选择网关：
-                    <Select style={{width:200}}
-                            placeholder='搜索网关名称'
-                    />  
-                    <span className={styles.span}>  
-                    <Button className={styles.button2} type="primary" >连接</Button>               
-                    <Button className={styles.button1} >断开</Button>
+                    <Select style={{ width: 200 }}
+                        placeholder='搜索网关名称'
+                    />
+                    <span className={styles.span}>
+                        <Button className={styles.button2} type="primary" >连接</Button>
+                        <Button className={styles.button1} >断开</Button>
                     </span>
                 </div>
                 <br />
@@ -29,7 +29,7 @@ export default class RealTime extends Component {
                     <br />
                     <br />
                 </div>
-                <br/>
+                <br />
                 <div className={styles.div}>
                     {/* <h2><b>子设备2</b></h2> */}
                     <br />

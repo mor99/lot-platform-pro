@@ -1,20 +1,20 @@
 export const data = [
-    {
-        'time':'2018-10-15',
-        'description':'这是第一段描述',
-        'gateway_name':'网关一',
-        'devices':'2',
-        'state':'run',
-        'content':'xxx'
-    },
-    {
-        'time':'2018-02-15',
-        'description':'这是第2段',
-        'gateway_name':'网关二',
-        'devices':'123',
-        'state':'closed',
-        'content':'xxxxxx'
-    }
+  {
+    'time': '2018-10-15',
+    'description': '这是第一段描述',
+    'gateway_name': '网关一',
+    'devices': '2',
+    'state': 'run',
+    'content': 'xxx'
+  },
+  {
+    'time': '2018-02-15',
+    'description': '这是第2段',
+    'gateway_name': '网关二',
+    'devices': '123',
+    'state': 'closed',
+    'content': 'xxxxxx'
+  }
 ]
 
 /* export const data =
@@ -65,7 +65,7 @@ export const data = [
       "locked": false,
       "assignee": null,
       "assignees": [
-  
+
       ],
       "milestone": null,
       "comments": 0,
@@ -92,7 +92,7 @@ export const data = [
                 "description": ""
               }
         ]
-        
+
     },
 
     {
@@ -141,7 +141,7 @@ export const data = [
       "locked": false,
       "assignee": null,
       "assignees": [
-  
+
       ],
       "milestone": null,
       "comments": 0,
@@ -197,7 +197,7 @@ export const data = [
       "locked": false,
       "assignee": null,
       "assignees": [
-  
+
       ],
       "milestone": null,
       "comments": 0,

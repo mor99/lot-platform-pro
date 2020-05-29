@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Input, Select, Space,Button, Radio, message,InputNumber } from 'antd';
+import { Form, Input, Select, Space, Button, Radio, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import { editGateway} from './service'
+import { editGateway } from './service'
 import styles from './index.less'
 
 const { Option } = Select;
@@ -25,12 +25,12 @@ const tailFormItemLayout = {
 };
 const GatewayEditForm = () => {
     const [form] = Form.useForm();
-    const {gateway} = history.location.query;
+    const { gateway } = history.location.query;
     // 添加数据
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
         try {
-            await editGateway(gateway.id,{gatewayInfo:values})
+            await editGateway(gateway.id, { gatewayInfo: values })
             hide();
             message.success('修改成功')
             history.goBack()
@@ -132,11 +132,12 @@ const GatewayEditForm = () => {
                                 required: false,
                                 message: '输入整数!',
                                 pattern: new RegExp(/^[1-9]\d*$/, "g"),
-                                whitespace:true
+                                whitespace: true
                             },
                         ]}
                     >
                         <InputNumber defaultValue={gateway.dataPlan} />
+                        <p />
                     </Form.Item>
 
                     <Form.Item {...tailFormItemLayout}>
@@ -144,10 +145,10 @@ const GatewayEditForm = () => {
                             <Button type="primary" htmlType="submit">
                                 提交
                             </Button>
-                            <Button type='default' onClick={()=>{history.goBack()}}>
+                            <Button type='default' onClick={() => { history.goBack() }}>
                                 返回
                             </Button>
-                            </Space>
+                        </Space>
                     </Form.Item>
                 </Form>
             </div>
