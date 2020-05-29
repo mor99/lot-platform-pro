@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Space, Select, Button, message, InputNumber } from 'antd';
+import { Form, Input, Space, Select, Button, message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { addModel } from './service'

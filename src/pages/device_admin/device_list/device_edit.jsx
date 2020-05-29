@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Button, message, Space, InputNumber } from 'antd';
+import { Form, Input, Select, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { editDevice } from './service'
