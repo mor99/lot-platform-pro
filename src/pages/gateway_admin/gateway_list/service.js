@@ -50,6 +50,7 @@ export async function editGateway(id, params) {
 
 // 删除多个网关
 export async function deleteGateway(params) {
+  console.log(params)
   return instance.delete('/api/gateway',
-    { data: JSON.stringify(params) })
-}
+    { data: JSON.stringify({gatewayList:params.idList}) })
+} 

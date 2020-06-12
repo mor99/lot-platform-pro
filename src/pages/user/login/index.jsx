@@ -24,6 +24,7 @@ const Login = props => {
   const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState('account');
 
+  console.log(props)
   const handleSubmit = values => {
     const { dispatch } = props;
     dispatch({

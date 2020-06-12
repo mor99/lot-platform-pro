@@ -34,7 +34,7 @@ export default defineConfig({
           component: './user/login',
         },
         {
-          name:'register',
+          name: 'register',
           path: '/user/register',
           component: './user/register'
         }
@@ -65,9 +65,9 @@ export default defineConfig({
                   component: './console/userdata',
                 },
                 {
-                  name:'device-state',
-                  path:'/console/device_state',
-                  component:'./console/device_state'
+                  name: 'device-state',
+                  path: '/console/device_state',
+                  component: './console/device_state'
                 }
               ],
             },
@@ -78,44 +78,84 @@ export default defineConfig({
               path: '/gateway_admin',
               routes: [
                 // 网关列表
-                { 
+                {
                   name: 'gateway-list',
                   path: '/gateway_admin/gateway_list',
                   component: './gateway_admin/gateway_list',
                 },
                 // 模型列表
                 {
-                  name:'model-list',
-                  path:'/gateway_admin/model_list',
-                  component:'./gateway_admin/model_list',
+                  name: 'model-list',
+                  path: '/gateway_admin/model_list',
+                  component: './gateway_admin/model_list',
                 },
                 // 模型添加
                 {
-                  name:'model-add',
-                  path:'/gateway_admin/model_add',
-                  component:'./gateway_admin/model_list/model_add',
-                  hideInMenu:true
+                  name: 'model-add',
+                  path: '/gateway_admin/model_add',
+                  component: './gateway_admin/model_list/model_add',
+                  hideInMenu: true
                 },
                 // 模型编辑
                 {
-                  name:'model-edit',
-                  path:'/gateway_admin/model_edit',
-                  component:'./gateway_admin/model_list/model_edit',
-                  hideInMenu:true
+                  name: 'model-edit',
+                  path: '/gateway_admin/model_edit',
+                  component: './gateway_admin/model_list/model_edit',
+                  hideInMenu: true
                 },
                 // 网关添加
                 {
-                  name:'gateway-add',
-                  path:'/gateway_admin/gateway_add',
-                  component:'./gateway_admin/gateway_list/gateway_add.jsx',
-                  hideInMenu:true,
+                  name: 'gateway-add',
+                  path: '/gateway_admin/gateway_add',
+                  component: './gateway_admin/gateway_list/gateway_add.jsx',
+                  hideInMenu: true,
                 },
                 // 网关编辑
                 {
-                  name:'gateway-edit',
-                  path:'/gateway_admin/gateway_edit',
-                  component:'./gateway_admin/gateway_list/gateway_edit.jsx',
-                  hideInMenu:true
+                  name: 'gateway-edit',
+                  path: '/gateway_admin/gateway_edit',
+                  component: './gateway_admin/gateway_list/gateway_edit.jsx',
+                  hideInMenu: true
+                },
+                // 属性列表
+                {
+                  name: 'attribute-list',
+                  path: '/gateway_admin/attribute_list',
+                  component: './gateway_admin/attribute_list',
+                  hideInMenu: true
+                },
+                // 添加属性
+                {
+                  name: 'attribute-add1',
+                  path: '/gateway_admin/attribute_add1',
+                  component: './gateway_admin/attribute_list/attribute_add1',
+                  hideInMenu: true
+                },
+                {
+                  name: 'attribute-add2',
+                  path: '/gateway_admin/attribute_add2',
+                  component: './gateway_admin/attribute_list/attribute_add2',
+                  hideInMenu: true
+                },
+                // 编辑属性(线圈)
+                {
+                  name: 'attribute-edit1',
+                  path: '/gateway_admin/attribute_edit1',
+                  component: './gateway_admin/attribute_list/attribute_edit1',
+                  hideInMenu: true
+                },
+                // 编辑属性(非线圈)
+                {
+                  name: 'attribute-edit2',
+                  path: '/gateway_admin/attribute_edit2',
+                  component: './gateway_admin/attribute_list/attribute_edit2',
+                  hideInMenu: true
+                },
+                {
+                  name: '属性测试',
+                  path: '/gateway_admin/attribute_add9',
+                  component: './gateway_admin/attribute_list/test.jsx',
+                  hideInMenu: true
                 }
               ],
             },
@@ -133,9 +173,9 @@ export default defineConfig({
                 },
                 // 历史数据
                 {
-                  name:'history',
-                  path:'/data_monitoring/history',
-                  component:'./data_monitoring/history'
+                  name: 'history',
+                  path: '/data_monitoring/history',
+                  component: './data_monitoring/history'
                 }
               ],
             },
@@ -153,50 +193,44 @@ export default defineConfig({
                 },
                 // 历史记录
                 {
-                  name:'history',
-                  path:'/gateway_control/history',
-                  component:'./gateway_control/history'
+                  name: 'history',
+                  path: '/gateway_control/history',
+                  component: './gateway_control/history'
                 }
               ],
             },
             //设备管理
             {
-              name:'device-admin',
-              path:'/device_admin',
-              hideInMenu:true,
-              routes:[
+              name: 'device-admin',
+              path: '/device_admin',
+              hideInMenu: true,
+              routes: [
                 // 设备列表
                 {
-                  name:'device-list',
-                  path:'/device_admin/device_list',
-                  component:'./device_admin/device_list'
+                  name: 'device-list',
+                  path: '/device_admin/device_list',
+                  component: './device_admin/device_list'
                 },
                 // 设备添加
                 {
-                  name:'device-add',
-                  path:'/device_admin/device_add',
-                  component:'./device_admin/device_list/device_add.jsx'
+                  name: 'device-add',
+                  path: '/device_admin/device_add',
+                  component: './device_admin/device_list/device_add.jsx'
                 },
                 // 设备编辑
                 {
-                  name:'device-edit',
-                  path:'/device_admin/device_edit',
-                  component:'./device_admin/device_list/device_edit'
+                  name: 'device-edit',
+                  path: '/device_admin/device_edit',
+                  component: './device_admin/device_list/device_edit'
                 }
               ]
             },
-            //属性列表
-            {
-              name:'attribute-list',
-              path:'/attribute_list',
-              component:'./gateway_admin/attribute_list',
-              hideInMenu:true,
-            },
+
             {
               name: 'test',
               path: '/test',
               component: './test',
-              hideInMenu:true,
+              hideInMenu: true,
             },
             {
               path: '/welcome',

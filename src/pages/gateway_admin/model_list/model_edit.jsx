@@ -23,7 +23,7 @@ const tailFormItemLayout = {
         },
     },
 };
-
+ 
 export default () => {
     const [form] = Form.useForm();
     const { model } = history.location.query;

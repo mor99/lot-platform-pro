@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-
 import ProTable from '@ant-design/pro-table';
 import styles from './index.less'
 import { columns } from './columns'
@@ -26,7 +25,6 @@ export default () => {
                     columns={columns}
                     dataSource={data} />
             </div>
-
         </PageHeaderWrapper>
     )
 }

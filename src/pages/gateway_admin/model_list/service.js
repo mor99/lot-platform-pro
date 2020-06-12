@@ -6,6 +6,7 @@ const instance = axios.create({
 
 // 获取模型列表
 export async function getModel() {
+    console.log(instance.get('/api/model/5ed0c8a432d02758a030f067'))
     return instance.get('/api/model')
 }
 

@@ -95,7 +95,7 @@ export default () => {
                     renderItem={item => {
                         return (
                             <List.Item actions={[
-                                <Link to='/attribute_list'>编辑属性</Link>,
+                                <Link to={{pathname:'/gateway_admin/attribute_list',query:{modelId:item.id}}}>编辑属性</Link>,
                                 <Dropdown overlay={menu(item)}>
                                     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                         更多 <DownOutlined />

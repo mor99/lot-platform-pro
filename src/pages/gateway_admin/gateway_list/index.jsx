@@ -19,6 +19,7 @@ export default (props) => {
         const result = await getGateway()
         setData(result.data)
     };
+    const { gatewayInfo } = props.location.query
     // 组件初始化
     useEffect(() => {
         setVisible(props.location.query.visible)
@@ -56,7 +57,6 @@ export default (props) => {
         },
     };
 
-    const { gatewayInfo } = props.location.query
     // const secreKey = gatewayInfo.secreKey ? gatewayInfo.secreKey : '无'
     /*   const tmessage =  `ID:${gatewayInfo.ID} \xa0\xa0\xa0\xa0 通信密码:${gatewayInfo.key} \xa0\xa0\xa0\xa0 密钥:${secreKey}`  */
     return (

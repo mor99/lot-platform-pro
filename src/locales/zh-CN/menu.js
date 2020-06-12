@@ -14,6 +14,11 @@ export default {
   'menu.gateway-admin.model-add':'添加模型',
   'menu.gateway-admin.model-edit':'编辑模型',
 
+  'menu.gateway-admin.attribute-list':'属性列表',
+  'menu.gateway-admin.attribute-add1':'添加属性(非线圈)',
+  'menu.gateway-admin.attribute-edit1':'更新属性(非线圈)',
+  'menu.gateway-admin.attribute-add2':'添加属性(线圈)',
+  'menu.gateway-admin.attribute-edit2':'更新属性(线圈)',
 
   'menu.data-monitoring':'数据监控',
   'menu.data-monitoring.real-time':'实时数据',

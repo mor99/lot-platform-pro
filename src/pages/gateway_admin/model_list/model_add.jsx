@@ -8,7 +8,7 @@ import styles from './index.less'
 const { Option } = Select;
 const { TextArea } = Input
 const formItemLayout = {
-    labelCol: { span: 7 },
+    labelCol: { span: 4 },
     wrapperCol: { span: 10 }
 };
 const tailFormItemLayout = {
