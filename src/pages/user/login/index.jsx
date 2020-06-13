@@ -19,12 +19,12 @@ const LoginMessage = ({ content }) => (
 );
 
 const Login = props => {
+  console.log(props)
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
   const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState('account');
 
-  console.log(props)
   const handleSubmit = values => {
     const { dispatch } = props;
     dispatch({
@@ -38,11 +38,11 @@ const Login = props => {
       <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
         <Tab key="account" tab="账户密码登录">
           {status === 'error' && loginType === 'account' && !submitting && (
-            <LoginMessage content="账户或密码错误（admin/ant.design）" />
+            <LoginMessage content="账户或密码错误" />
           )}
 
           <UserName
-            name="userName"
+            name="username"
             placeholder="用户名: user"
             rules={[
               {

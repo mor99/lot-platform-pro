@@ -3,13 +3,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { PlusOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
-import { Link } from 'umi'
+import { Link, connect } from 'umi'
 import { Button, message, Result, Col, Row } from 'antd';
 import { columns } from './columns'
 import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
 
-export default (props) => {
+const Gateway = (props) => {
+    const { userLogin = {} } = props
+    console.log(userLogin)
     const ref = useRef();
     const [data, setData] = useState();
     const [visible, setVisible] = useState(false)
@@ -109,3 +111,6 @@ export default (props) => {
     )
 }
 
+export default connect(({ login }) => ({
+    userLogin: login,
+}))(Gateway)

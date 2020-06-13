@@ -1,5 +1,6 @@
 import React from 'react';
-import { Form, Input, Row, Col, Checkbox, Button, } from 'antd';
+import {history} from 'umi'
+import { Form, Input, Row, Col, Checkbox, Button, message, } from 'antd';
 import axios from 'axios'
 
 const formItemLayout = {
@@ -23,8 +24,16 @@ const RegistrationForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = async (values) => {
-    axios.post('/api/user/register', values
-    )
+    axios.post('/api/user/register', values)
+    .then((reponse)=>{
+      if (reponse.status===201) {
+        message.success("注册成功,请登录!")
+        history.push('/user/login')
+      }
+      else {
+        message.error("注册失败,请重试!")
+      }
+    })
   };
 
   return (
@@ -39,7 +48,7 @@ const RegistrationForm = () => {
       scrollToFirstError
     >
       <Form.Item
-        name="name"
+        name="username"
         label={
           <span>
             用户名&nbsp;
@@ -71,7 +80,7 @@ const RegistrationForm = () => {
       </Form.Item>
 
       <Form.Item
-        name="password"
+        name="confirm"
         label="确认密码"
         dependencies={['password']}
         hasFeedback
@@ -102,6 +111,7 @@ const RegistrationForm = () => {
           {
             required: true,
             message: '请输入你的电话号码!',
+            pattern: /^1\d{10}$/,
           },
         ]}
       >

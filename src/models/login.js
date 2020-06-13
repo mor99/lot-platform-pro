@@ -8,6 +8,7 @@ const Model = {
   namespace: 'login',
   state: {
     status: undefined,
+    accessToken: 123
   },
   effects: {
     *login({ payload }, { call, put }) {
@@ -17,7 +18,11 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      yield put({
+        type: 'saveToken',
+        payload: response.accessToken
+      })
+      if (response.accessToken) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -59,6 +64,13 @@ const Model = {
       setAuthority(payload.currentAuthority);
       return { ...state, status: payload.status, type: payload.type };
     },
+
+    // 保存token
+    saveToken(state, { payload }) {
+      return {
+        ...state, accessToken: payload
+      }
+    }
   },
 };
 export default Model;
