@@ -30,27 +30,26 @@ export async function updateRule(params) {
 }
 // 获取网关信息
 export async function getGatewayInfo(id) {
-  return instance.get(`/api/gateway/${id}`)
+  return request.get(`/api/gateway/${id}`)
 }
 // 获取网关列表
 export async function getGateway() {
-  return instance.get('/api/gateway')
+  return request.get('/api/gateway')
 }
 
 // 添加网关
 export async function addGateway(params) {
-  return instance.post(`/api/gateway`, JSON.stringify({ gatewayInfo: params }))
+  return request.post(`/api/gateway`, {data:JSON.stringify(params)})
 }
 // 编辑网关
 export async function editGateway(id, params) {
-  return instance.put(`/api/gateway/${id}`,
-    JSON.stringify(params)
+  return request.put(`/api/gateway/${id}`,
+    {data:JSON.stringify(params)}
   )
 }
 
 // 删除多个网关
 export async function deleteGateway(params) {
-  console.log(params)
-  return instance.delete('/api/gateway',
+  return request.delete('/api/gateway',
     { data: JSON.stringify({gatewayList:params.idList}) })
 } 

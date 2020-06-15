@@ -15,7 +15,7 @@ const DeviceAddForm = (props) => {
     const onFinish = async (values) => {
         // const value = JSON.stringify(values)
         const value = {
-            deviceInfo: {
+
                 name: values.name,
                 description: values.description,
                 connectionMode: values.connectionMode,
@@ -28,7 +28,7 @@ const DeviceAddForm = (props) => {
                     stopBit: values.stopBit,
                     ip: values.ip,
                     port: values.port
-                }
+                
             }
         }
         const hide = message.loading('正在添加');

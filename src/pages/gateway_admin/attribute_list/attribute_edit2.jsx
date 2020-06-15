@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Radio, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import {num0to7} from '@/utils/numAndRegexp'
+import { num0to7,regExp ,num10to16} from '@/utils/numAndRegexp'
 import { editAttribute } from './service'
 import { formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
@@ -11,16 +11,29 @@ const { Option } = Select;
 
 const AttributeEdit = (props) => {
     const [form] = Form.useForm();
-    const { modelId, property} = props.location.query;
+    const { modelId, property } = props.location.query;
     const [codeState, setCode] = useState()
 
     console.log(props.location)
 
     // 修改属性
     const onFinish = async (values) => {
+        const value = {}
+        value.name = values.name
+        value.dataAddr = values.dataAddr
+        value.functionCode = values.functionCode
+        value.acquireInterval = values.acquireInterval
+        value.dataConfig = {
+            upperLimit: values.upperLimit,
+            lowerLimit: values.lowerLimit,
+            dataType: values.dataType,
+            dataLength: values.dataLength,
+            dataUnit: values.dataUnit,
+            dataFormula: values.dataFormula
+        }
         const hide = message.loading('正在修改');
         try {
-            await editAttribute(modelId, property.id, { propertyInfo: values })
+            await editAttribute(modelId, property.id, value)
             hide();
             message.success('修改成功')
             history.goBack()
@@ -41,6 +54,7 @@ const AttributeEdit = (props) => {
                     {...formItemLayout}
                     form={form}
                     name="attribute_edit"
+                    initialValues={property}
                     onFinish={onFinish}
                     scrollToFirstError>
                     <Form.Item
@@ -62,8 +76,13 @@ const AttributeEdit = (props) => {
                     <Form.Item
                         name="dataAddr"
                         label="地址"
+                        rules={[{
+                                pattern: regExp.four16,
+                                require: true,
+                                message: '必须为0x开头的4位十六进制数!'
+                            }]}
                     >
-                        <Input defaultValue={property.dataAddr} />
+                        <Input defaultValue={num10to16(property.dataAddr, 4)} />
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"

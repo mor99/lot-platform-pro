@@ -33,7 +33,7 @@ const GatewayAddForm = () => {
             await addGateway(values)
                 .then((res) => {
                     hide();
-                    const gatewayInfo = { ...res.data.gatewayInfo }
+                    const gatewayInfo = { ...res.gatewayInfo }
                     history.push({ pathname: 'gateway_list', query: { gatewayInfo, visible: true } })
                 })
             return true

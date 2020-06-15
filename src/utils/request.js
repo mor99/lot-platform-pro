@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /**
  * request 网络请求工具
  * 更详细的 api 文档: https://github.com/umijs/umi-request
@@ -56,5 +57,45 @@ const request = extend({
   headers: {
     'Content-Type': 'application/json'
   }
+});
+
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use(async (url, options) => {
+
+  const c_token = localStorage.getItem("mytoken");
+  if (c_token) {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${c_token}`
+    };
+    return (
+      {
+        url: url,
+        options: { ...options, headers: headers },
+      }
+    );
+  // eslint-disable-next-line no-else-return
+  } else {
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': c_token
+    };
+    return (
+      {
+        url: url,
+        options: { ...options },
+      }
+    );
+  }
+
+})
+
+// response拦截器, 处理response
+request.interceptors.response.use((response, options) => {
+  const token = response.headers.get("accessToken");
+  if (token) {
+    localStorage.setItem("accessToken", token);
+  }
+  return response;
 });
 export default request;

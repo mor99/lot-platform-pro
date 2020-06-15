@@ -17,7 +17,7 @@ const DeviceEditForm = (props) => {
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
         try {
-            await editDevice(gatewayId, device.id, { deviceInfo: values })
+            await editDevice(gatewayId, device.id,  values )
             hide();
             message.success('修改成功')
             history.goBack()

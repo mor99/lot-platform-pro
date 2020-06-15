@@ -10,6 +10,7 @@ import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
 
 const Gateway = (props) => {
+    console.log(localStorage.getItem("mytoken"))
     const { userLogin = {} } = props
     console.log(userLogin)
     const ref = useRef();
@@ -19,7 +20,7 @@ const Gateway = (props) => {
     // 获取网关列表
     const fetchData = async () => {
         const result = await getGateway()
-        setData(result.data)
+        setData(result)
     };
     const { gatewayInfo } = props.location.query
     // 组件初始化

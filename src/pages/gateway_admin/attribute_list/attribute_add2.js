@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Space, Button, Radio, Col, Row, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
+import {regExp} from '@/utils/numAndRegexp'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { addAttribute } from './service'
 import styles from './index.less'
@@ -116,12 +117,25 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-        const value = { ...values }
+       // const value = { ...values }
+       const value = {}
+        value.name = values.name
+        value.dataAddr = values.dataAddr
+        value.functionCode = values.functionCode
+        value.acquireInterval = values.acquireInterval
+        value.dataConfig = {
+            upperLimit : values.upperLimit,
+            lowerLimit: values.lowerLimit,
+            dataType:values.dataType,
+            dataLength:values.dataLength,
+            dataUnit:values.dataUnit,
+            dataFormula:values.dataFormula
+        }
         value.uploadCondition = { a: 1 }
         const hide = message.loading('正在添加');
         try {
             console.log(modelId)
-            await addAttribute(modelId, { propertyInfo: value })
+            await addAttribute(modelId,  value )
             message.success('添加成功')
             history.goBack()
             return true
@@ -165,8 +179,16 @@ const AddAttribute = () => {
                     <Form.Item
                         name="dataAddr"
                         label="地址"
+                        rules={[
+                            {
+                                required: true,
+                                message: '必须为0x开头的4位十六进制数',
+                                pattern:regExp.four16,
+                                whitespace: true,
+                            },
+                        ]}
                     >
-                        <Input placeholder='输入数据地址' />
+                        <Input placeholder='请输入地址' />
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"

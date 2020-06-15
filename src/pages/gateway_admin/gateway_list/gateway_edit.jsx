@@ -30,7 +30,7 @@ const GatewayEditForm = () => {
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
         try {
-            await editGateway(gateway.id, { gatewayInfo: values })
+            await editGateway(gateway.id, values)
             hide();
             message.success('修改成功')
             history.goBack()
@@ -63,7 +63,6 @@ const GatewayEditForm = () => {
                         }
                         rules={[
                             {
-                                required: true,
                                 message: '请输入网关名称',
                                 whitespace: true,
                             },

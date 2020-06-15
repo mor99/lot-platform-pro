@@ -17,7 +17,7 @@ export default (props) => {
     // 获取子设备列表
     const fetchData = async () => {
         const result = await getDeviceList(history.location.query.gatewayId)
-        setData(result.data)
+        setData(result)
     }
 
     // 组件初始化

@@ -1,26 +1,21 @@
-import axios from 'axios'
-
-const instance = axios.create({
-    headers: { 'Content-Type': 'application/json' }
-});
+import request from '@/utils/request'
 
 // 获取模型列表
 export async function getModel() {
-    console.log(instance.get('/api/model/5ed0c8a432d02758a030f067'))
-    return instance.get('/api/model')
+    return request.get('/api/model')
 }
 
 // 新建模型
 export async function addModel(parms) {
-    return instance.post('/api/model', JSON.stringify({ modelInfo: parms }))
+    return request.post('/api/model', {data:JSON.stringify(parms)})
 }
 
 // 修改模型
 export async function editModel(id, parms) {
-    return instance.put(`/api/model/${id}`, JSON.stringify({ modelInfo: parms }))
+    return request.put(`/api/model/${id}`, {data:JSON.stringify(parms )})
 }
 
 // 删除模型
 export async function deleteModel(id) {
-    return instance.delete(`/api/model/${id}`)
+    return request.delete(`/api/model/${id}`)
 }

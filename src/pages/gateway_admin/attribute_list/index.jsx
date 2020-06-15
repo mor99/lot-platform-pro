@@ -21,7 +21,32 @@ export default () => {
     // 获取属性数据
     const fetchData = async () => {
         const result = await getAttribute(modelId)
-        setData(result.data)
+        console.log(result)
+        // eslint-disable-next-line no-plusplus
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].dataConfig) {
+                result[i].upperLimit = result[i].dataConfig.upperLimit
+                result[i].lowerLimit = result[i].dataConfig.lowerLimit
+                result[i].dataType = result[i].dataConfig.dataType
+                result[i].dataLength = result[i].dataConfig.dataLength
+                result[i].dataUnit = result[i].dataConfig.dataUnit
+                result[i].dataFormula = result[i].dataConfig.dataFormula
+            }
+        }
+        /*         const resultdata = result
+                result.forEach((value)=>{
+                    if (value.dataCongif) 
+                    {
+                        resultdata.upperLimit = value.dataConfig.upperLimit
+                        resultdata.lowerLimit = value.dataConfig.lowerLimit
+                        resultdata.dataType = value.dataConfig.dataType
+                        resultdata.dataLength = value.dataConfig.dataLength
+                        resultdata.dataUnit = value.dataConfig.dataUnit
+                        resultdata.dataFormula = value.dataConfig.dataFormula
+                        }
+                }) */
+        console.log(result)
+        setData(result)
     }
 
     // 副作用函数

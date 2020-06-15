@@ -15,7 +15,8 @@ export default () => {
     // 获取模型列表数据
     const fetchData = async () => {
         const result = await getModel()
-        setData(result.data)
+        console.log(result)
+        setData(result)
     };
     // 组件初始化
     useEffect(() => {
@@ -113,9 +114,9 @@ export default () => {
                                         <Col span={8}>控制属性</Col>
                                     </Row>
                                     <Row>
-                                        <Col span={8}>{item.protocol}</Col>
-                                        <Col span={8}>{item.propertiesListNum}</Col>
-                                        <Col span={8}>{item.propertiesCtrlListNum}</Col>
+                                        <Col span={8}>{item.connenctionMode}</Col>
+                                        <Col span={8}>{item.propertiesNum}</Col>
+                                        <Col span={8}>{item.propertiesCtrlNum}</Col>
                                     </Row>
                                 </span>
                             </List.Item>

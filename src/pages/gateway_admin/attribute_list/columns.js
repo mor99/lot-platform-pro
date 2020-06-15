@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, history } from 'umi'
-import { Divider } from 'antd'
+import { Divider,Button } from 'antd'
 
 export const columns = [
     {
@@ -59,11 +59,8 @@ export const columns = [
                 编辑
             </Link >,
             <Divider type='vertical' />,
-            <Link to={{
-                pathname: '#',
-                query: {}
-            }}>
+            <Button type="link" danger>
                 删除
-            </Link>]
+            </Button>]
     }
 ]

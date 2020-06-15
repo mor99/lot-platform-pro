@@ -18,11 +18,13 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      yield put({
-        type: 'saveToken',
-        payload: response.accessToken
-      })
       if (response.accessToken) {
+        // 保存token到本地
+        localStorage.setItem("token",response.accessToken)
+        /* yield put({
+          type: 'saveToken',
+          payload: response.accessToken
+        }) */
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;

@@ -103,6 +103,13 @@ export default defineConfig({
                   component: './gateway_admin/model_list/model_edit',
                   hideInMenu: true
                 },
+                // 模型绑定
+                {
+                  name:'创建绑定操作',
+                  path:'/gateway_admin/model_bind',
+                  component:'./gateway_admin/model_list/model_bind',
+                  hideInMenu:true
+                },
                 // 网关添加
                 {
                   name: 'gateway-add',

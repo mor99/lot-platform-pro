@@ -118,12 +118,27 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-        const value = { ...values }
+        // const value = { ...values }
+        console.log(values)
+        const value = {}
+        value.name = values.name
+        value.dataAddr = values.dataAddr
+        value.functionCode = values.functionCode
+        value.acquireInterval = values.acquireInterval
+        value.dataConfig = {
+            upperLimit : values.upperLimit,
+            lowerLimit: values.lowerLimit,
+            dataType:values.dataType,
+            dataLength:values.dataLength,
+            dataUnit:values.dataUnit,
+            dataFormula:values.dataFormula
+        }
         value.uploadCondition = { a: 1 }
         const hide = message.loading('正在添加');
         try {
+            console.log(value)
             console.log(modelId)
-            await addAttribute(modelId, { propertyInfo: value })
+            await addAttribute(modelId,  value )
             message.success('添加成功')
             history.goBack()
             return true
@@ -167,8 +182,16 @@ const AddAttribute = () => {
                     <Form.Item
                         name="dataAddr"
                         label="地址"
+                        rules={[
+                            {
+                                required: true,
+                                message: '必须为0x开头的4位十六进制数',
+                                pattern:regExp.four16,
+                                whitespace: true,
+                            },
+                        ]}
                     >
-                        <Input placeholder='输入数据地址' />
+                        <Input placeholder='请输入地址'/>
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"
@@ -215,12 +238,12 @@ const AddAttribute = () => {
                     >
                         <Form.Item name='upperLimit'
                             rules={[{
-                                pattern: regExp.four16,
                                 require: true,
-                                message: '必须为0x开头的4位十六进制数!'
+                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input className={styles.input} placeholder="输入量程上限" />
+                            <Input className={styles.input}  placeholder="输入量程上限" />
                         </Form.Item>
                         <Input
                             className={styles.input1}
@@ -230,9 +253,9 @@ const AddAttribute = () => {
                         />
                         <Form.Item name='lowerLimit'
                             rules={[{
-                                pattern: regExp.four16,
                                 require: true,
-                                message: '必须为0x开头的4位十六进制数!'
+                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                message: '请输入一个数字!'
                             }]}
                             noStyle>
                             <Input className={styles.input} placeholder="输入量程下限"/>

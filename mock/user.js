@@ -55,7 +55,7 @@ export default {
     phone: '0752-268888888',
   },
 
-  'POST /api/login/account': (req, res) => {
+  'POST /api/user/login/123': (req, res) => {
     const { password, userName, type } = req.body;
 
     if (password === '123456' && userName === 'admin') {
@@ -63,6 +63,7 @@ export default {
         status: 'ok',
         type,
         currentAuthority: 'admin',
+        accesstoken:'token123'
       });
       return;
     }
@@ -72,6 +73,7 @@ export default {
         status: 'ok',
         type,
         currentAuthority: 'user',
+        accesstoken:'token123'
       });
       return;
     }

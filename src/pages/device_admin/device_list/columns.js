@@ -55,7 +55,7 @@ export const columns = [
         width: 230,
         render: (text, row) => [
             <Link to={{
-                pathname: '#',
+                pathname: '/gateway_admin/model_bind',
                 query: {}
             }}>
                 绑定模型

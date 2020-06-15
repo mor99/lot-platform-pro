@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Select, Radio, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import { num10to16, four16 } from '@/utils/numAndRegexp'
+import { num10to16, regExp } from '@/utils/numAndRegexp'
 import { editAttribute } from './service'
 import { formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
@@ -18,9 +18,23 @@ const AttributeEdit = (props) => {
 
     // 修改属性
     const onFinish = async (values) => {
+        const value = {}
+        value.name = values.name
+        value.dataAddr = values.dataAddr
+        value.functionCode = values.functionCode
+        value.acquireInterval = values.acquireInterval
+        value.dataConfig = {
+            upperLimit : values.upperLimit,
+            lowerLimit: values.lowerLimit,
+            dataType:values.dataType,
+            dataLength:values.dataLength,
+            dataUnit:values.dataUnit,
+            dataFormula:values.dataFormula
+        }
         const hide = message.loading('正在修改');
         try {
-            await editAttribute(modelId, property.id, { propertyInfo: values })
+            console.log(value)
+            await editAttribute(modelId, property.id, value )
             hide();
             message.success('修改成功')
             history.goBack()
@@ -40,6 +54,7 @@ const AttributeEdit = (props) => {
                 <Form
                     {...formItemLayout}
                     form={form}
+                    initialValues = {property}
                     name="attribute_edit"
                     onFinish={onFinish}
                     scrollToFirstError>
@@ -62,8 +77,13 @@ const AttributeEdit = (props) => {
                     <Form.Item
                         name="dataAddr"
                         label="地址"
+                        rules={[{
+                                pattern: regExp.four16,
+                                require: true,
+                                message: '必须为0x开头的4位十六进制数!'
+                            }]}
                     >
-                        <Input defaultValue={property.dataAddr} />
+                        <Input defaultValue={num10to16(property.dataAddr, 4)} />
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"
@@ -109,12 +129,12 @@ const AttributeEdit = (props) => {
                     >
                         <Form.Item name='upperLimit'
                             rules={[{
-                                pattern: four16,
                                 require: true,
-                                message: '必须为0x开头的4位十六进制数!'
+                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input style={{ width: 120, textAlign: 'center' }} defaultValue={num10to16(property.upperLimit, 4)} />
+                            <Input style={{ width: 120, textAlign: 'center' }} defaultValue={property.upperLimit} />
                         </Form.Item>
                         <Form.Item noStyle>
                             <Input
@@ -131,10 +151,9 @@ const AttributeEdit = (props) => {
                         </Form.Item>
                         <Form.Item name='lowerLimit'
                             rules={[{
-                                // pattern: new RegExp(/^[0-7]\d*$/, "g"),
-                                pattern: four16,
+                                pattern: new RegExp(/^[0-9]\d*$/, "g"),
                                 require: true,
-                                message: '必须为0x开头的4位十六进制数!'
+                                message: '请输入一个数字!'
                             }]}
                             noStyle>
                             <Input
@@ -143,7 +162,7 @@ const AttributeEdit = (props) => {
                                     width: 120,
                                     textAlign: 'center',
                                 }}
-                                defaultValue={num10to16(property.lowerLimit, 4)} />
+                                defaultValue={property.lowerLimit} />
                         </Form.Item>
                     </Form.Item>
 
