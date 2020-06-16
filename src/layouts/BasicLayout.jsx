@@ -35,29 +35,29 @@ const menuDataRender = menuList =>
     return Authorized.check(item.authority, localItem, null);
   });
 
+/*   links={[
+    {
+      key: 'Ant Design Pro1',
+      title: 'Ant Design Pro',
+      href: 'https://pro.ant.design',
+      blankTarget: true,
+    },
+    {
+      key: 'github',
+      title: <GithubOutlined />,
+      href: 'https://github.com/ant-design/ant-design-pro',
+      blankTarget: true,
+    },
+    {
+      key: 'Ant Design',
+      title: 'Ant Design',
+      href: 'https://ant.design',
+      blankTarget: true,
+    },
+  ]} */
 const defaultFooterDom = (
   <DefaultFooter
     copyright="2020 宁夏计算机技术与软件服务有限公司"
-    links={[
-      {
-        key: 'Ant Design Pro1',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
-      },
-      {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,
-      },
-    ]}
   />
 );
 

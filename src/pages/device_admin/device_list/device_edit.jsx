@@ -15,9 +15,11 @@ const DeviceEditForm = (props) => {
     const [items, setItems] = useState((device.connectionMode === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
     // 修改属性
     const onFinish = async (values) => {
+        const {name,description,connectionMode,slaveNo,...commConfig}=values;
+        const value = {name,description,connectionMode,slaveNo,commConfig}
         const hide = message.loading('正在修改');
         try {
-            await editDevice(gatewayId, device.id,  values )
+            await editDevice(gatewayId, device.id,value)
             hide();
             message.success('修改成功')
             history.goBack()

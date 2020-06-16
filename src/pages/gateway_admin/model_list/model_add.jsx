@@ -31,7 +31,6 @@ const ModelAdd = () => {
         const hide = message.loading('正在添加');
         try {
             hide()
-            console.log(values)
             await addModel(values)
             message.loading('添加成功!!!')
             history.push({ pathname: 'model_list', query: {} })

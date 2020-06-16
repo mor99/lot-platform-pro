@@ -7,7 +7,26 @@ import { GithubOutlined } from '@ant-design/icons';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
-
+/* links={[
+  {
+    key: 'Ant Design Pro',
+    title: 'Ant Design Pro',
+    href: 'https://pro.ant.design',
+    blankTarget: true,
+  },
+  {
+    key: 'github',
+    title: <GithubOutlined />,
+    href: 'https://github.com/ant-design/ant-design-pro',
+    blankTarget: true,
+  },
+  {
+    key: 'Ant Design',
+    title: 'Ant Design',
+    href: 'https://ant.design',
+    blankTarget: true,
+  },
+]} */
 const UserLayout = props => {
   const {
     route = {
@@ -54,26 +73,6 @@ const UserLayout = props => {
         </div>
         <DefaultFooter 
             copyright="2020 宁夏计算机技术与软件服务有限公司"
-            links={[
-              {
-                key: 'Ant Design Pro',
-                title: 'Ant Design Pro',
-                href: 'https://pro.ant.design',
-                blankTarget: true,
-              },
-              {
-                key: 'github',
-                title: <GithubOutlined />,
-                href: 'https://github.com/ant-design/ant-design-pro',
-                blankTarget: true,
-              },
-              {
-                key: 'Ant Design',
-                title: 'Ant Design',
-                href: 'https://ant.design',
-                blankTarget: true,
-              },
-            ]}
         />
       </div>
     </HelmetProvider>

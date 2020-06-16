@@ -117,25 +117,11 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-       // const value = { ...values }
-       const value = {}
-        value.name = values.name
-        value.dataAddr = values.dataAddr
-        value.functionCode = values.functionCode
-        value.acquireInterval = values.acquireInterval
-        value.dataConfig = {
-            upperLimit : values.upperLimit,
-            lowerLimit: values.lowerLimit,
-            dataType:values.dataType,
-            dataLength:values.dataLength,
-            dataUnit:values.dataUnit,
-            dataFormula:values.dataFormula
-        }
-        value.uploadCondition = { a: 1 }
+       const {name,dataAddr,functionCode,acquireInterval,...dataConfig} = values;
+       const value = {name,dataAddr,functionCode,acquireInterval,dataConfig,uploadCondition:{a:1}}
         const hide = message.loading('正在添加');
         try {
-            console.log(modelId)
-            await addAttribute(modelId,  value )
+            await addAttribute(modelId,value)
             message.success('添加成功')
             history.goBack()
             return true
@@ -209,7 +195,6 @@ const AddAttribute = () => {
                         <Radio.Group
                             onChange={e => {
                                 setCode(e.target.value);
-                                console.log(codeState)
                             }}
                             defaultValue={radio === "c" ? '01' : '02'}
                             value={codeState}>

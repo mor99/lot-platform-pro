@@ -18,19 +18,8 @@ const AttributeEdit = (props) => {
 
     // 修改属性
     const onFinish = async (values) => {
-        const value = {}
-        value.name = values.name
-        value.dataAddr = values.dataAddr
-        value.functionCode = values.functionCode
-        value.acquireInterval = values.acquireInterval
-        value.dataConfig = {
-            upperLimit : values.upperLimit,
-            lowerLimit: values.lowerLimit,
-            dataType:values.dataType,
-            dataLength:values.dataLength,
-            dataUnit:values.dataUnit,
-            dataFormula:values.dataFormula
-        }
+        const {name,dataAddr,functionCode,acquireInterval,...dataConfig} = values;
+        const value = {name,dataAddr,functionCode,acquireInterval,dataConfig,uploadCondition:{a:1}}
         const hide = message.loading('正在修改');
         try {
             console.log(value)

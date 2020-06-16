@@ -13,24 +13,8 @@ const DeviceAddForm = (props) => {
     const [form] = Form.useForm();
     const [items, setItems] = useState()
     const onFinish = async (values) => {
-        // const value = JSON.stringify(values)
-        const value = {
-
-                name: values.name,
-                description: values.description,
-                connectionMode: values.connectionMode,
-                slaveNo: values.slaveNo,
-                commConfig: {
-                    serialNo: values.slaveNo,
-                    baudRate: values.baudRate,
-                    dataLength: values.dataLength,
-                    parity: values.parity,
-                    stopBit: values.stopBit,
-                    ip: values.ip,
-                    port: values.port
-                
-            }
-        }
+        const {name,description,connectionMode,slaveNo,...commConfig}=values;
+        const value = {name,description,connectionMode,slaveNo,commConfig}
         const hide = message.loading('正在添加');
         try {
             await addDevice(props.location.query.gatewayId, value)
