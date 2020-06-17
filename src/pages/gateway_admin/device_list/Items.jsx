@@ -1,8 +1,8 @@
 import React from 'react';
 import { Form, Input, Select, InputNumber } from 'antd';
+import { regExp} from '@/utils/numAndRegexp';
 
 const { Option } = Select
-
 export const formItemLayout = {
     labelCol: { span: 7 },
     wrapperCol: { span: 10 }
@@ -43,7 +43,7 @@ export const TcpA = (
                 {
                     required: true,
                     message: '输入端口号,必须为整数!',
-                    pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                    pattern: regExp.num,
                     whitespace: true
                 },
             ]}
@@ -60,7 +60,7 @@ export const RtuA = (
             rules={[
                 {
                     required: true,
-                    pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                    pattern: regExp.num,
                     message: '请输入串口号,必须为整数!',
                 },
             ]}
@@ -151,7 +151,7 @@ export const TcpE = (value) => {
                     },
                 ]}
             >
-                <Input defaultValue={value.ip} />
+                <Input/>
             </Form.Item>
             <Form.Item
                 label="端口号"
@@ -159,12 +159,12 @@ export const TcpE = (value) => {
                 rules={[
                     {
                         message: '请输入端口号,必须为整数!',
-                        pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                        pattern: regExp.num,
                         whitespace: true
                     },
                 ]}
             >
-                <InputNumber defaultValue={value.port} />
+                <InputNumber />
             </Form.Item>
         </span>)
 }
@@ -177,12 +177,12 @@ export const RtuE = (value) => {
                 name='serialNo'
                 rules={[
                     {
-                        pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                        pattern: regExp.num,
                         message: '请输入串口号,必须为整数!',
                     },
                 ]}
             >
-                <Input defaultValue={value.serialNo} />
+                <Input />
             </Form.Item>
 
             <Form.Item
@@ -194,7 +194,7 @@ export const RtuE = (value) => {
                     },
                 ]}
             >
-                <Select defaultValue={value.baudRate} >
+                <Select>
                     <Option value="9600">9600</Option>
                     <Option value="9600">115200</Option>
                     <Option value="MIPS">1830000</Option>
@@ -210,7 +210,7 @@ export const RtuE = (value) => {
                     },
                 ]}
             >
-                <Select defaultValue={value.dataLength} >
+                <Select>
                     <Option value="7">7</Option>
                     <Option value="8">8</Option>
                 </Select>
@@ -225,8 +225,7 @@ export const RtuE = (value) => {
                     },
                 ]}
             >
-                <Select
-                    defaultValue={value.parity} >
+                <Select>
                     <Option value="无校验">无校验</Option>
                     <Option value="奇校验">奇校验</Option>
                     <Option value="偶校验">偶校验</Option>
@@ -242,7 +241,7 @@ export const RtuE = (value) => {
                     },
                 ]}
             >
-                <Select defaultValue={value.stopBit} >
+                <Select >
                     <Option value="1">1</Option>
                     <Option value="2">2</Option>
                 </Select>

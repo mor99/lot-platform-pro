@@ -7,12 +7,12 @@ export async function getModel() {
 
 // 新建模型
 export async function addModel(parms) {
-    return request.post('/api/model', {data:JSON.stringify(parms)})
+    return request.post('/api/model', { data: JSON.stringify(parms) })
 }
 
 // 修改模型
 export async function editModel(id, parms) {
-    return request.put(`/api/model/${id}`, {data:JSON.stringify(parms )})
+    return request.put(`/api/model/${id}`, { data: JSON.stringify(parms) })
 }
 
 // 删除模型

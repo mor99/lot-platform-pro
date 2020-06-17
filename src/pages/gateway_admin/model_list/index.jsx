@@ -96,7 +96,7 @@ export default () => {
                     renderItem={item => {
                         return (
                             <List.Item actions={[
-                                <Link to={{pathname:'/gateway_admin/attribute_list',query:{modelId:item.id}}}>编辑属性</Link>,
+                                <Link to={{ pathname: '/gateway_admin/attribute_list', query: { modelId: item.id } }}>编辑属性</Link>,
                                 <Dropdown overlay={menu(item)}>
                                     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                         更多 <DownOutlined />
@@ -113,8 +113,8 @@ export default () => {
                                         <Col span={8}>属性个数</Col>
                                         <Col span={8}>控制属性</Col>
                                     </Row>
-                                    <Row>
-                                        <Col span={8}>{item.connenctionMode}</Col>
+                                    <Row >
+                                        <Col span={8}>{item.connectionMode}</Col>
                                         <Col span={8}>{item.propertiesNum}</Col>
                                         <Col span={8}>{item.propertiesCtrlNum}</Col>
                                     </Row>

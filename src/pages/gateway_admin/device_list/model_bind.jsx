@@ -20,17 +20,17 @@ export default () => {
     )
     return (
         <PageHeaderWrapper>
-            <div className={styles.div3}>
+            <div className={styles.div2}>
                 <span>绑定模型 :  </span>
                 <Select
+                    size='large'
                     style={{ width: 800 }}>
-
                     {data.map((value) =>
                         <Option>{value.name}</Option>)
                     }
                 </Select>
-                <br /><br /><br /><br /><br /><br /><br /><br /><br />
-                <Space align='center' size='large' style={{paddingLeft:300}}>
+                <br /><br /><br /><br /><br /><br />
+                <Space align='center' size='large' style={{ paddingLeft: 200 }}>
                     <Button type='primary' onClick={
                         () => {
                             message.success('绑定成功，即将返回');

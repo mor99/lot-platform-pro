@@ -1,33 +1,34 @@
 import React, { useState } from 'react';
-import { Form, Input, Select, Button, message, Space } from 'antd';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import { editDevice } from './service'
-import { TcpE, RtuE, formItemLayout, tailFormItemLayout } from './Items'
+import { Form, Input, Select, Button, message, Space, InputNumber } from 'antd';
+import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { regExp } from '@/utils/numAndRegexp';
+import { formItemLayout, tailFormItemLayout } from '@/utils/formlayout'
+import { addDevice } from './service';
+import { TcpA, RtuA} from './Items'
 import styles from './index.less'
 
 const { Option } = Select;
 const { TextArea } = Input
 
-const DeviceEditForm = (props) => {
+// 添加设备
+const DeviceAddForm = (props) => {
     const [form] = Form.useForm();
-    const { gatewayId, device } = props.location.query;
-    const [items, setItems] = useState((device.connectionMode === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
-    // 修改属性
+    const [items, setItems] = useState()
     const onFinish = async (values) => {
-        const {name,description,connectionMode,slaveNo,...commConfig}=values;
-        const value = {name,description,connectionMode,slaveNo,commConfig}
-        const hide = message.loading('正在修改');
+        const { name, description, connectionMode, slaveNo, ...commConfig } = values;
+        const value = { name, description, connectionMode, slaveNo, commConfig }
+        const hide = message.loading('正在添加');
         try {
-            await editDevice(gatewayId, device.id,value)
+            await addDevice(props.location.query.gatewayId, value)
             hide();
-            message.success('修改成功')
+            message.success('添加成功')
             history.goBack()
             return true
         }
         catch (error) {
             hide();
-            message.error('修改失败！请重试!');
+            message.error('添加失败！请重试!');
             return false;
         }
 
@@ -39,55 +40,59 @@ const DeviceEditForm = (props) => {
                 <Form
                     {...formItemLayout}
                     form={form}
-                    name="Device_edit"
+                    name="device_add"
                     onFinish={onFinish}
                     scrollToFirstError>
                     <Form.Item
                         name="name"
-                        label={<span>设备名称&nbsp;</span>}
+                        label={
+                            <span>
+                                子设备名称&nbsp;
+                            </span>
+                        }
                         rules={[
                             {
-                                message: '请输入设备名称',
+                                required: true,
+                                message: '请输入子设备名称',
                                 whitespace: true,
                             },
-                        ]}
-                    >
-                        <Input defaultValue={device.name} />
+                        ]}>
+                        <Input placeholder='给子设备起个名字' />
                     </Form.Item>
                     <Form.Item
                         name="description"
-                        label="设备描述"
-                    >
+                        label="设备描述">
                         <TextArea rows={4}
-                            defaultValue={device.description} />
+                            placeholder='请输入你的设备描述' />
                     </Form.Item>
                     <Form.Item
-                        name="slaveNo"
                         label="从站slave"
+                        name='slaveNo'
                         rules={[
                             {
-                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                                required: true,
+                                pattern: regExp.num,
                                 message: '填写从站编号,必须为整数!',
                             },
-                        ]}
-                    >
-                        <Input defaultValue={device.slaveNo} />
+                        ]}>
+                        <InputNumber placeholder='从站编号' />
                     </Form.Item>
                     <Form.Item
                         name="connectionMode"
                         label="选择模式"
                         rules={[
                             {
+                                required: true,
                                 message: '选择模式!',
                             },
-                        ]}
-                    >
-                        <Select defaultValue={device.connectionMode} onChange={(value) => {
-                            setItems((value === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
+                        ]}>
+                        <Select placeholder='请选择模式' onChange={(value) => {
+                            setItems((value === 'TCP') ? TcpA : RtuA)
                         }}>
                             <Option value="TCP">TCP</Option>
                             <Option value="RTU">RTU</Option>
                             <Option value="MIPS">选项3</Option>
+
                         </Select>
                     </Form.Item>
                     {items}
@@ -107,4 +112,4 @@ const DeviceEditForm = (props) => {
     );
 };
 
-export default DeviceEditForm 
+export default DeviceAddForm 

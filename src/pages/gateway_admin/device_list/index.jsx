@@ -65,17 +65,12 @@ export default (props) => {
                     rowSelection={rowSelection}
                     toolBarRender={(action, { selectedRows }) => [
                         <Button key="button1" type="primary">
-                            <Link to={{ pathname: 'device_add', query: props.location.query }} >
-                                <PlusOutlined />
-                                新建
-                            </Link>
+                            <Link to={{ pathname: 'device_add', query: props.location.query }} ><PlusOutlined />新建</Link>
                         </Button>,
                         <Button key="button2" type="primary" danger onClick={async () => {
                             await handleRemove(selectedRows)
                             action.reload()
-                        }}>
-                            删除
-                                </Button>,
+                        }}>删除</Button>,
                     ]}
                     columns={columns}
                     dataSource={data}

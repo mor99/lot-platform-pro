@@ -1,6 +1,5 @@
 export default {
   'menu.welcome': '欢迎',
-  
   'menu.console':'控制台',
   'menu.console.userdata':'用户数据',
   'menu.console.device-state':'设备状态',
@@ -28,10 +27,9 @@ export default {
   'menu.gateway-control.order':'下发命令',
   'menu.gateway-control.history':'历史记录',
 
-  'menu.device-admin':'设备管理',
-  'menu.device-admin.device-list':'设备列表',
-  'menu.device-admin.device-add':'添加子设备',
-  'menu.device-admin.device-edit':'更新设备',
+  'menu.gateway-admin.device-list':'设备列表',
+  'menu.gateway-admin.device-add':'添加子设备',
+  'menu.gateway-admin.device-edit':'更新设备',
 
   'menu.attribute-list':'属性列表',
 

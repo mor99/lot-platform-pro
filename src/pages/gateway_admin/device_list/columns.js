@@ -8,7 +8,7 @@ export const columns = [
         key: 'name',
         width: 160,
         render: (text, row) => <Link to={{
-            pathname: '/device_admin/device_edit',
+            pathname: '/gateway_admin/device_edit',
             query: {
                 device: row,
                 gatewayId: history.location.query.gatewayId

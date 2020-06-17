@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, history } from 'umi'
-import { Divider,Button } from 'antd'
+import { Divider, Button } from 'antd'
+import { deleteAttribute } from './service'
 
 export const columns = [
     {

@@ -23,3 +23,8 @@ export async function deleteDevice(gatewayId, data) {
     return request.delete(`/api/gateway/${gatewayId}/device`,
         { data: JSON.stringify(data) })
 }
+
+// 获取模型列表
+export async function getModel() {
+    return request.get('/api/model')
+}

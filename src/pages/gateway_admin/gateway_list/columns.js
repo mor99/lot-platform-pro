@@ -73,7 +73,7 @@ export const columns = [
         width: 250,
         render: (text, row) => [
             <Link to={{
-                pathname: '/device_admin/device_list',
+                pathname: '/gateway_admin/device_list',
                 query: { gatewayId: row.id }
             }}>
                 子设备管理

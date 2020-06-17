@@ -2,6 +2,7 @@ import React from 'react';
 import { Form, Input, Select, Space, Button, Radio, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
+import { regExp } from '@/utils/numAndRegexp'
 import { editGateway } from './service'
 import styles from './index.less'
 
@@ -130,7 +131,7 @@ const GatewayEditForm = () => {
                             {
                                 required: false,
                                 message: '输入整数!',
-                                pattern: new RegExp(/^[1-9]\d*$/, "g"),
+                                pattern: regExp.num,
                                 whitespace: true
                             },
                         ]}

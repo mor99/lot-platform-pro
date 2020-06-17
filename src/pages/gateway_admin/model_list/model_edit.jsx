@@ -23,7 +23,7 @@ const tailFormItemLayout = {
         },
     },
 };
- 
+
 export default () => {
     const [form] = Form.useForm();
     const { model } = history.location.query;
@@ -51,6 +51,7 @@ export default () => {
                 <Form
                     {...formItemLayout}
                     form={form}
+                    initialValues={model}
                     name="device_edit"
                     onFinish={onFinish}
                     scrollToFirstError
@@ -58,9 +59,7 @@ export default () => {
                     <Form.Item
                         name="name"
                         label={
-                            <span>
-                                模型名称&nbsp;
-                            </span>
+                            <span>模型名称&nbsp;</span>
                         }
                         rules={[
                             {
@@ -69,19 +68,17 @@ export default () => {
                             },
                         ]}
                     >
-                        <Input defaultValue={model.name} />
-                    </Form.Item>
-                    <Form.Item
-                        name="description"
-                        label="模型描述"
-                    >
-                        <TextArea rows={4}
-                            defaultValue={model.description} />
-                        <span />
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
-                        name="protocol"
+                        name="description"
+                        label="模型描述">
+                        <TextArea rows={4} />
+                    </Form.Item>
+
+                    <Form.Item
+                        name="connectionMode"
                         label="通信协议"
                         rules={[
                             {
@@ -89,7 +86,7 @@ export default () => {
                             },
                         ]}
                     >
-                        <Select defaultValue={model.protocol} >
+                        <Select>
                             <Option value="TCP">TCP</Option>
                             <Option value="RTU">RTU</Option>
                             <Option value="NEMA">NEMA</Option>

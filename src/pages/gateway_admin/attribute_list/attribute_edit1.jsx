@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form, Input, Select, Radio, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import { num10to16, regExp } from '@/utils/numAndRegexp'
+import { regExp } from '@/utils/numAndRegexp'
 import { editAttribute } from './service'
 import { formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
@@ -11,19 +11,14 @@ const { Option } = Select;
 
 const AttributeEdit = (props) => {
     const [form] = Form.useForm();
-    const { modelId, property} = props.location.query;
-    const [codeState, setCode] = useState()
-
-    console.log(props.location)
-
+    const { modelId, property } = props.location.query;
     // 修改属性
     const onFinish = async (values) => {
-        const {name,dataAddr,functionCode,acquireInterval,...dataConfig} = values;
-        const value = {name,dataAddr,functionCode,acquireInterval,dataConfig,uploadCondition:{a:1}}
+        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
+        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
         const hide = message.loading('正在修改');
         try {
-            console.log(value)
-            await editAttribute(modelId, property.id, value )
+            await editAttribute(modelId, property.id, value)
             hide();
             message.success('修改成功')
             history.goBack()
@@ -34,7 +29,6 @@ const AttributeEdit = (props) => {
             message.error('修改失败！请重试!');
             return false;
         }
-
     };
 
     return (
@@ -43,7 +37,7 @@ const AttributeEdit = (props) => {
                 <Form
                     {...formItemLayout}
                     form={form}
-                    initialValues = {property}
+                    initialValues={property}
                     name="attribute_edit"
                     onFinish={onFinish}
                     scrollToFirstError>
@@ -61,49 +55,44 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Input defaultValue={property.name} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         name="dataAddr"
                         label="地址"
                         rules={[{
-                                pattern: regExp.four16,
-                                require: true,
-                                message: '必须为0x开头的4位十六进制数!'
-                            }]}
+                            pattern: regExp.four16,
+                            require: true,
+                            message: '必须为0x开头的4位十六进制数!'
+                        }]}
                     >
-                        <Input defaultValue={num10to16(property.dataAddr, 4)} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"
                         label="采集间隔"
                         rules={[
                             {
+                                pattern: regExp.num,
                                 message: '请输入采集间隔,必须为数字!',
                             },
                         ]}
                     >
-                        <Input type='number' defaultValue={property.acquireInterval} />
+                        <Input type='number' />
                     </Form.Item>
 
                     <Form.Item
                         label="属性类型"
                         name="functionCode">
-                        <Radio.Group
-                            onChange={e => {
-                                setCode(e.target.value);
-                                console.log(codeState)
-                            }}
-                            defaultValue={property.functionCode}
-                            value={codeState}>
-                            {([3, 4, 5].indexOf(property.functionCode)) ?
+                        <Radio.Group>
+                            {(property.functionCode) === 4 ?
                                 <span>
-                                    <Radio value='04'>读</Radio>
+                                    <Radio value={4}>读</Radio>
                                     <Radio value='99' disabled>写</Radio>
                                 </span> :
                                 <span>
-                                    <Radio value='03'>读</Radio>
-                                    <Radio value='06'>写</Radio></span>}
+                                    <Radio value={3}>读</Radio>
+                                    <Radio value={6}>写</Radio></span>}
                         </Radio.Group>
                     </Form.Item>
 
@@ -119,11 +108,11 @@ const AttributeEdit = (props) => {
                         <Form.Item name='upperLimit'
                             rules={[{
                                 require: true,
-                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                pattern: regExp.num,
                                 message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input style={{ width: 120, textAlign: 'center' }} defaultValue={property.upperLimit} />
+                            <Input style={{ width: 120, textAlign: 'center' }} />
                         </Form.Item>
                         <Form.Item noStyle>
                             <Input
@@ -140,7 +129,7 @@ const AttributeEdit = (props) => {
                         </Form.Item>
                         <Form.Item name='lowerLimit'
                             rules={[{
-                                pattern: new RegExp(/^[0-9]\d*$/, "g"),
+                                pattern: regExp.num,
                                 require: true,
                                 message: '请输入一个数字!'
                             }]}
@@ -150,8 +139,7 @@ const AttributeEdit = (props) => {
                                 style={{
                                     width: 120,
                                     textAlign: 'center',
-                                }}
-                                defaultValue={property.lowerLimit} />
+                                }} />
                         </Form.Item>
                     </Form.Item>
 
@@ -164,7 +152,7 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Select defaultValue={property.dataType}  >
+                        <Select>
                             <Option value="int">整形</Option>
                             <Option value="float">浮点型</Option>
                         </Select>
@@ -179,7 +167,7 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Select defaultValue={property.dataLength} >
+                        <Select>
                             <Option value="8">8</Option>
                             <Option value="16">16</Option>
                             <Option value="32">32</Option>
@@ -196,7 +184,7 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Input defaultValue={property.dataUnit} />
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         label="计算公式"
@@ -208,7 +196,7 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Input defaultValue={property.dataFormula} />
+                        <Input />
                     </Form.Item>
 
                     <Form.Item
@@ -219,7 +207,7 @@ const AttributeEdit = (props) => {
                                 message: '请选择类型!',
                             },
                         ]}>
-                        <Radio.Group buttonStyle="solid" defaultValue={0} onChange={() => { }}>
+                        <Radio.Group buttonStyle="solid" onChange={() => { }}>
                             <Radio.Button value={0} >上报即上传</Radio.Button>
                             <Radio.Button value={1}>自定条件</Radio.Button>
                             <Radio.Button value={2}>定时上传</Radio.Button>

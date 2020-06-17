@@ -117,11 +117,11 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-        const {name,dataAddr,functionCode,acquireInterval,...dataConfig} = values;
-        const value = {name,dataAddr,functionCode,acquireInterval,dataConfig,uploadCondition:{a:1}}
+        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
+        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
         const hide = message.loading('正在添加');
         try {
-            await addAttribute(modelId,  value )
+            await addAttribute(modelId, value)
             message.success('添加成功')
             history.goBack()
             return true
@@ -140,7 +140,7 @@ const AddAttribute = () => {
                 <Form
                     {...formItemLayout}
                     form={form}
-                    initialValues={{ functionCode: radio === "a" ? '04' : '03' }}
+                    initialValues={{ functionCode: radio === "a" ? 4 : 3 }}
                     name="attribute_add"
                     onFinish={onFinish}
                     scrollToFirstError
@@ -169,12 +169,12 @@ const AddAttribute = () => {
                             {
                                 required: true,
                                 message: '必须为0x开头的4位十六进制数',
-                                pattern:regExp.four16,
+                                pattern: regExp.four16,
                                 whitespace: true,
                             },
                         ]}
                     >
-                        <Input placeholder='请输入地址'/>
+                        <Input placeholder='请输入地址' />
                     </Form.Item>
                     <Form.Item
                         name="acquireInterval"
@@ -195,18 +195,16 @@ const AddAttribute = () => {
                         <Radio.Group
                             onChange={e => {
                                 setCode(e.target.value);
-                                console.log(codeState)
                             }}
-                            defaultValue={radio === "a" ? '04' : '03'}
                             value={codeState}>
                             {(radio === "a") ?
                                 <span>
-                                    <Radio value='04'>读</Radio>
+                                    <Radio value={4}>读</Radio>
                                     <Radio value='99' disabled>写</Radio>
                                 </span> :
                                 <span>
-                                    <Radio value='03'>读</Radio>
-                                    <Radio value='06'>写</Radio></span>}
+                                    <Radio value={3}>读</Radio>
+                                    <Radio value={6}>写</Radio></span>}
                         </Radio.Group>
                     </Form.Item>
 
@@ -222,11 +220,11 @@ const AddAttribute = () => {
                         <Form.Item name='upperLimit'
                             rules={[{
                                 require: true,
-                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                pattern: regExp.num,
                                 message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input className={styles.input}  placeholder="输入量程上限" />
+                            <Input className={styles.input} placeholder="输入量程上限" />
                         </Form.Item>
                         <Input
                             className={styles.input1}
@@ -237,11 +235,11 @@ const AddAttribute = () => {
                         <Form.Item name='lowerLimit'
                             rules={[{
                                 require: true,
-                                pattern:new RegExp(/^[0-9]\d*$/, "g"),
+                                pattern: regExp.num,
                                 message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input className={styles.input} placeholder="输入量程下限"/>
+                            <Input className={styles.input} placeholder="输入量程下限" />
                         </Form.Item>
                     </Form.Item>
 

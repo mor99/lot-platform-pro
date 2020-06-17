@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Input, Space, Button, Radio, Col, Row, message, InputNumber } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
-import {regExp} from '@/utils/numAndRegexp'
+import { regExp } from '@/utils/numAndRegexp'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { addAttribute } from './service'
 import styles from './index.less'
@@ -117,11 +117,12 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-       const {name,dataAddr,functionCode,acquireInterval,...dataConfig} = values;
-       const value = {name,dataAddr,functionCode,acquireInterval,dataConfig,uploadCondition:{a:1}}
+        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
+        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
+        console.log(value)
         const hide = message.loading('正在添加');
         try {
-            await addAttribute(modelId,value)
+            await addAttribute(modelId, value)
             message.success('添加成功')
             history.goBack()
             return true
@@ -140,7 +141,7 @@ const AddAttribute = () => {
                 <Form
                     {...formItemLayout}
                     form={form}
-                    initialValues={{ functionCode: radio === "c" ? '01' : '02' }}
+                    initialValues={{ functionCode: radio === "c" ? 1 : 2 }}
                     name="attribute_add"
                     onFinish={onFinish}
                     scrollToFirstError
@@ -169,7 +170,7 @@ const AddAttribute = () => {
                             {
                                 required: true,
                                 message: '必须为0x开头的4位十六进制数',
-                                pattern:regExp.four16,
+                                pattern: regExp.four16,
                                 whitespace: true,
                             },
                         ]}
@@ -196,15 +197,14 @@ const AddAttribute = () => {
                             onChange={e => {
                                 setCode(e.target.value);
                             }}
-                            defaultValue={radio === "c" ? '01' : '02'}
                             value={codeState}>
                             {(radio === "c") ?
                                 <span>
-                                    <Radio value='01'>读</Radio>
-                                    <Radio value='06'>写</Radio></span>
+                                    <Radio value={1}>读</Radio>
+                                    <Radio value={6}>写</Radio></span>
                                 :
                                 <span>
-                                    <Radio value='02'>读</Radio>
+                                    <Radio value={2}>读</Radio>
                                     <Radio value='99' disabled>写</Radio>
                                 </span>
                             }
@@ -218,11 +218,11 @@ const AddAttribute = () => {
                             {
                                 required: true,
                                 message: '必须为0-7之间的整数!',
-                                pattern: new RegExp(/^[0-7]\d*$/, "g"),
+                                pattern: regExp.num0to7
                             },
                         ]}
                     >
-                        <Input placeholder='请输入0-7之间的数字' type='number'/>
+                        <Input placeholder='请输入0-7之间的数字' type='number' />
                     </Form.Item>
 
                     <Form.Item

@@ -1,9 +1,4 @@
 import request from '@/utils/request';
-import axios from 'axios'
-
-const instance = axios.create({
-  headers: { 'Content-Type': 'application/json' }
-});
 
 export async function queryRule(params) {
   return request('/api/rule', {
@@ -39,17 +34,17 @@ export async function getGateway() {
 
 // 添加网关
 export async function addGateway(params) {
-  return request.post(`/api/gateway`, {data:JSON.stringify(params)})
+  return request.post(`/api/gateway`, { data: JSON.stringify(params) })
 }
 // 编辑网关
 export async function editGateway(id, params) {
   return request.put(`/api/gateway/${id}`,
-    {data:JSON.stringify(params)}
+    { data: JSON.stringify(params) }
   )
 }
 
 // 删除多个网关
 export async function deleteGateway(params) {
   return request.delete('/api/gateway',
-    { data: JSON.stringify({gatewayList:params.idList}) })
+    { data: JSON.stringify({ gatewayList: params.idList }) })
 } 
