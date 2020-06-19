@@ -70,7 +70,7 @@ const NoticeList = ({
             </List.Item>
           );
         }}
-      />
+      /><span>123</span>
       <div className={styles.bottomBar}>
         {showClear ? (
           <div onClick={onClear}>

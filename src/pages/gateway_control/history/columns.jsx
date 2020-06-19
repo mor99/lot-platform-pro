@@ -7,7 +7,7 @@ export const columns = [
         hideInSearch: true,
         sorter: (a, b) => a.time - b.time,
         /* render: text => <a>{text}</a>, */
-    },
+    }, 
     {
         title: '描述',
         dataIndex: 'description',

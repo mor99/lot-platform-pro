@@ -2,6 +2,7 @@ import React from 'react';
 import {history} from 'umi'
 import { Form, Input, Row, Col, Checkbox, Button, message, } from 'antd';
 import axios from 'axios'
+import { regExp } from '@/utils/numAndRegexp';
 
 const formItemLayout = {
   labelCol: { span: 10 },
@@ -57,7 +58,8 @@ const RegistrationForm = () => {
         rules={[
           {
             required: true,
-            message: '请输入你的用户名!',
+            pattern:regExp.userRule,
+            message: '用户名只能包括数字,字母和下划线!',
             whitespace: true,
           },
         ]}

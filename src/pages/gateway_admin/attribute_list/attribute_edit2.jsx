@@ -103,7 +103,7 @@ const AttributeEdit = (props) => {
                         rules={[
                             {
                                 message: '必须为0-7之间的整数!',
-                                pattern: regExp.num0to7,
+                                pattern: regExp.datalengthRule,
                             },
                         ]}
                     >

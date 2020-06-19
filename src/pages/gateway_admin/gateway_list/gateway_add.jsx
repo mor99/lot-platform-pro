@@ -67,7 +67,8 @@ const GatewayAddForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: '请输入网关名称',
+                                message: '网关名只能包括数字,字母和下划线!',
+                                pattern:regExp.gatewayRule,
                                 whitespace: true,
                             },
                         ]}

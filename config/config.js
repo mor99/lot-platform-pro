@@ -25,14 +25,17 @@ export default defineConfig({
   // umi routes: https://umijs.org/docs/routing
   routes: [
     {
+      // 用户
       path: '/user',
       component: '../layouts/UserLayout',
       routes: [
+        // 登录
         {
           name: 'login',
           path: '/user/login',
           component: './user/login',
         },
+        // 注册
         {
           name: 'register',
           path: '/user/register',
@@ -56,7 +59,7 @@ export default defineConfig({
             // 控制台
             {
               name: 'console',
-              icon: 'table',
+              icon: 'BarChartOutlined',
               path: '/console',
               routes: [
                 // 用户数据
@@ -76,7 +79,7 @@ export default defineConfig({
             // 网关管理
             {
               name: 'gateway-admin',
-              icon: 'table',
+              icon: 'Gateway',
               path: '/gateway_admin',
               routes: [
                 // 网关列表
@@ -193,7 +196,7 @@ export default defineConfig({
             // 数据监控
             {
               name: 'data-monitoring',
-              icon: 'table',
+              icon: 'FundProjectionScreen',
               path: '/data_monitoring',
               routes: [
                 // 实时监控
@@ -213,7 +216,7 @@ export default defineConfig({
             // 网关控制
             {
               name: 'gateway-control',
-              icon: 'table',
+              icon: 'VerticalLeftOutlined',
               path: '/gateway_control',
               routes: [
                 // 下发命令

@@ -10,9 +10,6 @@ import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
 
 const Gateway = (props) => {
-    console.log(localStorage.getItem("mytoken"))
-    const { userLogin = {} } = props
-    console.log(userLogin)
     const ref = useRef();
     const [data, setData] = useState();
     const [visible, setVisible] = useState(false)

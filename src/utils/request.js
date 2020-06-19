@@ -82,8 +82,8 @@ request.interceptors.request.use(async (url, options) => {
     };
     return (
       {
-        url: url,
-        options: { ...options },
+        url: '/user/login',
+        options: { ...options ,headers :headers },
       }
     );
   }
@@ -91,11 +91,11 @@ request.interceptors.request.use(async (url, options) => {
 })
 
 // response拦截器, 处理response
-request.interceptors.response.use((response, options) => {
+/* request.interceptors.response.use((response, options) => {
   const token = response.headers.get("accessToken");
   if (token) {
     localStorage.setItem("accessToken", token);
   }
   return response;
-});
+}); */
 export default request;

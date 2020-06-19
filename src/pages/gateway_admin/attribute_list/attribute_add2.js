@@ -218,11 +218,11 @@ const AddAttribute = () => {
                             {
                                 required: true,
                                 message: '必须为0-7之间的整数!',
-                                pattern: regExp.num0to7
+                                pattern: regExp.datalengthRule
                             },
                         ]}
                     >
-                        <Input placeholder='请输入0-7之间的数字' type='number' />
+                        <Input placeholder='请输入0-7之间的数字' type='number'/>
                     </Form.Item>
 
                     <Form.Item
