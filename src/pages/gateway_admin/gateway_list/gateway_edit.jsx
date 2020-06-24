@@ -27,6 +27,7 @@ const tailFormItemLayout = {
 const GatewayEditForm = () => {
     const [form] = Form.useForm();
     const { gateway } = history.location.query;
+    console.log(gateway)
     // 添加数据
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
@@ -50,8 +51,9 @@ const GatewayEditForm = () => {
             <div className={styles.div1}>
                 <Form
                     {...formItemLayout}
+                    initialValues={gateway}
                     form={form}
-                    name="gateway_add"
+                    name="gateway_edit"
                     onFinish={onFinish}
                     scrollToFirstError
                 >
@@ -69,15 +71,14 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Input defaultValue={gateway.name} />
+                        <Input/>
                     </Form.Item>
 
                     <Form.Item
                         name="description"
                         label="网关描述"
                     >
-                        <TextArea rows={4}
-                            defaultValue={gateway.description} />
+                        <TextArea rows={4} maxLength={128}/>
                     </Form.Item>
 
                     <Form.Item
@@ -90,9 +91,9 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Select defaultValue={gateway.coreModule} >
+                        <Select>
                             <Option value="ARM">ARM</Option>
-                            <Option value="MIPS">MIPS</Option>
+                            <Option value="MIPS" disabled>MIPS</Option>
                         </Select>
                     </Form.Item>
 
@@ -107,18 +108,18 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Select defaultValue={gateway.protocol} >
+                        <Select>
                             <Option value="MQTT">MQTT</Option>
-                            <Option value="COAP">COAP</Option>
-                            <Option value="HTTP">HTTP</Option>
+                            <Option value="COAP" disabled>COAP</Option>
+                            <Option value="HTTP" disabled>HTTP</Option>
                         </Select>
                     </Form.Item>
 
 
                     <Form.Item
-                        label='是否启用加密通信'
+                        label='通信方式'
                         name='isEncrypted'>
-                        <Radio.Group defaultValue={gateway.isEncrypted}>
+                        <Radio.Group>
                             <Radio value>加密</Radio>
                             <Radio value={false}>不加密</Radio>
                         </Radio.Group>
@@ -136,7 +137,7 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <InputNumber defaultValue={gateway.dataPlan} />
+                        <Input style={{width:'30%'}} addonAfter="MB"  />
                         <p />
                     </Form.Item>
 

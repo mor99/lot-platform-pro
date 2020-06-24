@@ -1,8 +1,25 @@
-import React from 'react'
+import React ,{useState} from 'react'
 import { Link, history } from 'umi'
+import {Popconfirm,message} from 'antd'
+import { PropertySafetyFilled } from '@ant-design/icons'
 
-export const columns = [
-    {
+  function confirm(e) {
+      setBan('启用')
+    message.error('禁用成功!');
+  }
+  function cancel(e) {
+    console.log(e);
+    message.success('启用成功');
+  }
+export const columns = (gatewayId,isban,setBan) => {
+    function confirm(e) {
+      message.error('禁用成功!');
+    }
+    function cancel(e) {
+      console.log(e);
+      message.success('启用成功');
+    }
+    return [{
         title: '子设备ID',
         dataIndex: 'name',
         key: 'name',
@@ -44,8 +61,8 @@ export const columns = [
     },
     {
         title: '绑定模型',
-        dataIndex: 'commConfig',
-        key: 'commConfig',
+        dataIndex: 'bindingModel',
+        key: 'bindingModel',
         width: 230
     },
     {
@@ -56,12 +73,12 @@ export const columns = [
         render: (text, row) => [
             <Link to={{
                 pathname: '/gateway_admin/model_bind',
-                query: {}
+                query: { deviceId: row.id, gatewayId: gatewayId }
             }}>
                 绑定模型
             </Link>,
             <Link to={{
-                pathname: '/device_admin/device_edit',
+                pathname: '/gateway_admin/device_edit',
                 query: {
                     device: row,
                     gatewayId: history.location.query.gatewayId
@@ -69,12 +86,15 @@ export const columns = [
             }}>
                 修改
             </Link>,
-            <Link to={{
-                pathname: '#',
-                query: {}
-            }}>
-                禁用
-            </Link>,
+/*             <Popconfirm
+                title="确定禁用设备?"
+                onConfirm={confirm}
+                onCancel={cancel}
+                okText="是"
+                cancelText="否"
+            >
+                <Link>{isban}</Link>
+            </Popconfirm>, */
             <Link to={{
                 pathname: '#',
                 query: {}
@@ -83,4 +103,4 @@ export const columns = [
             </Link>,
         ],
     }
-]
+]}

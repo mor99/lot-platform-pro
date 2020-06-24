@@ -7,27 +7,7 @@ import { GithubOutlined } from '@ant-design/icons';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
-/* links={[
-  {
-    key: 'Ant Design Pro',
-    title: 'Ant Design Pro',
-    href: 'https://pro.ant.design',
-    blankTarget: true,
-  },
-  {
-    key: 'github',
-    title: <GithubOutlined />,
-    href: 'https://github.com/ant-design/ant-design-pro',
-    blankTarget: true,
-  },
-  {
-    key: 'Ant Design',
-    title: 'Ant Design',
-    href: 'https://ant.design',
-    blankTarget: true,
-  },
-]} */
-const UserLayout = props => {
+const UserLayout = (props) => {
   const {
     route = {
       routes: [],
@@ -40,11 +20,10 @@ const UserLayout = props => {
       pathname: '',
     },
   } = props;
-  const { formatMessage } = useIntl();
+  const {} = useIntl();
   const { breadcrumb } = getMenuData(routes);
   const title = getPageTitle({
     pathname: location.pathname,
-    formatMessage,
     breadcrumb,
     ...props,
   });
@@ -67,13 +46,13 @@ const UserLayout = props => {
                 <span className={styles.title}>物联网平台</span>
               </Link>
             </div>
-            <div className={styles.desc}>基于Ant Design的物联网平台</div>
+            <div className={styles.desc}>物联网设备全周期管理</div>
           </div>
           {children}
         </div>
-        <DefaultFooter 
-            copyright="2020 宁夏计算机技术与软件服务有限公司"
-        />
+        <DefaultFooter
+          links = {[]}
+          copyright="2020 宁夏计算机技术与软件服务有限公司"/>
       </div>
     </HelmetProvider>
   );

@@ -158,6 +158,10 @@ const AddAttribute = () => {
                                 message: '请输入属性名称',
                                 whitespace: true,
                             },
+                            {
+                                pattern:regExp.gatewayRule,
+                                message:'请输入数字,字母和下划线'
+                            }
                         ]}
                     >
                         <Input placeholder='给属性起个名字' />
@@ -294,7 +298,6 @@ const AddAttribute = () => {
                         name='dataFormula'
                         rules={[
                             {
-                                required: true,
                                 message: '请输入计算公式',
                                 whitespace: true,
                             },

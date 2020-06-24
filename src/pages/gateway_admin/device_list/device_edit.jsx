@@ -56,6 +56,10 @@ const DeviceEditForm = (props) => {
                                 message: '请输入设备名称',
                                 whitespace: true,
                             },
+                            {
+                                pattern:regExp.gatewayRule,
+                                message:'请输入数字字母和下划线'
+                            }
                         ]}
                     >
                         <Input />

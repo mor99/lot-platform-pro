@@ -34,7 +34,7 @@ const GatewayAddForm = () => {
             await addGateway(values)
                 .then((res) => {
                     hide();
-                    const gatewayInfo = { ...res.gatewayInfo }
+                    const gatewayInfo = { ...res }
                     history.push({ pathname: 'gateway_list', query: { gatewayInfo, visible: true } })
                 })
             return true
@@ -67,7 +67,7 @@ const GatewayAddForm = () => {
                         rules={[
                             {
                                 required: true,
-                                message: '网关名只能包括数字,字母和下划线!',
+                                message: '请输入数字,字母和下划线!',
                                 pattern:regExp.gatewayRule,
                                 whitespace: true,
                             },
@@ -80,6 +80,7 @@ const GatewayAddForm = () => {
                         label="网关描述"
                     >
                         <TextArea rows={4}
+                            maxLength={128}
                             placeholder='请输入你的网关描述' />
                     </Form.Item>
                     <Form.Item
@@ -94,7 +95,7 @@ const GatewayAddForm = () => {
                     >
                         <Select placeholder='请选择核心模块' >
                             <Option value="ARM">ARM</Option>
-                            <Option value="MIPS">MIPS</Option>
+                            <Option value="MIPS" disabled='true'>MIPS</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item
@@ -108,13 +109,13 @@ const GatewayAddForm = () => {
                         ]}
                     >
                         <Select placeholder='请选择通信协议' >
-                            <Option value="MQTT">MQTT</Option>
-                            <Option value="COAP">COAP</Option>
-                            <Option value="HTTP">HTTP</Option>
+                            <Option value="MQTT" >MQTT</Option>
+                            <Option value="COAP" disabled>COAP</Option>
+                            <Option value="HTTP" disabled>HTTP</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item
-                        label='是否启用加密通信'
+                        label='通信方式'
                         name='isEncrypted'>
                         <Radio.Group >
                             <Radio value>加密</Radio>
@@ -122,7 +123,7 @@ const GatewayAddForm = () => {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item
-                        label="流量限额(MB)"
+                        label="流量限额"
                         name='dataPlan'
                         rules={[
                             {
@@ -133,7 +134,7 @@ const GatewayAddForm = () => {
                             },
                         ]}
                     >
-                        <InputNumber />
+                        <Input style={{width:'30%'}} addonAfter="MB"/>
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={10}>

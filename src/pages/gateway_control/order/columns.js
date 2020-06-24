@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'umi'
 
 export const columns = [
     {
@@ -26,6 +27,7 @@ export const columns = [
     {
         title: '状态',
         dataIndex: 'state',
+        filters: {},
         valueEnum: {
             run: {
                 text: '运行中',
@@ -50,7 +52,7 @@ export const columns = [
     {
         title: '操作',
         valueType: 'option',
-        renderText: () => <a href='#'>下发控制命令</a>
+        renderText: () => <Link to='control'>下发控制命令</Link>
 
     }
 ]

@@ -1,5 +1,5 @@
 export default {
-  'consoleanduserdata.analysis.test': '工专路 {no} 号店',
+  'consoleanduserdata.analysis.test': '工专路 1 号店',
   'consoleanduserdata.analysis.introduce': '指标说明',
   'consoleanduserdata.analysis.total-sales': '总销售额',
   'consoleanduserdata.analysis.day-sales': '日销售额',

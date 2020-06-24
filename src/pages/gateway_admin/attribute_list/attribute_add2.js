@@ -159,6 +159,10 @@ const AddAttribute = () => {
                                 message: '请输入属性名称',
                                 whitespace: true,
                             },
+                            {
+                                pattern:regExp.gatewayRule,
+                                message:'请输入数字,字母和下划线'
+                            }
                         ]}
                     >
                         <Input placeholder='给属性起个名字' />

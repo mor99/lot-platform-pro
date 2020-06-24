@@ -33,7 +33,13 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         }
         loading={loading}
         total={() => 50}
-        footer={<Field label="" value='123'/* {`￥${numeral(12423).format('0,0')}`} */ />}
+        footer={
+          <Field
+            label=""
+            value="123"
+            /* {`￥${numeral(12423).format('0,0')}`} */
+          />
+        }
         contentHeight={46}
       >
         <Trend

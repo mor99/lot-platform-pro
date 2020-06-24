@@ -56,6 +56,10 @@ const DeviceAddForm = (props) => {
                                 message: '请输入子设备名称',
                                 whitespace: true,
                             },
+                            {
+                                pattern:regExp.gatewayRule,
+                                message:'请输入数字,字母和下划线'
+                            }
                         ]}>
                         <Input placeholder='给子设备起个名字' />
                     </Form.Item>

@@ -19,3 +19,8 @@ export async function editModel(id, parms) {
 export async function deleteModel(id) {
     return request.delete(`/api/model/${id}`)
 }
+
+// 绑定模型
+export async function bindModel(gatewayID,deviceID) {
+    return request.put(`/api/gateway/${gatewayID}/device/${deviceID}`)
+}

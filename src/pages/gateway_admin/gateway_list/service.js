@@ -48,3 +48,13 @@ export async function deleteGateway(params) {
   return request.delete('/api/gateway',
     { data: JSON.stringify({ gatewayList: params.idList }) })
 } 
+
+// 重置密码
+export async function alterpassword(gatewayId) {
+  return request.post(`/api/gateway/${gatewayId}/password`)
+} 
+
+// 配置下发
+export async function publishConfig(gatewayId){
+  return request.post(`/api/gateway/${gatewayId}/publishConfig`)
+}

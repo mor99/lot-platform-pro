@@ -1,6 +1,5 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { Card, Col, Row, Table, Tooltip } from 'antd';
-import { FormattedMessage } from 'umi';
 import React from 'react';
 import numeral from 'numeral';
 import { SearchDataType, VisitDataType } from '../data.d';
@@ -11,7 +10,7 @@ import styles from '../style.less';
 
 const columns = [
   {
-    title: 'Rank',
+    title: 'Rank2',
     dataIndex: 'index',
     key: 'index',
   },
@@ -143,7 +142,7 @@ const TopSearch = ({
       </Col>
     </Row>
     <Table<any>
-      rowKey={record => record.index}
+      rowKey={(record) => record.index}
       size="small"
       columns={columns}
       dataSource={searchData}

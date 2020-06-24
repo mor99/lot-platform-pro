@@ -1,5 +1,4 @@
-import { AlipayCircleOutlined, TaobaoCircleOutlined, WeiboCircleOutlined } from '@ant-design/icons';
-import { Alert, Checkbox } from 'antd';
+import { Alert } from 'antd';
 import React, { useState } from 'react';
 import { Link, connect } from 'umi';
 import LoginFrom from './components/Login';
@@ -21,7 +20,6 @@ const LoginMessage = ({ content }) => (
 const Login = props => {
   const { userLogin = {}, submitting } = props;
   const { status, type: loginType } = userLogin;
-  const [autoLogin, setAutoLogin] = useState(true);
   const [type, setType] = useState('account');
 
   const handleSubmit = values => {
@@ -42,7 +40,7 @@ const Login = props => {
 
           <UserName
             name="username"
-            placeholder="用户名: user"
+            placeholder="请输入用户名"
             rules={[
               {
                 required: true,
@@ -52,7 +50,7 @@ const Login = props => {
           />
           <Password
             name="password"
-            placeholder="密码: 123456"
+            placeholder="请输入密码"
             rules={[
               {
                 required: true,
@@ -94,9 +92,9 @@ const Login = props => {
           />
         </Tab>
         <div>
-          <Checkbox checked={autoLogin} onChange={e => setAutoLogin(e.target.checked)}>
-            自动登录
-          </Checkbox>
+          <Link className={styles.register} to="/user/register">
+            注册账户
+          </Link>
           <a
             style={{
               float: 'right',
@@ -106,15 +104,6 @@ const Login = props => {
           </a>
         </div>
         <Submit loading={submitting}>登录</Submit>
-        <div className={styles.other}>
-          其他登录方式
-          <AlipayCircleOutlined className={styles.icon} />
-          <TaobaoCircleOutlined className={styles.icon} />
-          <WeiboCircleOutlined className={styles.icon} />
-          <Link className={styles.register} to="/user/register">
-            注册账户
-          </Link>
-        </div>
       </LoginFrom>
     </div>
   );

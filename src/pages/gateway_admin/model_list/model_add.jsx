@@ -32,7 +32,7 @@ const ModelAdd = () => {
         try {
             hide()
             await addModel(values)
-            message.loading('添加成功!!!')
+            message.success('添加成功!!!')
             history.push({ pathname: 'model_list', query: {} })
             return true
         }

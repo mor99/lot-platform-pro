@@ -5,7 +5,7 @@
  */
 import ProLayout, { DefaultFooter } from '@ant-design/pro-layout';
 import React, { useEffect } from 'react';
-import { Link, useIntl, connect } from 'umi';
+import { Link,  connect } from 'umi';
 import { GithubOutlined } from '@ant-design/icons';
 import { Result, Button } from 'antd';
 import Authorized from '@/utils/Authorized';
@@ -25,43 +25,42 @@ const noMatch = (
     }
   />
 );
-
 /**
  * use Authorized check all menu item
  */
-const menuDataRender = menuList =>
-  menuList.map(item => {
+
+const menuDataRender = (menuList) =>
+  menuList.map((item) => {
     const localItem = { ...item, children: item.children ? menuDataRender(item.children) : [] };
     return Authorized.check(item.authority, localItem, null);
   });
 
+  // 合作链接
 /*   links={[
     {
-      key: 'Ant Design Pro1',
-      title: 'Ant Design Pro',
-      href: 'https://pro.ant.design',
+      key: 'baidu',
+      title: '百度',
+      href: 'https://baidu.com',
       blankTarget: true,
     },
     {
       key: 'github',
       title: <GithubOutlined />,
-      href: 'https://github.com/ant-design/ant-design-pro',
+      href: 'https://github.com/mor99/lot-platform-pro',
       blankTarget: true,
     },
     {
-      key: 'Ant Design',
-      title: 'Ant Design',
-      href: 'https://ant.design',
+      key: 'biying',
+      title: '必应',
+      href: 'https://cn.bing.com',
       blankTarget: true,
-    },
+    }
   ]} */
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright="2020 宁夏计算机技术与软件服务有限公司"
-  />
-);
+const defaultFooterDom = <DefaultFooter
+  links = {[]}
+  copyright="2020 宁夏计算机技术与软件服务有限公司"/>;
 
-const BasicLayout = props => {
+const BasicLayout = (props) => {
   const {
     dispatch,
     children,
@@ -85,7 +84,7 @@ const BasicLayout = props => {
    * init variables
    */
 
-  const handleMenuCollapse = payload => {
+  const handleMenuCollapse = (payload) => {
     if (dispatch) {
       dispatch({
         type: 'global/changeLayoutCollapsed',
@@ -97,11 +96,9 @@ const BasicLayout = props => {
   const authorized = getAuthorityFromRouter(props.route.routes, location.pathname || '/') || {
     authority: undefined,
   };
-  const { formatMessage } = useIntl();
   return (
     <ProLayout
       logo={logo}
-      formatMessage={formatMessage}
       menuHeaderRender={(logoDom, titleDom) => (
         <Link to="/">
           {logoDom}
@@ -119,9 +116,7 @@ const BasicLayout = props => {
       breadcrumbRender={(routers = []) => [
         {
           path: '/',
-          breadcrumbName: formatMessage({
-            id: 'menu.home',
-          }),
+          breadcrumbName: '首页',
         },
         ...routers,
       ]}
@@ -130,12 +125,12 @@ const BasicLayout = props => {
         return first ? (
           <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
         ) : (
-          <span>{route.breadcrumbName}</span>
-        );
+            <span>{route.breadcrumbName}</span>
+          );
       }}
       footerRender={() => defaultFooterDom}
       menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
+        rightContentRender={() => <RightContent />}
       {...props}
       {...settings}
     >

@@ -1,26 +1,50 @@
 import React from 'react'
 import { Link, history } from 'umi';
 import { TableDropdown } from '@ant-design/pro-table';
-import { Divider } from 'antd';
+import { Divider, Popconfirm, message, Button,Modal } from 'antd';
+import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { alterpassword, publishConfig } from './service'
 
+const { confirm } = Modal;
+// 配置下发前确认
+const showDeleteConfirm = (gatewayId) => {
+    confirm({
+        title: '是否要配置下发?',
+        centered: true,
+        icon: <ExclamationCircleOutlined />,
+        content: '',
+        okText: '确认',
+        // okType: 'danger',
+        cancelText: '取消',
+        onOk() {
+           publishConfig(gatewayId)
+           message.success('下发成功')
+        },
+        onCancel() {
+            console.log('Cancel');
+        },
+    });
+}
+/* function confirm(e) {
+    // publishConfig(id)
+    console.log(e)
+    message.error('禁用成功!');
+} */
+function cancel(e) {
+    console.log(e);
+    message.success('启用成功');
+}
 // 网关列表
 export const columns = [
     {
         title: '名称',
         dataIndex: 'name',
         width: 150,
-        render: (text, row) =>
-            <Link to={{
-                pathname: 'gateway_edit',
-                query: { gateway: row }
-            }}>
-                {text}
-            </Link>,
     },
     {
         title: '描述',
         dataIndex: 'description',
-        width: 250,
+        width: 200,
         hideInSearch: true,
     },
     {
@@ -34,17 +58,22 @@ export const columns = [
         title: '核心模块',
         dataIndex: 'coreModule',
         hideInSearch: true,
+        align: 'center',
         width: 150,
         sorter: (a, b) => a.as1 - b.as1,
     },
     {
         title: '状态',
         dataIndex: 'status',
-        initialValue: 'all',
-        width: 150,
+        initialValue: '',
+        width: 130,
         align: 'center',
+        filters: {},
         valueEnum: {
-            inactive: { text: '未激活', status: 'Default' },
+            inactive: {
+                text: '未激活',
+                status: 'Default'
+            },
             abnormal: {
                 text: '异常',
                 status: 'Error',
@@ -60,11 +89,20 @@ export const columns = [
         },
     },
     {
-        title: '更新时间',
+        title: '创建时间',
         dataIndex: 'createTime',
-        valueType: 'date',
+        valueType: 'dateTime',
         width: 180,
-        align: 'center'
+        align: 'center',
+        hideInSearch: true,
+    },
+    {
+        title: '更新时间',
+        dataIndex: 'updateTime',
+        valueType: 'dateTime',
+        width: 180,
+        align: 'center',
+        hideInSearch: true,
     },
     {
         title: '操作',
@@ -79,17 +117,32 @@ export const columns = [
                 子设备管理
             </Link>,
             <Divider type='vertical' />,
-            <Link to={{
-                pathname: '#',
-                query: {}
-            }}>
-                配置下发
-            </Link>,
+            /*             <Popconfirm
+                            title="确定下发配置?"
+                            onConfirm={confirm}
+                            onCancel={cancel}
+                            okText="是"
+                            cancelText="否"
+                        >
+                            <Link>
+                                配置下发
+                        </Link>,
+                        </Popconfirm>, */
+            <Button type='link' onClick={()=>{
+                showDeleteConfirm(row.id)}}>
+                配置下发</Button>,
             <Divider type='vertical' />,
             <TableDropdown
                 onSelect={(key) => {
                     if (key === 'edit') {
                         history.push({ pathname: 'gateway_edit', query: { gateway: row } })
+                    }
+                    else if (key === 'alter') {
+                        console.log(row.id)
+                        alterpassword(row.id)
+                    }
+                    else {
+                        console.log(row.key)
                     }
                 }}
                 menus={
@@ -103,7 +156,7 @@ export const columns = [
                             name: '查看密钥'
                         },
                         {
-                            key: 'delete',
+                            key: 'alter',
                             name: '重置密钥'
                         }
                     ]

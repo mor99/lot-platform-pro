@@ -28,3 +28,8 @@ export async function deleteDevice(gatewayId, data) {
 export async function getModel() {
     return request.get('/api/model')
 }
+
+// 绑定模型
+export async function bindModel(gatewayID,deviceID,parms) {
+    return request.put(`/api/gateway/${gatewayID}/device/${deviceID}`,{data:{bindingModel:parms}})
+}
