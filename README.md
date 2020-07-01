@@ -39,7 +39,7 @@ or
 yarn build
 ```
 
-### Check code style
+### 检查代码风格
 
 ```bash
 npm run lint
