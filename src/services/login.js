@@ -6,13 +6,14 @@ export async function fakeAccountLogin(params) {
   return request('/api/user/login', {
     method: 'POST',
     data: params,
-  }).then((reponse) => { 
-    const data = {...reponse}
+  }).then((response) => { 
+    const data = {...response}
     data.currentAuthority = 'user'
     localStorage.setItem("mytoken",data.accessToken)
     return data
     // reponse[currentAuthority] = 'user' });
-})}
+})
+}
 
 // 手机号登录
 export async function getFakeCaptcha(mobile) {

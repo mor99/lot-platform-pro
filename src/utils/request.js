@@ -17,6 +17,7 @@ const codeMessage = {
   403: '用户得到授权，但是访问是被禁止的。',
   404: '请求的资源不存在',
   406: '请求的格式不可得。',
+  409: '资源已经村子啊',
   410: '请求的资源被永久删除，且不会再得到的。',
   422: '当创建一个对象时，发生一个验证错误。',
   500: '服务器发生错误，请检查服务器。',
@@ -30,9 +31,9 @@ const codeMessage = {
 
 const errorHandler = error => {
   const { response } = error;
-
   if (response && response.status) {
-    const errorText = codeMessage[response.status] || response.message || '请求不到数据';
+    // const errorText = codeMessage[response.status] || response.message || '请求不到数据';
+    const errorText = error.data.message
     const { status, url } = response;
     notification.error({
       message: `请求错误 ${status}: ${url}`,
@@ -57,7 +58,7 @@ const request = extend({
   credentials: 'include', // 默认请求是否带上cookie
   headers: {
     'Content-Type': 'application/json'
-  }
+  },
 });
 
 // request拦截器, 改变url 或 options.
@@ -90,12 +91,8 @@ request.interceptors.request.use(async (url, options) => {
 
 })
 
-// response拦截器, 处理response
-/* request.interceptors.response.use((response, options) => {
-  const token = response.headers.get("accessToken");
-  if (token) {
-    localStorage.setItem("accessToken", token);
-  }
-  return response;
+/* // response拦截器, 处理response
+request.interceptors.response.use((response, options) => {
+
 }); */
 export default request;

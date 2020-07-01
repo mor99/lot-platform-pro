@@ -32,8 +32,13 @@ const ModelAdd = () => {
         try {
             hide()
             await addModel(values)
-            message.success('添加成功!!!')
-            history.push({ pathname: 'model_list', query: {} })
+                .then((res) => {
+                    console.log(res)
+                    if (res.statusCode && res.statusCode === 201) {
+                        message.success(res.message)
+                        history.push({ pathname: 'model_list' })
+                    }
+                })
             return true
         }
         catch (error) {

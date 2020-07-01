@@ -17,7 +17,7 @@ export async function editModel(id, parms) {
 
 // 删除模型
 export async function deleteModel(id) {
-    return request.delete(`/api/model/${id}`)
+    return request.delete('/api/model',{data:{modelList:[id]}})
 }
 
 // 绑定模型

@@ -101,7 +101,14 @@ export default defineConfig({
                   path: '/gateway_admin/gateway_edit',
                   component: './gateway_admin/gateway_list/gateway_edit.jsx',
                   hideInMenu: true,
-                }, // 模型列表
+                },
+                {
+                  name:'网关添加结果',
+                  path:'/gateway_admin/gateway_result',
+                  component:'./gateway_admin/gateway_list/result',
+                  hideInMenu:true
+                },
+                 // 模型列表
                 {
                   name: '模型列表',
                   path: '/gateway_admin/model_list',

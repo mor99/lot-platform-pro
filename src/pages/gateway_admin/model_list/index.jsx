@@ -2,39 +2,76 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Link, history } from 'umi'
-import { DownOutlined } from '@ant-design/icons';
-import { Col, Row, Divider, Radio, Input, Button, List, Avatar, Menu, Dropdown, message } from 'antd';
+import { DownOutlined ,ExclamationCircleOutlined} from '@ant-design/icons';
+import { Col, Row, Divider, Radio, Modal,Input, Button, List, Avatar, Menu, Dropdown, message } from 'antd';
 import { getModel, deleteModel } from './service'
 import styles from './index.less'
 
-const style = {background: '#0092ff', padding: '8px 0' }
+const style = { background: '#0092ff', padding: '8px 0' }
 const { Search } = Input
+const { confirm } = Modal
 
 export default () => {
     const ref = useRef();
     const [data, setData] = useState([]);
-    const [num,setNum] = useState([])
+    const [num, setNum] = useState([])
     // 获取模型列表数据
     const fetchData = async () => {
-        let num1 =0
-        let num2 =0
+        let num1 = 0
+        let num2 = 0
         const result = await getModel()
-        if (result){
+        if (result && result instanceof Array) {
             console.log(result)
-            for (let i =0;i<result.length;i++){
+            for (let i = 0; i < result.length; i++) {
                 num1 += result[i].propertiesCtrlNum
                 num2 += result[i].propertiesNum
             }
             setData(result)
-            setNum([Math.round(num1/(result.length)),Math.round(num2/(result.length))])
+            setNum([Math.round(num1 / (result.length)), Math.round(num2 / (result.length))])
         }
-        else {setData([])}
+        else { setData([]) }
     };
     // 组件初始化
     useEffect(() => {
         fetchData()
     }, []
     )
+// 删除模型
+    const handleRemove = async (modelId) => {
+        message.loading('正在删除')
+        try {
+            await deleteModel(modelId)
+                .then((res) => {
+                    if (res.statusCode && res.statusCode === 200) {
+                        message.success('删除成功')
+                        fetchData()
+                    }
+                })
+            return true
+        } catch (error) {
+            message.error('删除失败,请重试')
+            return false
+        }
+    }
+    // 删除确认框
+    const showDeleteConfirm = (modelId) => {
+        confirm({
+            title: '确认要删除网关吗?',
+            centered: true,
+            icon: <ExclamationCircleOutlined />,
+            content: '删除后对应的模型将无法继续工作!',
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk() {
+                handleRemove(modelId)
+            },
+            onCancel() {
+                console.log('Cancel');
+            },
+        });
+    }
+
     // 列表展开项
     const menu = (item) => {
         return (
@@ -44,20 +81,7 @@ export default () => {
                 }}>
                     编辑模型
             </Menu.Item>
-                <Menu.Item onClick={async () => {
-                    try {
-                        await deleteModel(item.id)
-                        message.loading('正在删除')
-                        ref.current.reload();
-                        message.success('删除成功,即将刷新')
-                        fetchData()
-                        return true
-                    } catch (error) {
-                        message.loading('正在删除')
-                        message.error('删除失败,请重试')
-                        return false
-                    }
-                }}>
+                <Menu.Item onClick={()=>{showDeleteConfirm(item.id)}}>
                     删除
             </Menu.Item>
             </Menu>
@@ -85,12 +109,6 @@ export default () => {
             </div>
             <br />
             <div className={styles.div2} >
-                {/* <Radio.Group defaultValue='a' buttonStyle='solid'>
-                    <Radio.Button value='a'>RTU</Radio.Button>
-                    <Radio.Button value='b'>TCP</Radio.Button>
-                    <Radio.Button value='c'>NEMA</Radio.Button>
-                    <Radio.Button value='d'>LoRa</Radio.Button>
-                </Radio.Group> */}
                 <Search
                     className={styles.search}
                     placeholder='请输入'
@@ -113,7 +131,7 @@ export default () => {
                                     <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
                                         更多 <DownOutlined />
                                     </a></Dropdown>
-                            ]}> 
+                            ]}>
                                 <List.Item.Meta
                                     avatar={<Avatar src='' />}
                                     title={<Link to={{ pathname: '/gateway_admin/model_edit', query: { model: item } }}>{item.name}</Link>}
@@ -127,7 +145,7 @@ export default () => {
                                     </Row>
                                     <Row gutter={100}>
                                         <Col span={8} >{item.connectionMode}</Col>
-                                        <Col span={8} style={{paddingRight:'20px'}}>{item.propertiesNum}</Col>
+                                        <Col span={8} style={{ paddingRight: '20px' }}>{item.propertiesNum}</Col>
                                         <Col span={8}>{item.propertiesCtrlNum}</Col>
                                     </Row>
                                 </span>

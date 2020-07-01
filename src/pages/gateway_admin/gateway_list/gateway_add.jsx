@@ -30,18 +30,23 @@ const GatewayAddForm = () => {
     // 添加数据
     const onFinish = async (values) => {
         const hide = message.loading('正在添加');
+        console.log(values)
         try {
+            hide();
             await addGateway(values)
                 .then((res) => {
-                    hide();
-                    const gatewayInfo = { ...res }
-                    history.push({ pathname: 'gateway_list', query: { gatewayInfo, visible: true } })
+                    console.log(res)
+                    if (res.statusCode && res.statusCode === 201) {
+                        const gatewayInfo = { ...res.gatewayInfo }
+                        history.push({ pathname: 'gateway_result', query: { gatewayInfo, success: true } })
+                    }
+
                 })
             return true
         }
         catch (error) {
             hide();
-            message.error('添加失败！请重试!');
+            message.error('添加失败！');
             return false;
         }
 
@@ -68,7 +73,7 @@ const GatewayAddForm = () => {
                             {
                                 required: true,
                                 message: '请输入数字,字母和下划线!',
-                                pattern:regExp.gatewayRule,
+                                pattern: regExp.gatewayRule,
                                 whitespace: true,
                             },
                         ]}
@@ -134,7 +139,7 @@ const GatewayAddForm = () => {
                             },
                         ]}
                     >
-                        <Input style={{width:'30%'}} addonAfter="MB"/>
+                        <Input style={{ width: '30%' }} addonAfter="MB" />
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={10}>
