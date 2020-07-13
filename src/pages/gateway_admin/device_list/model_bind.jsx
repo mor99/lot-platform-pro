@@ -10,6 +10,7 @@ const { Option } = Select
 
 export default (props) => {
     const [modelid, setModelId] = useState()
+    const [modelname,setModelName]= useState()
     const [data, setData] = useState([])
     const { deviceId, gatewayId } = props.location.query
     const fetchData = async () => {
@@ -26,9 +27,9 @@ export default (props) => {
                 <span>绑定模型 :  </span>
                 <Select
                     onChange={(value) => {
+                        const model = data.filter(item=> item.id=== value)[0]
                         setModelId(value)
-                    }
-                    }
+                        setModelName(model.name)}}
                     size='large'
                     style={{ width: 500 }}>
                     {data.map((value) =>
@@ -39,17 +40,20 @@ export default (props) => {
                 <Space align='center' size='large' style={{ paddingLeft: 200 }}>
                     <Button type='primary' onClick={
                         async () => {
-                            await bindModel(gatewayId, deviceId, modelid)
-                            message.success('绑定成功，即将返回');
-                            history.push({ pathname: '/gateway_admin/device_list', query: { gatewayId } })
+                            console.log(modelname)
+                            await bindModel(gatewayId, deviceId, modelid,modelname)
+                                .then((res)=>{
+                                    if (res.statusCode&&res.statusCode===200){
+                                        message.success('绑定成功');
+                                        history.goBack()
+                                    }
+                                })
+                            
                         }}>绑定子设备与模型</Button>
                     <Button type='default' onClick={() => { history.push(`/gateway_admin/device_list?gatewayId=${gatewayId}`) }
                     }>取消</Button>
                 </Space>
             </div>
         </PageHeaderWrapper>
-
-        // http://localhost:8000/gateway_admin/device_list/5ee96f03b5ce334640edafce
-        // http://localhost:8000/gateway_admin/device_list?gatewayId=5ee96f03b5ce
     )
 }

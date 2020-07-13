@@ -108,6 +108,18 @@ export default defineConfig({
                   component:'./gateway_admin/gateway_list/result',
                   hideInMenu:true
                 },
+                {
+                  name:'结构图',
+                  path:'/gateway_admin/gateway_structure',
+                  component:'./gateway_admin/gateway_list/structure',
+                  hideInMenu:true
+                },
+                {
+                  name:'结构图',
+                  path:'/gateway_admin/gateway_structure1',
+                  component:'./gateway_admin/gateway_list/structure1',
+                  hideInMenu:true
+                },
                  // 模型列表
                 {
                   name: '模型列表',
@@ -133,13 +145,13 @@ export default defineConfig({
                   hideInMenu: true,
                 }, // 添加属性(线圈)
                 {
-                  name: '添加属性(线圈)',
+                  name: '添加属性',
                   path: '/gateway_admin/attribute_add1',
                   component: './gateway_admin/attribute_list/attribute_add1',
                   hideInMenu: true,
                 }, // 添加属性(非线圈)
                 {
-                  name: '添加属性(非线圈)',
+                  name: '添加属性',
                   path: '/gateway_admin/attribute_add2',
                   component: './gateway_admin/attribute_list/attribute_add2',
                   hideInMenu: true,

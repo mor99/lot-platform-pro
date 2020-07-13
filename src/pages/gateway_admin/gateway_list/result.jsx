@@ -23,11 +23,11 @@ export default (props) => {
             </Row>
             <Row>
                 <Col span={8} offset={3}><h3>网关 ID:{gatewayInfo.ID}</h3></Col>
-                <Col span={8}><h3>通信密码:{gatewayInfo.key}</h3></Col>
+                <Col span={8}><h3>通信密码:{gatewayInfo.password}</h3></Col>
             </Row>
-            <Row>
+            {/* <Row>
                 <Col offset={3}><h3>通信密钥:{gatewayInfo.secretKey}</h3></Col>
-            </Row>
+            </Row> */}
         </Result>
 
     return (

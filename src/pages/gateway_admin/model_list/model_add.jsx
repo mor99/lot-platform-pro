@@ -89,10 +89,10 @@ const ModelAdd = () => {
                                 message: '请选择通信协议!',
                             },
                         ]}>
-                        <Select placeholder='请选择模式' >
-                            <Option value="TCP">TCP</Option>
-                            <Option value="RTU">RTU</Option>
-                            <Option value="NEMA">NEMA</Option>
+                        <Select placeholder='请选择通信协议' >
+                            <Option value="Modbus">Modbus</Option>
+                            <Option value="NEMA" disabled>NEMA</Option>
+                            <Option value="IEC-102" disabled>IEC-102</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>

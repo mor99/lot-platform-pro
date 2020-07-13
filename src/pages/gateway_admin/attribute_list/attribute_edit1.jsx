@@ -14,13 +14,13 @@ const AttributeEdit = (props) => {
     const { modelId, property } = props.location.query;
     // 修改属性
     const onFinish = async (values) => {
-        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
-        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
+        const { name, alias,dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
+        const value = { name, alias,dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
         const hide = message.loading('正在修改');
         try {
             await editAttribute(modelId, property.id, value)
             hide();
-            message.success('修改成功')
+            // message.success('修改成功')
             history.goBack()
             return true
         }
@@ -60,6 +60,18 @@ const AttributeEdit = (props) => {
                         ]}
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name="alias"
+                        label="属性别名"
+                        rules={[
+                            {
+                                required: true,
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input maxLength={8} />
                     </Form.Item>
                     <Form.Item
                         name="dataAddr"

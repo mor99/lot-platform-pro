@@ -117,13 +117,13 @@ const AddAttribute = () => {
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
-        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
+        const { name,alias, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
+        const value = { name,alias, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
         console.log(value)
         const hide = message.loading('正在添加');
         try {
             await addAttribute(modelId, value)
-            message.success('添加成功')
+            // message.success('添加成功')
             history.goBack()
             return true
         }
@@ -166,6 +166,18 @@ const AddAttribute = () => {
                         ]}
                     >
                         <Input placeholder='给属性起个名字' />
+                    </Form.Item>
+                    <Form.Item
+                        name="alias"
+                        label="属性别名"
+                        rules={[
+                            {
+                                required: true,
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input maxLength={8} placeholder='请输入属性别名' />
                     </Form.Item>
                     <Form.Item
                         name="dataAddr"

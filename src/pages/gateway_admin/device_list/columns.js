@@ -61,8 +61,8 @@ export const columns = (gatewayId,isban,setBan) => {
     },
     {
         title: '绑定模型',
-        dataIndex: 'bindingModel',
-        key: 'bindingModel',
+        dataIndex: 'attachedModelName',
+        key: 'attachedModelName',
         width: 230
     },
     {

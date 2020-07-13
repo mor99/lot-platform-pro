@@ -27,36 +27,56 @@ const tailFormItemLayout = {
 
 const formItemLayoutWithOutLabel = {
     wrapperCol: {
-        xs: { span: 12, offset: 9 },
-        sm: { span: 12, offset: 5 },
+        xs: { span: 12, offset: 0 },
+        sm: { span: 12, offset: 0 },
     },
 };
-const selectways = [
-    null,
-    <Form.List name='uploadCondition'>
+const formItemLayoutWithOutLabel1 = {
+    wrapperCol: {
+        xs: { span: 12, offset: 20 },
+        sm: { span: 12, offset: 6 },
+    },
+};
+const selectways = {
+    instant:null,
+    custom:<Form.List name='customConditions'>
         {(fields, { add, remove }) => {
             return (
-                <Form.Item {...formItemLayoutWithOutLabel}>
-                    <Form.Item label='当采集到的数据' name='data'>
-                        <Radio.Group buttonStyle="solid" defaultValue='b' onChange={(e) => { console.log(e.target.value) }}>
-                            <Radio.Button value="a">大于</Radio.Button>
-                            <Radio.Button value="b">等于</Radio.Button>
-                            <Radio.Button value="c">小于</Radio.Button>
-                        </Radio.Group>
-                        <InputNumber placeholder='数值' />
+                <span>
+                    <Form.Item {...formItemLayoutWithOutLabel} label='当采集到的数据' >
+                    <Row gutter={8}>
+                    <Col>
+                        <Form.Item name={[0,'logic']} fieldKey={[0,'logic']} initialValue='equal' noStyle>
+                            <Radio.Group buttonStyle="solid" defaultValue='equal' onChange={(e) => { console.log(e.target.value) }}>
+                                <Radio.Button value="greaterThan">大于</Radio.Button>
+                                <Radio.Button value="equal">等于</Radio.Button>
+                                <Radio.Button value="lessThan">小于</Radio.Button>
+                            </Radio.Group>
+                        </Form.Item>
+                        </Col>
+                        <Col>
+                        <Form.Item name={[0,'target']} fieldKey={[0,'target']} noStyle>
+                            <InputNumber placeholder='数值' />
+                        </Form.Item>
+                        </Col>
+                        <Col>
                         <Button
-                            type="dashed"
-                            onClick={() => {
-                                add();
-                            }}
-                            style={{ width: '25%' }}
-                        >
-                            <PlusOutlined /> 添加
-                        </Button>
-                    </Form.Item>
-                    {fields.map((field) => (
+                                type="dashed"
+                                onClick={() => {
+                                    add();
+                                }}
+                            >
+                                <PlusOutlined /> 添加
+                            </Button>
+                            </Col>
+                            </Row>
+                        </Form.Item>
+{/*                     {fields.map((field) => (
+                        <span>
                         <Form.Item
-                            {...field}>
+                        {...formItemLayoutWithOutLabel1}
+                            name={[field.name+1,'logic']}
+                            fieldKey = {[field.fieldKey+1,'logic']}>
                             <Input.Group >
                                 <Row gutter={8}>
                                     <Col>
@@ -67,10 +87,10 @@ const selectways = [
                                         </Radio.Group>
                                     </Col>
                                     <Col >
-                                        <Radio.Group buttonStyle="solid" defaultValue='b' onChange={(e) => { console.log(e.target.value) }}>
-                                            <Radio.Button value="a">大于</Radio.Button>
-                                            <Radio.Button value="b">等于</Radio.Button>
-                                            <Radio.Button value="c">小于</Radio.Button>
+                                        <Radio.Group buttonStyle="solid" defaultValue='equal' onChange={(e) => { console.log(e.target.value) }}>
+                                            <Radio.Button value="greaterThan">大于</Radio.Button>
+                                            <Radio.Button value="equal ">等于</Radio.Button>
+                                            <Radio.Button value="lessThan">小于</Radio.Button>
                                         </Radio.Group>
                                     </Col>
                                     <Col span={3}>
@@ -100,29 +120,81 @@ const selectways = [
                                 </Row>
                             </Input.Group>
                         </Form.Item>
-                    ))}
-                </Form.Item>
+                        </span>
+                    ))} */}
+                    {fields.map((field) => {
+                        field.name += 1
+                        field.fieldKey += 1
+                        return(
+                        <Form.Item
+                        {...formItemLayoutWithOutLabel1}>
+                        <Row gutter={8}>
+                                    <Col>
+                                        <Form.Item initialValue='or' name={[field.name,'with']} fieldKey={[field.fieldKey,'with']}>
+                                        <Radio.Group buttonStyle="solid">
+                                            <Radio.Button value="is">是</Radio.Button>
+                                            <Radio.Button value="or">或</Radio.Button>
+                                            <Radio.Button value="no">非</Radio.Button>
+                                        </Radio.Group>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col >
+                                        <Form.Item initialValue='equal' name={[field.name,'logic']} fieldKey={[field.fieldKey,'logic']}>
+                                        <Radio.Group buttonStyle="solid"  >
+                                            <Radio.Button value="greaterThan">大于</Radio.Button>
+                                            <Radio.Button value="equal">等于</Radio.Button>
+                                            <Radio.Button value="lessThan">小于</Radio.Button>
+                                        </Radio.Group>
+                                        </Form.Item>
+                                    </Col>
+                                    <Col>
+                                        <Form.Item name={[field.name,'target']} fieldKey={[field.fieldKey,'target']}>
+                                         <InputNumber placeholder='数值' />
+                                        </Form.Item>
+                                    </Col>
+                                    <Col>
+                                            <MinusCircleOutlined
+                                                onClick={() => {
+                                                    remove(field.name-1);
+                                                }}
+                                            />
+                                    </Col>
+                                    {/* <Col>
+                                        <Button
+                                            type="dashed"
+                                            onClick={() => {
+                                                add();
+                                            }}
+                                        >
+                                            <PlusOutlined /> 添加
+                                             </Button>
+                                    </Col> */}
+                                </Row>
+                        </Form.Item>
+                    )})}
+                    </span>
             );
         }}
     </Form.List>,
-    <Form.Item label='上报间隔' name='asdsaf'>
-        <Input placeholder='x > = 160 || x < 100' />
+    interval:<Form.Item label='上报间隔' name='interval'>
+        <Input style={{width:'30%'}} type='number'/>
     </Form.Item>
-]
+}
 const AddAttribute = () => {
     const [form] = Form.useForm();
     // 上传方式
-    const [way, setWay] = useState(0)
+    const [way, setWay] = useState('instant')
     const { modelId, radio } = history.location.query
     const [codeState, setCode] = useState()
     // 添加数据
     const onFinish = async (values) => {
-        const { name, dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
-        const value = { name, dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
+        console.log(values)
+        const { name, dataAddr, functionCode, acquireInterval, alias,interval,method,...dataConfig } = values;
+        const value = { name, alias,dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: {method,codition:{interval}} }
         const hide = message.loading('正在添加');
         try {
             await addAttribute(modelId, value)
-            message.success('添加成功')
+            // message.success('添加成功')
             history.goBack()
             return true
         }
@@ -145,7 +217,7 @@ const AddAttribute = () => {
                     onFinish={onFinish}
                     scrollToFirstError
                 >
-                    <Form.Item
+                     <Form.Item
                         name="name"
                         label={
                             <span>
@@ -165,6 +237,18 @@ const AddAttribute = () => {
                         ]}
                     >
                         <Input placeholder='给属性起个名字' />
+                    </Form.Item>
+                    <Form.Item
+                        name="alias"
+                        label="属性别名"
+                        rules={[
+                            {
+                                required: true,
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input maxLength={8} placeholder='请输入属性别名' />
                     </Form.Item>
                     <Form.Item
                         name="dataAddr"
@@ -274,9 +358,9 @@ const AddAttribute = () => {
                         ]}
                     >
                         <Select placeholder='请选择模式' >
-                            <Option value="8">8</Option>
-                            <Option value="16">16</Option>
-                            <Option value="32">32</Option>
+                            <Option value={8}>8</Option>
+                            <Option value={16}>16</Option>
+                            <Option value={32}>32</Option>
                         </Select>
                     </Form.Item>
 
@@ -304,20 +388,21 @@ const AddAttribute = () => {
                         ]}
                     >
                         <Input placeholder='请输入计算公式' />
-                    </Form.Item>
+                    </Form.Item> 
 
                     <Form.Item
                         label='上传方式'
+                        name = 'method'
                         rules={[
                             {
                                 required: true,
                                 message: '请选择类型!',
                             },
                         ]}>
-                        <Radio.Group buttonStyle="solid" defaultValue={0} onChange={(e) => { setWay(e.target.value) }}>
-                            <Radio.Button value={0} >上报即上传</Radio.Button>
-                            <Radio.Button value={1}>自定条件</Radio.Button>
-                            <Radio.Button value={2}>定时上传</Radio.Button>
+                        <Radio.Group buttonStyle="solid" defaultValue='instant' onChange={(e) => { setWay(e.target.value) }}>
+                            <Radio.Button value='instant' >上报即上传</Radio.Button>
+                            <Radio.Button value='custom'>自定条件</Radio.Button>
+                            <Radio.Button value='interval'>定时上传</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
 

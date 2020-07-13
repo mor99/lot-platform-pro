@@ -21,7 +21,7 @@ const Gateway = (props) => {
         console.log(result)
         if (result) {
             setData(result)
-            console.log('请求到数据')
+            console.log('请求到数据:'+result)
         }
         else { setData(null) }
     };

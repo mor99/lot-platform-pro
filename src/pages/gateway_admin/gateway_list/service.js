@@ -58,3 +58,8 @@ export async function alterpassword(gatewayId) {
 export async function publishConfig(gatewayId){
   return request.post(`/api/gateway/${gatewayId}/publishConfig`)
 }
+
+//获取结构图数据
+export async function getData(gatewayId){
+  return request.get (`/api/gateway/${gatewayId}/treeData`)
+}

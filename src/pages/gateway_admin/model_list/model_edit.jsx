@@ -31,10 +31,14 @@ export default () => {
     const onFinish = async (values) => {
         const hide = message.loading('正在修改');
         try {
-            await editModel(model.id, values)
             hide();
-            message.success('修改成功')
-            history.goBack()
+            await editModel(model.id, values)
+                .then((res)=>{
+                    if(res.statusCode&&res.statusCode===200){
+                        message.success('修改成功')
+                        history.goBack()
+                    }
+                })
             return true
         }
         catch (error) {
@@ -87,9 +91,9 @@ export default () => {
                         ]}
                     >
                         <Select>
-                            <Option value="TCP">TCP</Option>
-                            <Option value="RTU">RTU</Option>
-                            <Option value="NEMA">NEMA</Option>
+                            <Option value="Modbus">Modbus</Option>
+                            <Option value="NEMA" disabled>NEMA</Option>
+                            <Option value="IEC-102" disabled>IEC-102</Option>
                         </Select>
                     </Form.Item>
 

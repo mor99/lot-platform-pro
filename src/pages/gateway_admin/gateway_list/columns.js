@@ -44,7 +44,7 @@ export const columns = [
     {
         title: '描述',
         dataIndex: 'description',
-        width: 200,
+        width: 150,
         hideInSearch: true,
     },
     {
@@ -92,7 +92,7 @@ export const columns = [
         title: '创建时间',
         dataIndex: 'createTime',
         valueType: 'dateTime',
-        width: 180,
+        width: 150,
         align: 'center',
         hideInSearch: true,
     },
@@ -100,7 +100,7 @@ export const columns = [
         title: '更新时间',
         dataIndex: 'updateTime',
         valueType: 'dateTime',
-        width: 180,
+        width: 150,
         align: 'center',
         hideInSearch: true,
     },
@@ -108,7 +108,7 @@ export const columns = [
         title: '操作',
         valueType: 'option',
         align: 'center',
-        width: 250,
+        width: 350,
         render: (text, row) => [
             <Link to={{
                 pathname: '/gateway_admin/device_list',
@@ -116,22 +116,11 @@ export const columns = [
             }}>
                 子设备管理
             </Link>,
-            <Divider type='vertical' />,
-            /*             <Popconfirm
-                            title="确定下发配置?"
-                            onConfirm={confirm}
-                            onCancel={cancel}
-                            okText="是"
-                            cancelText="否"
-                        >
-                            <Link>
-                                配置下发
-                        </Link>,
-                        </Popconfirm>, */
+            <Button type='link' onClick={()=>{history.push({pathname:'gateway_structure',query:{gatewayId:row.id}})}}>
+                查看结构图</Button>,
             <Button type='link' onClick={()=>{
                 showDeleteConfirm(row.id)}}>
                 配置下发</Button>,
-            <Divider type='vertical' />,
             <TableDropdown
                 onSelect={(key) => {
                     if (key === 'edit') {

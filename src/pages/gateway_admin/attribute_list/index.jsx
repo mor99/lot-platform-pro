@@ -41,7 +41,7 @@ export default () => {
             await deleteAttribute(modelId, delectId)
             hide();
             ref.current.reload();
-            message.success('删除成功，即将刷新');
+            // message.success('删除成功，即将刷新');
             fetchData()
             return true;
         } catch (error) {

@@ -21,7 +21,7 @@ const AttributeEdit = (props) => {
         try {
             await editAttribute(modelId, property.id, value)
             hide();
-            message.success('修改成功')
+            // message.success('修改成功')
             history.goBack()
             return true
         }
@@ -61,6 +61,18 @@ const AttributeEdit = (props) => {
                         ]}
                     >
                         <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name="alias"
+                        label="属性别名"
+                        rules={[
+                            {
+                                required: true,
+                                whitespace: true,
+                            },
+                        ]}
+                    >
+                        <Input maxLength={8}  />
                     </Form.Item>
                     <Form.Item
                         name="dataAddr"

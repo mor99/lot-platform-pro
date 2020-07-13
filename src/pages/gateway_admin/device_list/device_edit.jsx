@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Form, Input, Select, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { regExp } from '@/utils/numAndRegexp';
-import { editDevice } from './service'
+import { editDevice ,getPorts} from './service'
 import { TcpE, RtuE, formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
 
@@ -12,21 +12,28 @@ const { Option } = Select;
 const { TextArea } = Input
 
 const DeviceEditForm = (props) => {
+    console.log(props.location.query)
     const [form] = Form.useForm();
+    const [ports,setPorts] = useState([])
     const { gatewayId, device } = props.location.query;
-    const comm = { ...device.commConfig }
-    const devicedata = { ...device, ...comm }
-    devicedata.commConfig = undefined
-    const [items, setItems] = useState((device.connectionMode === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
+    const fetchPorts = async ()=>{
+        const result = await getPorts(props.location.query.gatewayId)
+        console.log(result)
+        setPorts(result.ports)
+    }
+    // 组件初始化
+    useEffect(() => {
+        fetchPorts();
+    }, [])
     // 修改属性
     const onFinish = async (values) => {
-        const { name, description, connectionMode, slaveNo, ...commConfig } = values;
-        const value = { name, description, connectionMode, slaveNo, commConfig }
+/*         const { name, description, connectionMode, slaveNo, ...commConfig } = values;
+        const value = { name, description, connectionMode, slaveNo, commConfig } */
         const hide = message.loading('正在修改');
         try {
-            await editDevice(gatewayId, device.id, value)
+            await editDevice(gatewayId, device.id, values)
             hide();
-            message.success('修改成功')
+           // message.success('修改成功')s
             history.goBack()
             return true
         }
@@ -46,13 +53,13 @@ const DeviceEditForm = (props) => {
                     form={form}
                     name="Device_edit"
                     onFinish={onFinish}
-                    initialValues={devicedata}
+                    initialValues={device}
                     scrollToFirstError>
                     <Form.Item
                         name="name"
                         label={<span>设备名称&nbsp;</span>}
                         rules={[
-                            {
+                            {   required:true,
                                 message: '请输入设备名称',
                                 whitespace: true,
                             },
@@ -72,6 +79,19 @@ const DeviceEditForm = (props) => {
                         />
                     </Form.Item>
                     <Form.Item
+                        name="port"
+                        label="通信口"
+                        rules={[
+                            {
+                                required: true,
+                                message: '请选择通信口!',
+                            },
+                        ]}>
+                        <Select placeholder='请选择通信口'>
+                            {ports.map((value)=><Option key={value} value={value}>{value}</Option>)}
+                        </Select>
+                    </Form.Item>
+                    <Form.Item
                         name="slaveNo"
                         label="从站slave"
                         rules={[
@@ -82,24 +102,7 @@ const DeviceEditForm = (props) => {
                         ]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item
-                        name="connectionMode"
-                        label="选择模式"
-                        rules={[
-                            {
-                                message: '选择模式!',
-                            },
-                        ]}
-                    >
-                        <Select onChange={(value) => {
-                            setItems((value === 'TCP') ? TcpE(device.commConfig) : RtuE(device.commConfig))
-                        }}>
-                            <Option value="TCP">TCP</Option>
-                            <Option value="RTU">RTU</Option>
-                            <Option value="MIPS">选项3</Option>
-                        </Select>
-                    </Form.Item>
-                    {items}
+
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={30}>
                             <Button type="primary" htmlType="submit">

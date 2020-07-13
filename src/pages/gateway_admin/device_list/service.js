@@ -30,6 +30,11 @@ export async function getModel() {
 }
 
 // 绑定模型
-export async function bindModel(gatewayID,deviceID,parms) {
-    return request.put(`/api/gateway/${gatewayID}/device/${deviceID}`,{data:{bindingModel:parms}})
+export async function bindModel(gatewayID,deviceID,parms,parms1) {
+    return request.put(`/api/gateway/${gatewayID}/device/${deviceID}`,{data:{attachedModel:parms,attachedModelName:parms1}})
+}
+
+// 获取网关端口
+export async function getPorts(gatewayID) {
+    return request.get(`/api/gateway/${gatewayID}/ports`)
 }

@@ -15,6 +15,10 @@ export const columns = [
         hideInSearch: true,
     },
     {
+        title:'属性别名',
+        dataIndex:'alias'
+    },
+    {
         title: '数据类型',
         dataIndex: 'dataType'
     },

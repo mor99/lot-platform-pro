@@ -10,6 +10,7 @@ import styles from './index.less'
 
 const { confirm } = Modal;
 export default (props) => {
+    console.log(props.location.query)
     const ref = useRef();
     // 数据初始化
     const [isban,setBan] = useState('禁止')
@@ -74,6 +75,14 @@ export default (props) => {
                 }
             )
         },
+        onSelectAll:(selected, selectedRows, changeRows)=>{
+            delectIds.deviceList.length = 0;
+            selectedRows.forEach(
+                (value) => {
+                    delectIds.deviceList.push(value.id)
+                }
+            )
+        }
     };
 
     return (

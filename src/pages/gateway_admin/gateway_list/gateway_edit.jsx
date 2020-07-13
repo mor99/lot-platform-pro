@@ -33,6 +33,9 @@ const GatewayEditForm = () => {
         const hide = message.loading('正在修改');
         try {
             await editGateway(gateway.id, values)
+                .then((res)=>{
+
+                })
             hide();
             message.success('修改成功')
             history.goBack()
@@ -71,7 +74,7 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Input/>
+                        <Input disabled/>
                     </Form.Item>
 
                     <Form.Item
@@ -91,7 +94,7 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Select>
+                        <Select disabled>
                             <Option value="ARM">ARM</Option>
                             <Option value="MIPS" disabled>MIPS</Option>
                         </Select>
@@ -108,7 +111,7 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Select>
+                        <Select disabled>
                             <Option value="MQTT">MQTT</Option>
                             <Option value="COAP" disabled>COAP</Option>
                             <Option value="HTTP" disabled>HTTP</Option>
@@ -119,7 +122,7 @@ const GatewayEditForm = () => {
                     <Form.Item
                         label='通信方式'
                         name='isEncrypted'>
-                        <Radio.Group>
+                        <Radio.Group >
                             <Radio value>加密</Radio>
                             <Radio value={false}>不加密</Radio>
                         </Radio.Group>
@@ -130,7 +133,6 @@ const GatewayEditForm = () => {
                         name='dataPlan'
                         rules={[
                             {
-                                required: false,
                                 message: '输入整数!',
                                 pattern: regExp.num,
                                 whitespace: true
