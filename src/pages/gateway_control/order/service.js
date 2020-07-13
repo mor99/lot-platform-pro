@@ -15,7 +15,7 @@ export async function getProperties(modelId) {
     return request.get(`/api/model/${modelId}/controlProperties`)
 }
 
-//控制命令下发设备
+// 控制命令下发设备
 export async function publishCommand(gatewayId,parms){
     return request.post(`/api/gateway/${gatewayId}/publishCommand`,{
         data:JSON.stringify(parms)

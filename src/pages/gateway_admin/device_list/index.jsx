@@ -79,7 +79,7 @@ export default (props) => {
             delectIds.deviceList.length = 0;
             selectedRows.forEach(
                 (value) => {
-                    delectIds.deviceList.push(value.id)
+                    deleteIds.deviceList.push(value.id)
                 }
             )
         }

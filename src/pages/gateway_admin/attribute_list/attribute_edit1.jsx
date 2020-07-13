@@ -1,6 +1,7 @@
-import React from 'react';
-import { Form, Input, Select, Radio, Button, message, Space } from 'antd';
+import React ,{useState} from 'react';
+import { Form, Input, Select, Row,Col,InputNumber,Radio, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { history } from 'umi'
 import { regExp } from '@/utils/numAndRegexp'
 import { editAttribute } from './service'
@@ -8,19 +9,42 @@ import { formItemLayout, tailFormItemLayout } from './Items'
 import styles from './index.less'
 
 const { Option } = Select;
-
+const formItemLayoutWithOutLabel = {
+    wrapperCol: {
+        xs: { span: 12, offset: 0 },
+        sm: { span: 12, offset: 0 },},
+};
+const formItemLayoutWithOutLabel1 = {
+    wrapperCol: {
+        xs: { span: 12, offset: 20 },
+        sm: { span: 12, offset: 6 },
+    },
+};
 const AttributeEdit = (props) => {
     const [form] = Form.useForm();
+    const [way, setWay] = useState('instant')
     const { modelId, property } = props.location.query;
+    console.log(property)
+    const [symbol,...number]=property.dataFormula
+    const number1 = number.join('')
+    property.method = property.uploadCondition.method
+    console.log(property.method)
+    property.symbol = symbol
+    // eslint-disable-next-line radix
+    property.operationData = parseInt(number1)
     // 修改属性
     const onFinish = async (values) => {
-        const { name, alias,dataAddr, functionCode, acquireInterval, ...dataConfig } = values;
-        const value = { name, alias,dataAddr, functionCode, acquireInterval, dataConfig, uploadCondition: { a: 1 } }
+        const { name, dataAddr, functionCode, customConditions,alias,interval,operationData,method,...dataConfig } = values;
+        const value = { name, alias,dataAddr, functionCode, dataConfig:{...dataConfig,dataFormula:`${symbol}${operationData}`}, uploadCondition: {method,codition:{interval:parseInt(interval),customConditions}} }
         const hide = message.loading('正在修改');
         try {
-            await editAttribute(modelId, property.id, value)
             hide();
-            // message.success('修改成功')
+            await editAttribute(modelId, property.id, value)
+                .then(res=>{
+                    if(res.statusCode && res.statusCode===200){
+                        message.success(res.message)
+                    }
+                })
             history.goBack()
             return true
         }
@@ -30,7 +54,104 @@ const AttributeEdit = (props) => {
             return false;
         }
     };
-
+// 上传条件
+    const selectways = {
+        // 即时上传
+        instant:null,
+        // 自定条件
+        custom:<Form.List name='customConditions'>
+            {(fields, { add, remove }) => {
+                return (
+                    <span>
+                        <Form.Item {...formItemLayoutWithOutLabel} label='当采集到的数据' >
+                        <Row gutter={8}>
+                            <Col>
+                            <Form.Item name={[0,'logic']} fieldKey={[0,'logic']} initialValue='equal' noStyle>
+                                <Radio.Group buttonStyle="solid" defaultValue='equal'>
+                                    <Radio.Button value="greaterThan">大于</Radio.Button>
+                                    <Radio.Button value="equal">等于</Radio.Button>
+                                    <Radio.Button value="lessThan">小于</Radio.Button>
+                                </Radio.Group>
+                            </Form.Item>
+                            </Col>
+                            <Col>
+                            <Form.Item name={[0,'target']} fieldKey={[0,'target']} noStyle>
+                                <InputNumber placeholder='数值' />
+                            </Form.Item>
+                            </Col>
+                            {(fields.length<3)?
+                            <Col>
+                            <Button
+                                    type="dashed"
+                                    onClick={() => {
+                                        add();
+                                    }}
+                                >
+                                    <PlusOutlined /> 添加
+                                </Button>
+                                </Col>:null}
+                            </Row>
+                            </Form.Item>
+                        {fields.map((field) => {
+                            const a = (field.name===0)
+                            // const field = {name: field1.name+1,fieldKey:field1.fieldKey+1}
+                            return(
+                            <Form.Item hidden={a}
+                            {...formItemLayoutWithOutLabel1}>
+                            <Row gutter={8}>
+                                        <Col>
+                                            <Form.Item initialValue='or' name={(field.name===0)?'':[field.name,'with']}  fieldKey={[field.fieldKey,'with']}>
+                                            <Radio.Group buttonStyle="solid">
+                                                <Radio.Button value="is">是</Radio.Button>
+                                                <Radio.Button value="or">或</Radio.Button>
+                                                <Radio.Button value="no">非</Radio.Button>
+                                            </Radio.Group>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col >
+                                            <Form.Item initialValue='equal' name={[field.name,'logic']} fieldKey={[field.fieldKey,'logic']}>
+                                            <Radio.Group buttonStyle="solid"  >
+                                                <Radio.Button value="greaterThan">大于</Radio.Button>
+                                                <Radio.Button value="equal">等于</Radio.Button>
+                                                <Radio.Button value="lessThan">小于</Radio.Button>
+                                            </Radio.Group>
+                                            </Form.Item>
+                                        </Col>
+                                        <Col>
+                                            <Form.Item name={[field.name,'target']} fieldKey={[field.fieldKey,'target']} onChange={()=>{}}>
+                                             <InputNumber placeholder='数值' />
+                                            </Form.Item>
+                                        </Col>
+                                        <Col>
+                                                <MinusCircleOutlined
+                                                    onClick={() => {
+                                                        console.log(field)
+                                                        remove(field.name);
+                                                    }}
+                                                />
+                                        </Col>
+                                        {/* <Col>
+                                            <Button
+                                                type="dashed"
+                                                onClick={() => {
+                                                    add();
+                                                }}
+                                            >
+                                                <PlusOutlined /> 添加
+                                                 </Button>
+                                        </Col> */}
+                                    </Row>
+                            </Form.Item>
+                        )})}
+                        </span>
+                );
+            }}
+        </Form.List>,
+        // 定时上传
+        interval:<Form.Item label='上报间隔' name='interval'>
+            <Input style={{width:'30%'}} type='number'/>
+        </Form.Item>
+    }
     return (
         <PageHeaderWrapper>
             <div className={styles.div}>
@@ -84,18 +205,6 @@ const AttributeEdit = (props) => {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item
-                        name="acquireInterval"
-                        label="采集间隔"
-                        rules={[
-                            {
-                                pattern: regExp.num,
-                                message: '请输入采集间隔,必须为数字!',
-                            },
-                        ]}
-                    >
-                        <Input type='number' />
-                    </Form.Item>
 
                     <Form.Item
                         label="属性类型"
@@ -128,7 +237,7 @@ const AttributeEdit = (props) => {
                                 message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input style={{ width: 120, textAlign: 'center' }} />
+                            <InputNumber style={{ width: 120, textAlign: 'center' }} />
                         </Form.Item>
                         <Form.Item noStyle>
                             <Input
@@ -150,7 +259,7 @@ const AttributeEdit = (props) => {
                                 message: '请输入一个数字!'
                             }]}
                             noStyle>
-                            <Input
+                            <InputNumber
                                 className="site-input-right"
                                 style={{
                                     width: 120,
@@ -164,30 +273,30 @@ const AttributeEdit = (props) => {
                         label="数据类型"
                         rules={[
                             {
+                                required:true,
                                 message: '请选择类型!',
                             },
                         ]}
                     >
-                        <Select>
-                            <Option value="int">整形</Option>
-                            <Option value="float">浮点型</Option>
+                        <Select  style={{width:'50%'}}>
+                            <Option value="unsigned">unsigned</Option>
+                            <Option value="signed">signed</Option>
+                            <Option value="string">string</Option>
+                            <Option value="float">float</Option>
                         </Select>
                     </Form.Item>
 
                     <Form.Item
                         name="dataLength"
-                        label="数据长度"
+                        label="数据字节数"
                         rules={[
                             {
-                                message: '请选择模式!',
+                                required:true,
+                                message: '输入字节数!',
                             },
                         ]}
                     >
-                        <Select>
-                            <Option value="8">8</Option>
-                            <Option value="16">16</Option>
-                            <Option value="32">32</Option>
-                        </Select>
+                        <InputNumber min={1} max={125} />
                     </Form.Item>
 
                     <Form.Item
@@ -202,20 +311,26 @@ const AttributeEdit = (props) => {
                     >
                         <Input />
                     </Form.Item>
-                    <Form.Item
-                        label="计算公式"
-                        name='dataFormula'
-                        rules={[
-                            {
-                                message: '请输入计算公式',
-                                whitespace: true,
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
 
                     <Form.Item
+                        label="计算公式"
+                     //   name='dataFormula'
+                    >
+                        <Form.Item name='symbol' noStyle>
+                            <Select className={styles.input} style={{width:'15%'}}>
+                                <Option value='+'>＋</Option>
+                                <Option value='-'>－</Option>
+                                <Option value='*'>×</Option>
+                                <Option value='/'>÷</Option>
+                            </Select> 
+                        </Form.Item>
+                        <Form.Item name='operationData' noStyle>
+                            <InputNumber className={styles.input} min={1} />
+                        </Form.Item>
+                    </Form.Item> 
+
+                    <Form.Item
+                        name = 'method'
                         label='上传方式'
                         rules={[
                             {
@@ -223,12 +338,14 @@ const AttributeEdit = (props) => {
                                 message: '请选择类型!',
                             },
                         ]}>
-                        <Radio.Group buttonStyle="solid" onChange={() => { }}>
-                            <Radio.Button value={0} >上报即上传</Radio.Button>
-                            <Radio.Button value={1}>自定条件</Radio.Button>
-                            <Radio.Button value={2}>定时上传</Radio.Button>
+                        <Radio.Group buttonStyle="solid" onChange={(e) => {setWay(e.target.value)}}>
+                            <Radio.Button value='instant' >上报即上传</Radio.Button>
+                            <Radio.Button value='custom'>自定条件</Radio.Button>
+                            <Radio.Button value='interval'>定时上传</Radio.Button>
                         </Radio.Group>
                     </Form.Item>
+
+                    {selectways[way]}
 
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={10}>

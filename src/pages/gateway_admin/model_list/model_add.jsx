@@ -33,7 +33,6 @@ const ModelAdd = () => {
             hide()
             await addModel(values)
                 .then((res) => {
-                    console.log(res)
                     if (res.statusCode && res.statusCode === 201) {
                         message.success(res.message)
                         history.push({ pathname: 'model_list' })

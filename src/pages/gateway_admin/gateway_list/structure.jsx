@@ -1,7 +1,6 @@
-import React,{useEffect, useState} from 'react';
+import React,{useEffect} from 'react';
 import G6 from '@antv/g6';
 import {history} from 'umi'
-import { PageHeaderWrapper, SettingDrawerState } from '@ant-design/pro-layout';
 
 import {getData} from './service'
 import styles from './index.less'
@@ -115,14 +114,14 @@ export default ()=>{
                 }
             ]
         }
-    const data2 = {
+/*     const data2 = {
         id:'1',
         children:[{
             id:'2'
         },{id:'3'}]
-    }
-    const data3 = {id:'1',children:[{id:'2',children:[]},{id:'22',children:[{id:'33'},{id:'3',children:[{id:'444',children:[]},{id:'4',children:[{id:'55',children:[]},{id:'5',children:[{id:'66'},{id:'6'}]}]}]}]}]}
-    const data4 = {id:"12321",children:[{id:"1",children:[{id:"子设备：1，绑定模型：23214",children:[]},{id:"子设备：2，绑定模型：2",children:[]},{id:"子设备：3，绑定模型：23214",children:[]}]},{id:"1",children:[{id:"子设备：1，绑定模型：23214",children:[]},{id:"子设备：2，绑定模型：2",children:[]},{id:"子设备：3，绑定模型：23214",children:[]}]}]}
+    } */
+    // const data3 = {id:'1',children:[{id:'2',children:[]},{id:'22',children:[{id:'33'},{id:'3',children:[{id:'444',children:[]},{id:'4',children:[{id:'55',children:[]},{id:'5',children:[{id:'66'},{id:'6'}]}]}]}]}]}
+    // const data4 = {id:"12321",children:[{id:"1",children:[{id:"子设备：1，绑定模型：23214",children:[]},{id:"子设备：2，绑定模型：2",children:[]},{id:"子设备：3，绑定模型：23214",children:[]}]},{id:"1",children:[{id:"子设备：1，绑定模型：23214",children:[]},{id:"子设备：2，绑定模型：2",children:[]},{id:"子设备：3，绑定模型：23214",children:[]}]}]}
     const ref = React.useRef(null)
     let graph = null
     // const [data,setData] = useState({})

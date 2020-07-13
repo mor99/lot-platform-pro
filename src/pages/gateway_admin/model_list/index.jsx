@@ -1,18 +1,17 @@
 /* eslint-disable no-console */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect} from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Link, history } from 'umi'
 import { DownOutlined ,ExclamationCircleOutlined} from '@ant-design/icons';
-import { Col, Row, Divider, Radio, Modal,Input, Button, List, Avatar, Menu, Dropdown, message } from 'antd';
+import { Col, Row, Divider, Modal,Input, Button, List, Avatar, Menu, Dropdown, message } from 'antd';
 import { getModel, deleteModel } from './service'
 import styles from './index.less'
 
-const style = { background: '#0092ff', padding: '8px 0' }
+// const style = { background: '#0092ff', padding: '8px 0' }
 const { Search } = Input
 const { confirm } = Modal
 
 export default () => {
-    const ref = useRef();
     const [data, setData] = useState([]);
     const [num, setNum] = useState([])
     // 获取模型列表数据
@@ -22,7 +21,7 @@ export default () => {
         const result = await getModel()
         if (result && result instanceof Array) {
             console.log(result)
-            for (let i = 0; i < result.length; i++) {
+            for (let i = 0; i < result.length; i+=1) {
                 num1 += result[i].propertiesCtrlNum
                 num2 += result[i].propertiesNum
             }
@@ -38,12 +37,12 @@ export default () => {
     )
 // 删除模型
     const handleRemove = async (modelId) => {
-        message.loading('正在删除')
         try {
+            message.loading('正在删除')
             await deleteModel(modelId)
                 .then((res) => {
                     if (res.statusCode && res.statusCode === 200) {
-                        message.success('删除成功')
+                        message.success(res.message)
                         fetchData()
                     }
                 })

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import ProTable from '@ant-design/pro-table';
 import { history } from 'umi'
-import { Modal, Select, Form, Row, Col, Input, Button, Space, Switch, message } from 'antd'
+import { Modal, Select, Form, Row, Col, Input, Button, Space, message } from 'antd'
 import { getGateway, getDevice, getProperties, publishCommand } from './service'
 import styles from './index.less'
 
@@ -41,9 +40,9 @@ const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 8 },
 };
-const tailLayout = {
+/* const tailLayout = {
     wrapperCol: { offset: 8, span: 16 },
-};
+}; */
 const tailLayout1 = {
     wrapperCol: { offset: 8, span: 16 },
 };
@@ -75,7 +74,7 @@ export default () => {
         console.log(result)
         setDevice(result)
     }
-    //获取子设备绑定的模型的属性列表
+    // 获取子设备绑定的模型的属性列表
     const fetchProperties = async (value) => {
         console.log(value)
         const result = await getProperties(value)
@@ -117,8 +116,9 @@ export default () => {
                         </Select>
                     </Form.Item>
                     <Form.Item label='子设备' name='deviceID'>
-                        <Select placeholder='请选择子设备' onChange={(value) => { fetchProperties(value[1]) }}>
-                            {deviceList.map((value) => { console.log(value); return <Option value={[value.name, value.bindingModel, value.id]}>{value.name}</Option> })}
+                        <Select placeholder='请选择子设备' onChange={(value) => { fetchProperties(value[1]) 
+                        console.log(value)}}>
+                            {deviceList.map((value) => { console.log(value); return <Option value={[value.name, value.attachedModel, value.id]}>{value.name}</Option> })}
                         </Select>
                     </Form.Item>
                     <Form.Item name='command' label='控制内容'>

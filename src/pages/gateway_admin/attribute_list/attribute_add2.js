@@ -56,7 +56,7 @@ const selectways = [
                             <PlusOutlined /> 添加
                         </Button>
                     </Form.Item>
-                    {fields.map((field, index) => (
+                    {fields.map((field) => (
                         <Form.Item
                             {...field}>
                             <Input.Group >

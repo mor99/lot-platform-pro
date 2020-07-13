@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import ProTable from '@ant-design/pro-table';
-import { Link, connect, history } from 'umi'
-import { Button, message, Result, Col, Row, Modal } from 'antd';
+import { Link, connect } from 'umi'
+import { Button, message,  Modal } from 'antd';
 import { columns } from './columns'
 import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
 
 const { confirm } = Modal;
-const Gateway = (props) => {
+const Gateway = () => {
     const delectId = { idList: [] }
     const ref = useRef();
     const [data, setData] = useState();
@@ -21,7 +21,7 @@ const Gateway = (props) => {
         console.log(result)
         if (result) {
             setData(result)
-            console.log('请求到数据:'+result)
+            console.log(`请求到数据:${result}`)
         }
         else { setData(null) }
     };
@@ -84,7 +84,7 @@ const Gateway = (props) => {
                 }
             )
         },
-        onSelectAll:(selected, selectedRows, changeRows)=>{
+        onSelectAll:(selected, selectedRows)=>{
             delectId.idList.length = 0;
             selectedRows.forEach(
                 (value) => {

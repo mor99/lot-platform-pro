@@ -141,7 +141,7 @@ export const RtuA = (
 
 // 编辑子设备
 // TCP表单项
-export const TcpE = (value) => {
+export const TcpE = () => {
     return (
         <span>
             <Form.Item
@@ -171,7 +171,7 @@ export const TcpE = (value) => {
         </span>)
 }
 // RTU表单项
-export const RtuE = (value) => {
+export const RtuE = () => {
     return (
         <span>
             <Form.Item

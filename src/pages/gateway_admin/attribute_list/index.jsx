@@ -17,15 +17,27 @@ export default () => {
     const handlchange = e => {
         setRadio(e.target.value)
     }
+    const mode = {
+        instant:'上报即上传',
+        custom:'自定条件',
+        interval:'定时上传'
+    }
     // 获取属性数据
     const fetchData = async () => {
         const result = await getAttribute(modelId)
         const resultdata = []
-        for (let i = 0; i < result.length; i += 1) {
-            resultdata[i] = { ...result[i], ...result[i].dataConfig }
-            resultdata[i].dataConfig = undefined
+        if (result){
+            for (let i = 0; i < result.length; i += 1) {
+                console.log(result[i])
+                resultdata[i] = { ...result[i], ...result[i].dataConfig }
+                resultdata[i].dataConfig = undefined
+                const {method} = result[i].uploadCondition
+                resultdata[i].method = mode[method]
+                // resultdata[i].symbol = 
+                console.log(method)
+            }
+            setData(resultdata)
         }
-        setData(resultdata)
     }
 
     // 副作用函数
@@ -36,20 +48,23 @@ export default () => {
     // 删除属性
     const handleRemove = async selectedRows => {
         const hide = message.loading('正在删除');
-        if (!selectedRows) return true;
-        try {
-            await deleteAttribute(modelId, delectId)
-            hide();
-            ref.current.reload();
-            // message.success('删除成功，即将刷新');
-            fetchData()
-            return true;
-        } catch (error) {
-            hide();
-            message.error('删除失败，请重试');
-            return false;
+        if (selectedRows.length===0) {
+            message.error('请勾选要删除的属性')
         }
-    }
+        else {
+            hide();
+            await deleteAttribute(modelId, delectId)
+                    .then(res=>{
+                        if(res.statusCode===200){
+                            message.success(res.message)
+                        }
+                    })
+                ref.current.reload();
+                // message.success('删除成功，即将刷新');
+                fetchData()
+                return true;
+        }
+        }
 
     // 选择项处理
     const rowSelection = {
@@ -61,6 +76,14 @@ export default () => {
                 }
             )
         },
+        onSelectAll:(selected, selectedRows)=>{
+            delectId.propertyList.length = 0;
+            selectedRows.forEach(
+                (value) => {
+                    delectId.propertyList.push(value.id)
+                }
+            )
+        }
     };
 
     return (

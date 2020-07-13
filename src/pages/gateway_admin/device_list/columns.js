@@ -1,7 +1,6 @@
-import React ,{useState} from 'react'
+import React  from 'react'
 import { Link, history } from 'umi'
-import {Popconfirm,message} from 'antd'
-import { PropertySafetyFilled } from '@ant-design/icons'
+import {message} from 'antd'
 
   function confirm(e) {
       setBan('启用')
@@ -11,7 +10,7 @@ import { PropertySafetyFilled } from '@ant-design/icons'
     console.log(e);
     message.success('启用成功');
   }
-export const columns = (gatewayId,isban,setBan) => {
+export const columns = (gatewayId) => {
     function confirm(e) {
       message.error('禁用成功!');
     }
@@ -48,16 +47,14 @@ export const columns = (gatewayId,isban,setBan) => {
         key: 'slaveNo',
         align: 'center',
         width: 180,
-        sorter: (a, b) => a.slaveNo - b.slaveNo,
         hideInSearch: true,
     },
     {
-        title: '接入方式',
-        dataIndex: 'connectionMode',
-        key: 'connectionMode',
+        title: '通信口',
+        dataIndex: 'port',
+        key: 'port',
         width: 180,
-        hideInSearch: true,
-        sorter: (a, b) => a.name - b.name,
+        hideInSearch: true
     },
     {
         title: '绑定模型',
@@ -73,7 +70,7 @@ export const columns = (gatewayId,isban,setBan) => {
         render: (text, row) => [
             <Link to={{
                 pathname: '/gateway_admin/model_bind',
-                query: { deviceId: row.id, gatewayId: gatewayId }
+                query: { deviceId: row.id, gatewayId }
             }}>
                 绑定模型
             </Link>,

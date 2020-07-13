@@ -16,4 +16,6 @@ export const regExp = {
     userRule: new RegExp(/^[0-9a-zA-Z_]{1,12}$/, "g"),
     // 网关名称
     gatewayRule: new RegExp(/^[0-9a-zA-Z_]{1,16}$/, "g"),
+    // 数据字节数
+    dataLength: new RegExp()
 }

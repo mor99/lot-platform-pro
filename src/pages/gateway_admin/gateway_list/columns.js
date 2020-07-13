@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, history } from 'umi';
 import { TableDropdown } from '@ant-design/pro-table';
-import { Divider, Popconfirm, message, Button,Modal } from 'antd';
-import { PlusOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import {  message, Button,Modal } from 'antd';
+import {  ExclamationCircleOutlined } from '@ant-design/icons';
 import { alterpassword, publishConfig } from './service'
 
 const { confirm } = Modal;
@@ -18,7 +18,11 @@ const showDeleteConfirm = (gatewayId) => {
         cancelText: '取消',
         onOk() {
            publishConfig(gatewayId)
-           message.success('下发成功')
+            .then(res=>{
+                if(res.statusCode&&res.statusCode===200){
+                    message.success(res.message)
+                }
+            })
         },
         onCancel() {
             console.log('Cancel');
@@ -127,7 +131,6 @@ export const columns = [
                         history.push({ pathname: 'gateway_edit', query: { gateway: row } })
                     }
                     else if (key === 'alter') {
-                        console.log(row.id)
                         alterpassword(row.id)
                     }
                     else {

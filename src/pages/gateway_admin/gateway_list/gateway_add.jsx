@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Space, Select, Button, Radio, message,InputNumber,Divider } from 'antd';
+import { Form, Input, Space, Select, Button, Radio, message,Divider } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { regExp } from '@/utils/numAndRegexp'
@@ -26,11 +26,13 @@ const GatewayAddForm = () => {
     const [form] = Form.useForm();
     // 添加数据
     const onFinish = async (values) => {
+        const {dataPlan} = values
+        const value = {...values,dataPlan:parseInt(dataPlan)}
         const hide = message.loading('正在添加');
         console.log(values)
         try {
             hide();
-            await addGateway(values)
+            await addGateway(value)
                 .then((res) => {
                     console.log(res)
                     if (res.statusCode && res.statusCode === 201) {

@@ -157,13 +157,13 @@ export default defineConfig({
                   hideInMenu: true,
                 }, // 编辑属性(线圈)
                 {
-                  name: '编辑属性(线圈)',
+                  name: '编辑属性',
                   path: '/gateway_admin/attribute_edit1',
                   component: './gateway_admin/attribute_list/attribute_edit1',
                   hideInMenu: true,
                 }, // 编辑属性(非线圈)
                 {
-                  name: '编辑属性(非线圈)',
+                  name: '编辑属性',
                   path: '/gateway_admin/attribute_edit2',
                   component: './gateway_admin/attribute_list/attribute_edit2',
                   hideInMenu: true,

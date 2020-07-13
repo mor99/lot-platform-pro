@@ -40,7 +40,6 @@ export default (props) => {
                 <Space align='center' size='large' style={{ paddingLeft: 200 }}>
                     <Button type='primary' onClick={
                         async () => {
-                            console.log(modelname)
                             await bindModel(gatewayId, deviceId, modelid,modelname)
                                 .then((res)=>{
                                     if (res.statusCode&&res.statusCode===200){

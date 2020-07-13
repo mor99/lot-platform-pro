@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { Result ,Col,Row,Button} from 'antd'
 import {history} from 'umi'

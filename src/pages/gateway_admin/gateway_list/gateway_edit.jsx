@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Select, Space, Button, Radio, message, InputNumber } from 'antd';
+import { Form, Input, Select, Space, Button, Radio, message } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { history } from 'umi'
 import { regExp } from '@/utils/numAndRegexp'
@@ -30,15 +30,18 @@ const GatewayEditForm = () => {
     console.log(gateway)
     // 添加数据
     const onFinish = async (values) => {
+        console.log(values)
         const hide = message.loading('正在修改');
         try {
+            hide();
             await editGateway(gateway.id, values)
                 .then((res)=>{
-
+                    if(res.statusCode&&res.statusCode===200){
+                        message.success(res.message)
+                        history.goBack()
+                    }
                 })
-            hide();
-            message.success('修改成功')
-            history.goBack()
+
             return true
         }
         catch (error) {
