@@ -108,10 +108,7 @@ export default () => {
                                     (radio === 'a' || radio === 'b') ? 'attribute_add1' : 'attribute_add2'
                                 , query: { modelId, radio }
                             })
-                        }}>
-                            <PlusOutlined />
-                                新建
-                        </Button>,
+                        }}><PlusOutlined />新建</Button>,
                         <Button key="4" type="primary"  >
                             批量导入
                         </Button>,

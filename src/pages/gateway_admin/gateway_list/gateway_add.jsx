@@ -29,7 +29,7 @@ const GatewayAddForm = () => {
         const {dataPlan} = values
         const value = {...values,dataPlan:parseInt(dataPlan)}
         const hide = message.loading('正在添加');
-        console.log(values)
+        console.log(value)
         try {
             hide();
             await addGateway(value)
@@ -149,66 +149,6 @@ const GatewayAddForm = () => {
                     </Form.Item>
                     <Divider>网口配置</Divider>
                         <br/>
-{/*                     <Form.List name='tcpConfig'>
-                        {(fields,{add,remove})=>{
-                            return (
-                                <Form.Item {...formItemLayoutWithOutLabel}>
-                                {TcpA}
-                                {fields.map((field,index)=>(
-                                    <Form.Item key={field.key}>
-                                         {TcpA}
-                                         {fields.length > 0 ? (
-                                            <MinusCircleOutlined
-                                                className={styles.delete}
-                                                style={{ margin: '0 8px' }}
-                                                onClick={() => {
-                                                    remove(field.name);
-                                                }}
-                                            />
-                                        ) : null}
-                                     </Form.Item>  
-                                    ))}
-                                <Button type="dashed" onClick={() => {
-                                add();
-                                 }}
-                                    style={{ width: '15%' }}> <PlusOutlined /> 添加</Button>
-                             </Form.Item>
-                            )
-                        }}
-                    </Form.List> */}
-{/*                     <Form.List name='tcpConfig'>
-                        {(fields,{add,remove})=>{
-                            return(
-                                <span>
-                                    {fields.map((field,index)=>(
-                                        <Form.Item key={field.key} noStyle>
-                                            {TcpA}
-                                            {fields.length > 1 ? (
-                                                <MinusCircleOutlined
-                                                style={{ margin: '0 8px' }}
-                                                onClick={() => {
-                                                    remove(field.name);
-                                                }}/> ) : null}
-                                        </Form.Item>
-                                    ))}
-                                    <Form.Item>
-                                    <Button
-                                    type="dashed"
-                                    onClick={() => {
-                                        add();
-                                    }}
-                                    style={{ width: '60%' }}
-                                    >
-                                    <PlusOutlined /> 添加
-                                    </Button>
-              </Form.Item>
-                                </span>
-                            )
-                        }}
-                    </Form.List> */}
-                   
-                    {/* <br/>{TcpA}<br/>{RtuA} */}
-
                     <Form.List name="tcpConfig">
                         {(fields, { add, remove }) => {
                         const feild1 = {name:0,fieldKey:0}
@@ -218,7 +158,6 @@ const GatewayAddForm = () => {
                                 {TcpA(feild1)}
                             </Form.Item>
                             {fields.map(field => {
-                                console.log(field)
                                 field.name += 1
                                 field.fieldKey +=1
                             return (
@@ -260,7 +199,7 @@ const GatewayAddForm = () => {
                                 {RtuA(field)}
                                 <MinusCircleOutlined
                                     onClick={() => {
-                                    remove(field.name);
+                                    remove(field.name-1);
                                     }}
                                 />
                                 </Form.Item>
@@ -277,36 +216,6 @@ const GatewayAddForm = () => {
                         }}
                     </Form.List>
                     <Divider dashed />
-{/*                     <Form.List name='uartConfig'>
-                        {(fields,{add,remove})=>{
-                            console.log(fields)
-                            return (
-                                <Form.Item {...formItemLayoutWithOutLabel}>
-                                {RtuA}
-                                {fields.map((field)=>{console.log(field) 
-                                    return(
-                                <Form.Item {...field}>
-                                 {RtuA}
-                                 {fields.length > 0 ? (
-                                            <MinusCircleOutlined
-                                                className={styles.delete}
-                                                style={{ margin: '0 8px' }}
-                                                onClick={() => {
-                                                    remove(field.name);
-                                                }}
-                                            />
-                                        ) : null}
-                             </Form.Item>
-                         )})}
-                                <Button type="dashed" onClick={() => {
-                                add();
-                                 }}
-                                    style={{ width: '15%' }}> <PlusOutlined /> 添加</Button>
-                             </Form.Item>
-                            )
-                        }}
-                    </Form.List> */}
-
                     <Form.Item {...tailFormItemLayout}>
                         <Space size={10}>
                             <Button type="primary" htmlType="submit">

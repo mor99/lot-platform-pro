@@ -30,11 +30,13 @@ const GatewayEditForm = () => {
     console.log(gateway)
     // 添加数据
     const onFinish = async (values) => {
-        console.log(values)
+        const {dataPlan} = values
+        const value = {...values,dataPlan:parseInt(dataPlan)}
+        console.log(value)
         const hide = message.loading('正在修改');
         try {
             hide();
-            await editGateway(gateway.id, values)
+            await editGateway(gateway.id, value)
                 .then((res)=>{
                     if(res.statusCode&&res.statusCode===200){
                         message.success(res.message)
@@ -121,7 +123,6 @@ const GatewayEditForm = () => {
                         </Select>
                     </Form.Item>
 
-
                     <Form.Item
                         label='通信方式'
                         name='isEncrypted'>
@@ -142,7 +143,7 @@ const GatewayEditForm = () => {
                             },
                         ]}
                     >
-                        <Input style={{width:'30%'}} addonAfter="MB"  />
+                        <Input type='number' style={{width:'30%'}} addonAfter="MB"  />
                         <p />
                     </Form.Item>
 

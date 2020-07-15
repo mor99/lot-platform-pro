@@ -32,7 +32,7 @@ export const TcpA = (field)=>{
             fieldKey = {[field.fieldKey,'name']}
             rules={[
                 {
-                    required:true,
+                    // required:true,
                     message:'请输入接口名称'
                 }
             ]}>
@@ -44,7 +44,7 @@ export const TcpA = (field)=>{
             fieldKey = {[field.fieldKey,'ip']}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '输入ip地址!',
                 },
             ]}
@@ -57,7 +57,7 @@ export const TcpA = (field)=>{
             fieldKey = {[field.fieldKey,'port']}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '输入端口号,必须为整数!',
                     pattern: regExp.num,
                     whitespace: true
@@ -76,7 +76,7 @@ export const RtuA = (field)=>(
             fieldKey = {[field.fieldKey,'name']}
             rules={[
                 {
-                    required:true,
+                    // required:true,
                     message:'请输入接口名称'
                 }
             ]}>
@@ -88,13 +88,13 @@ export const RtuA = (field)=>(
             fieldKey = {[field.fieldKey,'serialNo']}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     pattern: regExp.num,
                     message: '请输入串口号,必须为整数!',
                 },
             ]}
         >
-            <Input placeholder='请输入串口号' />
+            <InputNumber placeholder='请输入串口号' />
         </Form.Item>
 
         <Form.Item
@@ -103,15 +103,15 @@ export const RtuA = (field)=>(
             label={<span>波特率&emsp;</span>}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '选择波特率!',
                 },
             ]}
         >
             <Select placeholder='请选择波特率' >
-                <Option value="9600">9600</Option>
-                <Option value="9600">115200</Option>
-                <Option value="MIPS">1830000</Option>
+                <Option value={9600}>9600</Option>
+                <Option value={115200}>115200</Option>
+                <Option value={1830000}>1830000</Option>
             </Select>
         </Form.Item>
 
@@ -121,7 +121,7 @@ export const RtuA = (field)=>(
             label={<span>数据位&emsp;</span>}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '选择数据位!',
                 },
             ]}
@@ -140,7 +140,7 @@ export const RtuA = (field)=>(
             label={<span>校验&emsp;&emsp;</span>}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '请选择模式!',
                 },
             ]}
@@ -161,7 +161,7 @@ export const RtuA = (field)=>(
             label={<span>停止位&emsp;</span>}
             rules={[
                 {
-                    required: true,
+                    // required: true,
                     message: '请选择模式!',
                 },
             ]}
@@ -219,7 +219,7 @@ export const RtuE = () => {
                     },
                 ]}
             >
-                <Input />
+                <InputNumber />
             </Form.Item>
 
             <Form.Item

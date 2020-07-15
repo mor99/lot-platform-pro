@@ -207,10 +207,18 @@ export default defineConfig({
               routes: [
                 // 实时监控
                 {
-                  name: '实时监控',
+                  name: '实时数据',
                   path: '/data_monitoring/real_time',
                   component: './data_monitoring/real_time',
-                }, // 历史数据
+                },
+                // 具体信息
+                {
+                  name:'监控信息',
+                  path:'/data_monitoring/concrete',
+                  component:'./data_monitoring/real_time/concrete',
+                  hideInMenu:true
+                },
+                // 历史数据
                 {
                   name: '历史数据',
                   path: '/data_monitoring/history',

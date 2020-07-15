@@ -76,7 +76,7 @@ export default (props) => {
             )
         },
         onSelectAll:(selected, selectedRows, changeRows)=>{
-            delectIds.deviceList.length = 0;
+            deleteIds.deviceList.length = 0;
             selectedRows.forEach(
                 (value) => {
                     deleteIds.deviceList.push(value.id)

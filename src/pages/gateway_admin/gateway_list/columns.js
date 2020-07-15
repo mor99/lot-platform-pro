@@ -64,7 +64,6 @@ export const columns = [
         hideInSearch: true,
         align: 'center',
         width: 150,
-        sorter: (a, b) => a.as1 - b.as1,
     },
     {
         title: '状态',
@@ -131,7 +130,12 @@ export const columns = [
                         history.push({ pathname: 'gateway_edit', query: { gateway: row } })
                     }
                     else if (key === 'alter') {
-                        alterpassword(row.id)
+                        alterpassword(row.id).then(res=>{
+                            console.log(res)
+                            if (res.statusCode&&res.statusCode===200){
+                                message.success(res.message)
+                            }
+                        })
                     }
                     else {
                         console.log(row.key)
