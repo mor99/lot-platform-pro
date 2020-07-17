@@ -136,6 +136,7 @@ export default ()=>{
                             width:1200,
                             height:600,
                             linkCenter: true,
+                            fitView: true,
                             modes: {
                               default: [
                                 {
@@ -169,9 +170,10 @@ export default ()=>{
                             },
                             layout: {   // 数图
                               type: 'dendrogram',
+                             // type: 'compactBox',
                               direction: 'TB', // H / V / LR / RL / TB / BT  方向
                               nodeSep: 60,
-                              rankSep: 150,
+                              rankSep: 120,
                             },
                           });
                       
@@ -194,8 +196,8 @@ export default ()=>{
                               },
                             };
                           });
-                   /*  graph.data(res)
-                    graph.render() */
+                    // graph.data(res)
+                    // graph.render() 
                     graph.read(res)
                     graph.fitView();
                   }
@@ -206,6 +208,6 @@ export default ()=>{
         fetchData();
 }, [])
     return (
-            <div className={styles.div1} ref={ref} />
+            <div className={styles.div} ref={ref} />
     )
 }

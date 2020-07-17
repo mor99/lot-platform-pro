@@ -35,7 +35,7 @@ const AddAttribute = () => {
     const onFinish = async (values) => {
         console.log(values)
         const { name, dataAddr, functionCode, customConditions,alias,interval,symbol,operationData,method,...dataConfig } = values;
-        const value = { name, alias,dataAddr, functionCode, dataConfig:{...dataConfig,dataFormula:`${symbol}${operationData}`}, uploadCondition: {method,codition:{interval:parseInt(interval),customConditions}} }
+        const value = { name, alias,dataAddr, functionCode, dataConfig:{...dataConfig,dataFormula:`${symbol}${operationData}`}, uploadCondition: {method,condition:{interval:parseInt(interval),customConditions}} }
         const hide = message.loading('正在添加');
         try {
             await addAttribute(modelId, value)
@@ -60,7 +60,6 @@ const selectways = {
     // 自定条件
     custom:<Form.List name='customConditions'>
         {(fields, { add, remove }) => {
-            
             return (
                 <span>
                     <Form.Item {...formItemLayoutWithOutLabel} label='当采集到的数据' >
@@ -96,15 +95,15 @@ const selectways = {
                         const a = (field.name===0)
                         // const field = {name: field1.name+1,fieldKey:field1.fieldKey+1}
                         return(
-                        <Form.Item hidden={a}
+                        <Form.Item 
+                        hidden={a}
                         {...formItemLayoutWithOutLabel1}>
-                        <Row gutter={8}>
+                        <Row gutter={[8,0]}>
                                     <Col>
-                                        <Form.Item initialValue='or' name={(field.name===0)?'':[field.name,'with']}  fieldKey={[field.fieldKey,'with']}>
+                                        <Form.Item initialValue='or' name={(field.name===0)?'':[field.name,'withSecond']}  fieldKey={[field.fieldKey,'with']}>
                                         <Radio.Group buttonStyle="solid">
-                                            <Radio.Button value="is">是</Radio.Button>
+                                            <Radio.Button value="and">与</Radio.Button>
                                             <Radio.Button value="or">或</Radio.Button>
-                                            <Radio.Button value="no">非</Radio.Button>
                                         </Radio.Group>
                                         </Form.Item>
                                     </Col>
@@ -130,16 +129,6 @@ const selectways = {
                                                 }}
                                             />
                                     </Col>
-                                    {/* <Col>
-                                        <Button
-                                            type="dashed"
-                                            onClick={() => {
-                                                add();
-                                            }}
-                                        >
-                                            <PlusOutlined /> 添加
-                                             </Button>
-                                    </Col> */}
                                 </Row>
                         </Form.Item>
                     )})}
@@ -241,21 +230,6 @@ const selectways = {
                             },
                         ]}
                     >
-                        <Form.Item name='upperLimit'
-                            rules={[{
-                                require: true,
-                                pattern: regExp.num,
-                                message: '请输入一个数字!'
-                            }]}
-                            noStyle>
-                            <InputNumber className={styles.input} placeholder="输入量程上限" />
-                        </Form.Item>
-                        <Input
-                            className={styles.input1}
-                            placeholder="~"
-                            disabled
-                            noStyle
-                        />
                         <Form.Item name='lowerLimit'
                             rules={[{
                                 require: true,
@@ -264,6 +238,32 @@ const selectways = {
                             }]}
                             noStyle>
                             <InputNumber className={styles.input} placeholder="输入量程下限" />
+                        </Form.Item>
+                        <Input
+                            className={styles.input1}
+                            placeholder="~"
+                            disabled
+                            noStyle
+                        />
+                        <Form.Item 
+                            name='upperLimit'
+                            dependencies={['lowerLimit']}
+                            rules={[{
+                                require: true,
+                                pattern: regExp.num,
+                                message: '请输入一个数字!'
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                if (!value || getFieldValue('lowerLimit')<value) {
+                                    return Promise.resolve();
+                                }
+                                    return Promise.reject('数据范围不正确');
+                                    },
+                                }),
+                            ]}
+                            noStyle>
+                            <InputNumber className={styles.input} placeholder="输入量程上限" />
                         </Form.Item>
                     </Form.Item>
 
@@ -296,11 +296,6 @@ const selectways = {
                         ]}
                     >
                         <InputNumber min={1} max={125} />
-                        {/* <Select placeholder='请选择模式' >
-                            <Option value={8}>8</Option>
-                            <Option value={16}>16</Option>
-                            <Option value={32}>32</Option>
-                        </Select> */}
                     </Form.Item>
 
                     <Form.Item

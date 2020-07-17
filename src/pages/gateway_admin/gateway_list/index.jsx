@@ -8,7 +8,7 @@ import { Button, message,  Modal } from 'antd';
 import { columns } from './columns'
 import { getGateway, deleteGateway } from './service'
 import styles from './index.less'
-
+  
 const { confirm } = Modal;
 const Gateway = () => {
     const delectId = { idList: [] }
@@ -96,7 +96,7 @@ const Gateway = () => {
 
     return (
         <PageHeaderWrapper>
-            <div className={styles.div1}>
+            <div className={styles.div}>
                 <ProTable
                     actionRef={ref}
                     rowKey='id'

@@ -53,7 +53,7 @@ const GatewayAddForm = () => {
 
     return (
         <PageHeaderWrapper>
-            <div className={styles.div1}>
+            <div className={styles.div}>
                 <Form
                     {...formItemLayout}
                     form={form}

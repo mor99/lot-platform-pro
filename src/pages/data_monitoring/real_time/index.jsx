@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import { PageHeaderWrapper } from '@ant-design/pro-layout';
-import {PlusOutlined} from '@ant-design/icons';
+import React, {useState, useEffect} from 'react'
 import {Link} from 'umi'
 import {Card,Row,Col,Collapse,Badge } from 'antd'
+import { PageHeaderWrapper } from '@ant-design/pro-layout'
 import {getGateway} from './service'
 import styles from './index.less'
 
-const { Meta } = Card;
 const status ={
     inactive:['default','未激活'],
     running:['Success','运行中'],
@@ -39,12 +37,8 @@ export default ()=> {
                                     <Col span={24}>子设备数量:{value.childDeviceNum}个</Col>
                                     <Col span={24}>核心模块:{value.coreModule}</Col>
                                     <Col>通信协议:{value.protocol}</Col>
-{/*                                     <Col>是否加密:{(value.isEncrypted===true?'是':'否')}</Col>
-                                    <Col>数据流量:{value.dataPlan}</Col> */}
-                                    <Collapse ghost destroyInactivePanel onChange={()=>{}}>
-                                        <Collapse.Panel header={<Link to='concrete'>查看更多</Link>} showArrow={false}>
-                                            {/* <Col>创建时间:{value.createTime}</Col>
-                                            <Col>更新时间:{value.updateTime}</Col> */}
+                                    <Collapse ghost destroyInactivePanel>
+                                        <Collapse.Panel header={<Link to={{pathname:'concrete',query:{gatewayId:value.id}}}>详细数据</Link>} showArrow={false}>
                                         </Collapse.Panel>
                                     </Collapse> 
                                 </Row>
@@ -52,7 +46,6 @@ export default ()=> {
                         </Col>
                     )}
                 </Row>
-                    
             </div>
         </PageHeaderWrapper>
         )

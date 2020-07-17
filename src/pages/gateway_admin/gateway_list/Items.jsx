@@ -74,12 +74,7 @@ export const RtuA = (field)=>(
             label="接口名称"
             name={[field.name,'name']}
             fieldKey = {[field.fieldKey,'name']}
-            rules={[
-                {
-                    // required:true,
-                    message:'请输入接口名称'
-                }
-            ]}>
+            >
             <Input placeholder='请输入接口名称'/>
         </Form.Item>
         <Form.Item
@@ -101,12 +96,6 @@ export const RtuA = (field)=>(
             name={[field.name,'baudRate']}
             fieldKey = {[field.fieldKey,'baudRate']}
             label={<span>波特率&emsp;</span>}
-            rules={[
-                {
-                    // required: true,
-                    message: '选择波特率!',
-                },
-            ]}
         >
             <Select placeholder='请选择波特率' >
                 <Option value={9600}>9600</Option>
@@ -119,12 +108,6 @@ export const RtuA = (field)=>(
             name={[field.name,'dataLength']}
             fieldKey = {[field.fieldKey,'dataLength']}
             label={<span>数据位&emsp;</span>}
-            rules={[
-                {
-                    // required: true,
-                    message: '选择数据位!',
-                },
-            ]}
         >
             <Select placeholder='请选择模式' >
                 <Option value={8}>8</Option>
@@ -138,12 +121,7 @@ export const RtuA = (field)=>(
             name={[field.name,'parity']}
             fieldKey = {[field.fieldKey,'parity']}
             label={<span>校验&emsp;&emsp;</span>}
-            rules={[
-                {
-                    // required: true,
-                    message: '请选择模式!',
-                },
-            ]}
+
         >
             <Select
                 placeholder='请选择模式' >
@@ -159,12 +137,6 @@ export const RtuA = (field)=>(
             name={[field.name,'stopBit']}
             fieldKey = {[field.fieldKey,'stopBit']}
             label={<span>停止位&emsp;</span>}
-            rules={[
-                {
-                    // required: true,
-                    message: '请选择模式!',
-                },
-            ]}
         >
             <Select placeholder='请选择模式' >
                 <Option value={1}>1</Option>

@@ -3,7 +3,7 @@ import request from '@/utils/request';
 export async function getGateway() {
     return request.get('/api/gateway')
   }
-// 监控信息
+// 获取监控信息
 export async function monitor(gatewayId){
     return request.get(`/api/monitor/${gatewayId}`)
 }

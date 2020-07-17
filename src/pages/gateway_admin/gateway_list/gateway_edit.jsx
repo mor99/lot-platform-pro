@@ -27,9 +27,14 @@ const tailFormItemLayout = {
 const GatewayEditForm = () => {
     const [form] = Form.useForm();
     const { gateway } = history.location.query;
+    console.log(gateway.dataPlan.toString())
     console.log(gateway)
+    const defaultdata = {...gateway}
+    defaultdata.dataPlan = gateway.dataPlan.toString()
+    console.log(defaultdata)
     // 添加数据
     const onFinish = async (values) => {
+        console.log(values)
         const {dataPlan} = values
         const value = {...values,dataPlan:parseInt(dataPlan)}
         console.log(value)
@@ -56,10 +61,10 @@ const GatewayEditForm = () => {
 
     return (
         <PageHeaderWrapper>
-            <div className={styles.div1}>
+            <div className={styles.div}>
                 <Form
                     {...formItemLayout}
-                    initialValues={gateway}
+                    initialValues={defaultdata}
                     form={form}
                     name="gateway_edit"
                     onFinish={onFinish}

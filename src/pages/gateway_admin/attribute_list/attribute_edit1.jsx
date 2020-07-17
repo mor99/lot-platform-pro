@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useState, useEffect} from 'react';
 import { Form, Input, Select, Row,Col,InputNumber,Radio, Button, message, Space } from 'antd';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -22,20 +22,33 @@ const formItemLayoutWithOutLabel1 = {
 };
 const AttributeEdit = (props) => {
     const [form] = Form.useForm();
-    const [way, setWay] = useState('instant')
     const { modelId, property } = props.location.query;
-    console.log(property)
-    const [symbol,...number]=property.dataFormula
+    const [way, setWay] = useState('instant')
+    const [data,setData] = useState({})
+
+    const result = {...property,...property.dataConfig,...property.uploadCondition,...property.uploadCondition.condition}
+    const [symbol,...number]=result.dataFormula
     const number1 = number.join('')
-    property.method = property.uploadCondition.method
-    console.log(property.method)
-    property.symbol = symbol
-    // eslint-disable-next-line radix
-    property.operationData = parseInt(number1)
+    result.operationData = parseInt(number1)
+    // 初始数据处理
+    const fetchData = ()=>{
+        const result = {...property,...property.dataConfig,...property.uploadCondition,...property.uploadCondition.condition}
+        const [symbol,...number]=result.dataFormula
+        const number1 = number.join('')
+        result.operationData = parseInt(number1)
+        console.log(result)
+        setWay(result.method)
+        setData(result)
+    }
+    // 数据初始化
+    useEffect(()=>{
+        fetchData()
+    },[])
     // 修改属性
     const onFinish = async (values) => {
+        console.log(values)
         const { name, dataAddr, functionCode, customConditions,alias,interval,operationData,method,...dataConfig } = values;
-        const value = { name, alias,dataAddr, functionCode, dataConfig:{...dataConfig,dataFormula:`${symbol}${operationData}`}, uploadCondition: {method,codition:{interval:parseInt(interval),customConditions}} }
+        const value = { name, alias,dataAddr, functionCode, dataConfig:{...dataConfig,dataFormula:`${symbol}${operationData}`}, uploadCondition: {method,condition:{interval:parseInt(interval),customConditions}} }
         const hide = message.loading('正在修改');
         try {
             hide();
@@ -54,20 +67,22 @@ const AttributeEdit = (props) => {
             return false;
         }
     };
-// 上传条件
+
+    // 上传条件
     const selectways = {
         // 即时上传
         instant:null,
         // 自定条件
         custom:<Form.List name='customConditions'>
             {(fields, { add, remove }) => {
+                console.log(fields)
                 return (
                     <span>
                         <Form.Item {...formItemLayoutWithOutLabel} label='当采集到的数据' >
                         <Row gutter={8}>
                             <Col>
-                            <Form.Item name={[0,'logic']} fieldKey={[0,'logic']} initialValue='equal' noStyle>
-                                <Radio.Group buttonStyle="solid" defaultValue='equal'>
+                            <Form.Item name={[0,'logic']} fieldKey={[0,'logic']} noStyle>
+                                <Radio.Group buttonStyle="solid">
                                     <Radio.Button value="greaterThan">大于</Radio.Button>
                                     <Radio.Button value="equal">等于</Radio.Button>
                                     <Radio.Button value="lessThan">小于</Radio.Button>
@@ -75,7 +90,7 @@ const AttributeEdit = (props) => {
                             </Form.Item>
                             </Col>
                             <Col>
-                            <Form.Item name={[0,'target']} fieldKey={[0,'target']} noStyle>
+                            <Form.Item name={[0,'target']} fieldKey={[0,'target']}  noStyle>
                                 <InputNumber placeholder='数值' />
                             </Form.Item>
                             </Col>
@@ -94,17 +109,16 @@ const AttributeEdit = (props) => {
                             </Form.Item>
                         {fields.map((field) => {
                             const a = (field.name===0)
-                            // const field = {name: field1.name+1,fieldKey:field1.fieldKey+1}
                             return(
-                            <Form.Item hidden={a}
+                            <Form.Item 
+                            hidden={a}
                             {...formItemLayoutWithOutLabel1}>
                             <Row gutter={8}>
                                         <Col>
-                                            <Form.Item initialValue='or' name={(field.name===0)?'':[field.name,'with']}  fieldKey={[field.fieldKey,'with']}>
+                                            <Form.Item initialValue='or' name={(field.name===0)?'':[field.name,'withSecond']}  fieldKey={[field.fieldKey,'with']}>
                                             <Radio.Group buttonStyle="solid">
-                                                <Radio.Button value="is">是</Radio.Button>
+                                                <Radio.Button value="and">与</Radio.Button>
                                                 <Radio.Button value="or">或</Radio.Button>
-                                                <Radio.Button value="no">非</Radio.Button>
                                             </Radio.Group>
                                             </Form.Item>
                                         </Col>
@@ -130,16 +144,6 @@ const AttributeEdit = (props) => {
                                                     }}
                                                 />
                                         </Col>
-                                        {/* <Col>
-                                            <Button
-                                                type="dashed"
-                                                onClick={() => {
-                                                    add();
-                                                }}
-                                            >
-                                                <PlusOutlined /> 添加
-                                                 </Button>
-                                        </Col> */}
                                     </Row>
                             </Form.Item>
                         )})}
@@ -148,7 +152,7 @@ const AttributeEdit = (props) => {
             }}
         </Form.List>,
         // 定时上传
-        interval:<Form.Item label='上报间隔' name='interval'>
+        interval:<Form.Item label='上报间隔' name='interval'  >
             <Input style={{width:'30%'}} type='number'/>
         </Form.Item>
     }
@@ -157,8 +161,8 @@ const AttributeEdit = (props) => {
             <div className={styles.div}>
                 <Form
                     {...formItemLayout}
+                    initialValues={result}
                     form={form}
-                    initialValues={property}
                     name="attribute_edit"
                     onFinish={onFinish}
                     scrollToFirstError>
@@ -230,7 +234,7 @@ const AttributeEdit = (props) => {
                             },
                         ]}
                     >
-                        <Form.Item name='upperLimit'
+                        <Form.Item name='lowerLimit'
                             rules={[{
                                 require: true,
                                 pattern: regExp.num,
@@ -252,12 +256,21 @@ const AttributeEdit = (props) => {
                                 disabled
                             />
                         </Form.Item>
-                        <Form.Item name='lowerLimit'
+                        <Form.Item name='upperLimit'
                             rules={[{
                                 pattern: regExp.num,
                                 require: true,
                                 message: '请输入一个数字!'
-                            }]}
+                            },
+                            ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                if (!value || getFieldValue('lowerLimit')<value) {
+                                    return Promise.resolve();
+                                }
+                                    return Promise.reject('数据范围不正确');
+                                    },
+                                }),
+                            ]}
                             noStyle>
                             <InputNumber
                                 className="site-input-right"
