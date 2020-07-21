@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'umi'
-import {Card,Row,Col,Collapse,Badge } from 'antd'
+import {Link,history} from 'umi'
+import {Card,Row,Col,Collapse,Badge,Empty,Button } from 'antd'
 import { PageHeaderWrapper } from '@ant-design/pro-layout'
 import {getGateway} from './service'
 import styles from './index.less'
@@ -20,7 +20,7 @@ export default ()=> {
         if (result && result instanceof Array) {
             setData(result)
         }
-        else {setData(null)}
+        else {setData([])}
         }
     // 组件初始化
     useEffect(()=>{
@@ -29,6 +29,7 @@ export default ()=> {
  return (
         <PageHeaderWrapper>
             <div className={styles.div}>
+                {(data.length)?
                 <Row gutter={[16,16]}>
                     {data.map((value)=>
                         <Col span={4}>
@@ -36,16 +37,13 @@ export default ()=> {
                                 <Row gutter={[16,8]}>
                                     <Col span={24}>子设备数量:{value.childDeviceNum}个</Col>
                                     <Col span={24}>核心模块:{value.coreModule}</Col>
-                                    <Col>通信协议:{value.protocol}</Col>
-                                    <Collapse ghost destroyInactivePanel>
-                                        <Collapse.Panel header={<Link to={{pathname:'concrete',query:{gatewayId:value.id}}}>详细数据</Link>} showArrow={false}>
-                                        </Collapse.Panel>
-                                    </Collapse> 
+                                    <Col span={24}>通信协议:{value.protocol}</Col>
+                                    <Col offset={8}><Link to={{pathname:'concrete',query:{gatewayId:value.id}}}>详细数据&lt;</Link></Col>
                                 </Row>
                             </Card>
                         </Col>
                     )}
-                </Row>
+                </Row>:<Empty><Button type="link" onClick={()=>{history.push('/gateway_admin/gateway_list')}}>查看网关列表</Button></Empty>}
             </div>
         </PageHeaderWrapper>
         )

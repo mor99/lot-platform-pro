@@ -2,13 +2,13 @@ import request from '@/utils/request';
 
 // 用户名登录
 export async function fakeAccountLogin(params) {
-  // /api/user/login
   return request('/api/user/login', {
     method: 'POST',
     data: params,
-  }).then((response) => { 
+  }).then((response) => {
     const data = {...response}
     data.currentAuthority = 'user'
+    localStorage.setItem('username',params.username)
     localStorage.setItem("mytoken",data.accessToken)
     return data
     // reponse[currentAuthority] = 'user' });

@@ -11,7 +11,6 @@ class AvatarDropdown extends React.Component {
 
     if (key === 'logout') {
       const { dispatch } = this.props;
-
       if (dispatch) {
         dispatch({
           type: 'login/logout',
@@ -58,7 +57,7 @@ class AvatarDropdown extends React.Component {
     return currentUser && currentUser.name ? (
       <HeaderDropdown overlay={menuHeaderDropdown}>
         <span className={`${styles.action} ${styles.account}`}>
-          <span className={styles.name}>{currentUser.name}</span>
+          <span className={styles.name}>{localStorage.getItem('username')}</span>
         </span>
       </HeaderDropdown>
     ) : (

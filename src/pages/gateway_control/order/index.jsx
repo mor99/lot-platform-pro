@@ -71,8 +71,13 @@ export default () => {
     // 获取子设备列表
     const fetchDevice = async (value) => {
         const result = await getDevice(value)
-        console.log(result)
-        setDevice(result)
+            .then(res=>{
+                if(res.statusCode===200){
+                    console.log(result)
+                    setDevice(result)
+                }
+                else {setDevice([])}
+            })
     }
     // 获取子设备绑定的模型的属性列表
     const fetchProperties = async (value) => {
@@ -138,19 +143,6 @@ export default () => {
                     </Form.Item>
                     <Form.Item />
                     {(!visible) ? Properdom : null}
-                    {/*                     <Form.Item {...tailLayout1}>
-                        <Row gutter={4}>
-                            <Col span={6}>属性名称</Col>
-                            <Col span={6}>本次是否控制</Col>
-                            <Col span={6}>目标值</Col>
-                        </Row>
-                        <Row gutter={4}>
-                            <Col span={6}>功率因数</Col>
-                            <Col span={6}><Form.Item name='switch'><Switch /></Form.Item></Col>
-                            <Col span={4}><Form.Item name='input'><Input placeholder='目标值' /></Form.Item></Col>
-                        </Row>
-                    </Form.Item>
-                    <Form.Item /> */}
                     <Form.Item />
                     <Form.Item wrapperCol={{ span: 12, offset: 8 }}>
                         <Space size={20}>

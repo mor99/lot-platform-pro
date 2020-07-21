@@ -8,3 +8,4 @@ export function timestampToTime(timestamp) {
     var s = date.getSeconds();
     return Y + M + D + h + m + s;
 }
+// Array(length).join(‘0’) + num).slice(-length)  固定位数不足补0

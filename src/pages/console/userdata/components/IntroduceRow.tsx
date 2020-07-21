@@ -27,7 +27,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         bordered={false}
         title="网关设备数量"
         action={
-          <Tooltip title="Introduce">
+          <Tooltip title="设备数量">
             <InfoCircleOutlined />
           </Tooltip>
         }
@@ -36,7 +36,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         footer={
           <Field
             label=""
-            value="123"
+            value="今日上传:1"
             /* {`￥${numeral(12423).format('0,0')}`} */
           />
         }
@@ -48,11 +48,11 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
             marginRight: 16,
           }}
         >
-          Weekly Changes
+          周环比
           <span className={styles.trendText}>12</span>
         </Trend>
         <Trend flag="down">
-          Daily Changes
+          日环比
           <span className={styles.trendText}>11</span>
         </Trend>
       </ChartCard>
@@ -64,12 +64,12 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         loading={loading}
         title="数据点击量"
         action={
-          <Tooltip title="Introduce">
+          <Tooltip title="点击量">
             <InfoCircleOutlined />
           </Tooltip>
         }
         total={numeral(8846).format('0,0')}
-        footer={<Field label="Daily Visits" value={numeral(1234).format('0,0')} />}
+        footer={<Field label="近期访问量" value={numeral(2333).format('0,0')} />}
         contentHeight={46}
       >
         <MiniArea color="#975FE4" data={visitData} />
@@ -81,12 +81,12 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         loading={loading}
         title="今日上传次数"
         action={
-          <Tooltip title="Introduce">
+          <Tooltip title="上传次数">
             <InfoCircleOutlined />
           </Tooltip>
         }
         total={numeral(6560).format('0,0')}
-        footer={<Field label="Conversion Rate" value="60%" />}
+        footer={<Field label='日比增长' value="60%" />}
         contentHeight={46}
       >
         <MiniBar data={visitData} />
@@ -98,7 +98,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
         bordered={false}
         title="网关设备健康率"
         action={
-          <Tooltip title="Introduce">
+          <Tooltip title="健康率">
             <InfoCircleOutlined />
           </Tooltip>
         }
@@ -116,7 +116,7 @@ const IntroduceRow = ({ loading, visitData }: { loading: boolean; visitData: Vis
                 marginRight: 16,
               }}
             >
-              周日比
+              周环比
               <span className={styles.trendText}>12%</span>
             </Trend>
             <Trend flag="down">

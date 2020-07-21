@@ -103,7 +103,14 @@ export default ()=>{
     return (
         <PageHeaderWrapper>
             <div className={styles.div}>
+                <div style={{
+                    position: 'fixed',
+                    height: '90px',
+                    width: '40px',
+                    top: '120px',
+                    right: '50px',}}>
                 <SyncOutlined spin={spin} style={{float:'right',height:'50px',fontSize:'x-large'}} onClick={()=>{fetchData(1)}}/>
+                </div>
                 <br/>
                 <Collapse defaultActiveKey={['1','2','3']} ghost>
                     <Panel header={<Divider><h2>网关信息</h2></Divider>} key="1">
