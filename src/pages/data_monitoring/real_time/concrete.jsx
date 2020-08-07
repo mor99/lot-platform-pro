@@ -186,7 +186,7 @@ export default ()=>{
                                                         title={()=><h3 style={{height:'40px',fontSize:'20px',textAlign:'left'}}>设备名称<Divider type='vertical'/>{value1.name}</h3>}
                                                         rowKey='name'
                                                         rowClassName={(record,index)=>{
-                                                            return record.data.status===false?'red___1fzle':''
+                                                            return (!record.data.reason)?'':'red___1fzle'
                                                         }}
                                                         search={false}
                                                         options={false}
