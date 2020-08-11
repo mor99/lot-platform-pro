@@ -7,27 +7,6 @@ import {getGateway,getDeviceList} from './service'
 import io from 'socket.io-client'
 import styles from './index.less'
 
-const v = {a:[1,2,3]}
-
-const a = {
-"ports": [
-  {
-    "name": "uart1",
-    "devices": [
-      {
-        "name": "device_test_1",
-        "properties": [
-          {
-            "name": "p_test_1",
-            "alias": "测试属性1"
-          }
-        ]
-      }
-    ]
-  }
-]
-}
-// 获取共享状态
 const mapStateToPros=(state)=>{
     return {
         list_state:state.list.list_state,
@@ -36,18 +15,15 @@ const mapStateToPros=(state)=>{
     }
 }
 
-const Monitor= (props)=> {
-    console.log(props)    
+const Monitor= (props)=> {    
     const {chart_state,list_state,monitor_data} = props
-    console.log(monitor_data)
     const [liststatus,setList] = useState('gateway')
     const [news,setNews] = useState([])
     const [gatewyList,setGateway] = useState([])
-    const username = localStorage.getItem('username')
     // 获取网关列表
     const test = [
-        {name:'网关1',description:'弯管1的描述'},
-        {name:'网关2',description:'弯管1的描述'}
+        {name:'网关1',description:'用于获取不到数据时的菜单测试'},
+        {name:'网关2',description:'菜单测试'}
     ]
     // 获取网关列表
     const getList = async ()=>{
@@ -61,28 +37,12 @@ const Monitor= (props)=> {
             setGateway(test)
         }
     }
-
-    // 实时数据
-    const getNews = ()=>{
-            // 建立连接
-            const socket = io('192.168.1.211:3001')
-            // 用户识别
-            // socket.emit('gatewayName',`${username}-wangguan1`)
-            // 获取数据
-            socket.on(`${username}-gateway_test_3`,(data)=>{
-            console.log(data.data)
-            // setNews(news.push(data.data))
-            news.push(data.data)
-            })
-        }
-
         useEffect(()=>{
             getList()
-            getNews()
+            //getNews()
             },[]
         )
         return (
-            // <PageHeaderWrapper>
                 <div className={styles.div}>
                     <Row gutter={40}>
                         <Col span={6}>
@@ -96,7 +56,6 @@ const Monitor= (props)=> {
                         </Col>
                     </Row>
                 </div>
-            // </PageHeaderWrapper>
         )
 }
 

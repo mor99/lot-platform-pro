@@ -1,96 +1,26 @@
-import React,{useState, useEffect} from 'react';
-import {Input,Row,Col} from 'antd'
+import React from 'react';
 import { connect } from 'dva';
 import {Line} from '@ant-design/charts'
-import {getDeviceList} from '../service'
-import styles from './index.less'
-
-/* const data = [
-    {
-        time:'17:08',
-         value:3
-    },
-    {
-        time:'17:09',
-        value:11
-    },
-    {
-        time:'17:10',
-        value:22
-    },
-    {
-        time:'17:11',
-        value:0
-    },
-    {
-        time:'17:18',
-        value:0
-    },
-    {
-        time:'17:35',
-        value:0
-    },
-    {
-        time:'18:11',
-        value:23
-    }
-] */
-/* const lineConfig ={
-      height:220,
-      width:'100%',
-      forceFit: true,
-      padding: 'auto',
-      data,
-      xField: 't',
-      yField: 'w',
-      point: { visible: true },
-      label: {
-        visible: true,
-        type: 'point',
-      },
-} */
 
 const mapStateToPros=(state)=>{
     return {
+        test:state.list.test,
         list_state:state.list.list_state,
-        chart_state:state.list.chart_state
+        chart_state:state.list.chart_state,
+        monitor_data:state.list.monitor_data
     }
 }
 const DeviceChart = props => {
-    const {chart_state,chartdata,list_state} = props
-    console.log(chartdata)
-    console.log(chart_state)
-    console.log(list_state)
-    const [deviceList,setDevice] =useState([])
-    // 获取属性列表
-    const getList = async ()=>{
-            const result = await getDeviceList('5f1110617f31b83db06617ec')
-            console.log(result)
-            if (!result.status) {
-                console.log(222)
-                setDevice(result.ports[0].devices)
-            }
-            else setDevice([])
-    }
-    useEffect(()=>{
-        getList()},[]
-    )
+    const {chart_state,chartdata,list_state,monitor_data,test} = props
+    console.log(monitor_data)
     // 折线图配置
     const lineConfig ={
-        /* title: {
-            visible: true,
-            text: '带数据点的折线图',
-          },
-          description: {
-            visible: true,
-            text: '将折线图上的每一个数据点显示出来\uFF0C作为辅助阅读\u3002',
-          }, */
           height:220,
           width:'100%',
           forceFit: true,
           padding: 'auto',
-          chart_state,
-          xField: 't',
+          // data:chart_state,
+          xField: 'time',
           yField: 'w',
           point: { visible: true },
           label: {
@@ -98,25 +28,29 @@ const DeviceChart = props => {
             type: 'point',
           },
     }
-    console.log(deviceList)
     return (
         (chart_state ==='gateway')?
-        <div style={{textAlign:'center'}}>请先选择设备</div>
+        <div style={{textAlign:'center',paddingTop:'400px'}}><a>请先选择设备</a></div>
         :
         <div style={{textAlign:'center'}}>
+            <h2>{chart_state}属性监控</h2>
             <p onClick={()=>{}} style={{textAlign:'right',marginRight:'120px'}}><a>切换原始属性</a></p>
             <br/>
-            {deviceList.map((value)=>{
-                    //  if (value.name ===chart_state)
+            {(monitor_data.ports)?monitor_data.ports.map((value)=>{
+                console.log(value)
                     return (
-                        value.name ===chart_state) ?
-                            <div>{value.properties.map((value1)=>{
-                                 return <div>{value1.alias}</div>
+                            <div>{value.devices.map((value1)=>{
+                                    console.log(value1)
+                                     return <div>{value1.properties.map((value2)=>{
+                                        console.log(value2)
+                                        return  (value1.name===chart_state)?<div><Line {...lineConfig} data={value2.data.datas} onlyChangeData={true}/>{value2.alias}</div>:''
+                                     })}</div>
+                                 
                                 }
                             )
-                        }</div>
-                         : ''
-            })}
+                        }</div>)
+                         
+            }):'暂无数据'}
         </div>
     );
   };
