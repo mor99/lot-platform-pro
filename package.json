@@ -76,6 +76,7 @@
     "react-fittext": "^1.0.0",
     "react-helmet-async": "^1.0.4",
     "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "umi": "3.1.1",
     "umi-request": "^1.0.8",
     "umi-serve": "^1.9.10",

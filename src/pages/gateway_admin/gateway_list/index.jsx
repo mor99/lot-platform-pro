@@ -19,7 +19,7 @@ const Gateway = () => {
     const fetchData = async () => {
         const result = await getGateway()
         console.log(result)
-        if (result) {
+        if (result && result instanceof Array) {
             setData(result)
             console.log(`请求到数据:${result}`)
         }

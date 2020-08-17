@@ -1,29 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {  Col, Row,Input } from 'antd';
+import React, { useState, useEffect } from 'react';
+import {  Col, Row,Button} from 'antd';
+import {RightOutlined,LeftOutlined} from '@ant-design/icons'
 import DeviceList from './component/List'
 import DeviceChart from './component/Content'
-import {connect} from 'dva'
-import {getGateway,getDeviceList} from './service'
-import io from 'socket.io-client'
+import {getGateway} from './service'
 import styles from './index.less'
 
-const mapStateToPros=(state)=>{
-    return {
-        list_state:state.list.list_state,
-        chart_state:state.list.chart_state,
-        monitor_data:state.list.monitor_data
-    }
-}
-
-const Monitor= (props)=> {    
-    const {chart_state,list_state,monitor_data} = props
-    const [liststatus,setList] = useState('gateway')
-    const [news,setNews] = useState([])
+const Monitor= ()=> {    
+    // const {chart_state,list_state,monitor_data} = props
+    const [listshow,setShow] = useState({list:5,chart:18,buttonText:'>',icon:<LeftOutlined />})
     const [gatewyList,setGateway] = useState([])
     // 获取网关列表
     const test = [
-        {name:'网关1',description:'用于获取不到数据时的菜单测试'},
-        {name:'网关2',description:'菜单测试'}
+        {name:'测试网关1(本地数据)',description:'用于获取不到数据时的菜单测试',status:'running'},
+        {name:'测试网关2(本地数据)',description:'菜单测试2',status:'abnormal'}
     ]
     // 获取网关列表
     const getList = async ()=>{
@@ -39,19 +29,30 @@ const Monitor= (props)=> {
     }
         useEffect(()=>{
             getList()
-            //getNews()
+            // getNews()
             },[]
         )
         return (
                 <div className={styles.div}>
-                    <Row gutter={40}>
-                        <Col span={6}>
+                    <Row gutter={32}>
+                        <Col span={listshow.list}>
                             <div ><DeviceList data={gatewyList}/></div>
                         </Col>
-                        <Col span={18} >
+                        <Col span={1}>
+                            <p/><br/>
+                            <Button type='link' size='big' icon={listshow.icon} onClick={()=>{
+                                if (listshow.list===5) {
+                                    setShow({list:0,chart:23,buttonText:'<',icon:<RightOutlined />})
+                                }
+                                else {
+                                    setShow({list:5,chart:18,buttonText:'>',icon:<LeftOutlined />})
+                                }
+                                }}/>
+                        </Col>
+                        <Col span={listshow.chart} >
                         <div style={{ overflow:'auto',height:'780px'}}
                                 >
-                                <DeviceChart chartdata={news}/>
+                                <DeviceChart/>
                             </div>
                         </Col>
                     </Row>
@@ -59,4 +60,4 @@ const Monitor= (props)=> {
         )
 }
 
-export default connect(mapStateToPros,null)(Monitor)
+export default Monitor

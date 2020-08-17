@@ -69,7 +69,6 @@ export default ()=>{
     const [system,setSystem] = useState({})     // 硬件信息
     const [process,setProcess] = useState({})   // 进程信息
     const {gatewayId} = history.location.query  // 网关id
-    console.log(gatewayId)
     // 获取详细信息
     const fetchData = async (show)=>{
         setSpin(true)
@@ -82,7 +81,6 @@ export default ()=>{
             setPorts(result.data.ports)
             setConfig(result.error.config)
             setModbus(result.error.modbus)
-            console.log(123)
             if (show) {
                 message.success('已拉取最新数据!')
             }
@@ -136,7 +134,7 @@ export default ()=>{
                             // bordered 
                             renderItem={item => {
                                 console.log(item)
-                                return(
+                                return (
                                     <List.Item
                                         // actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
                                     >
@@ -157,7 +155,7 @@ export default ()=>{
                             bordered 
                             renderItem={item => {
                                 console.log(item)
-                                return(
+                                return (
                                     <List.Item>
                                         <span className={styles.red}>{item.message}</span>
                                         <span style={{float:'right'}}>{timestampToTime(item.timestamp)}</span>
