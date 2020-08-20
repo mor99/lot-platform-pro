@@ -3,15 +3,65 @@
     padding: 30px;
     text-align: center;
   }
-  
+  // 网关列表
+  .gatewaylist {
+    overflow: auto;
+    height: 512px; 
+  }
+    .gatewaylist::-webkit-scrollbar {
+     width: 5px;
+    }
+  .gatewaylist::-webkit-scrollbar-thumb {
+      background-color: rgba(88, 88, 185, 0.473);
+    }
+  // 设备列表
+  .devicelist {
+    overflow: auto;
+    height: 700px ;
+  }
+  .devicelist::-webkit-scrollbar {
+     width: 5px;
+    }
+  .devicelist::-webkit-scrollbar-thumb {
+      background-color: rgba(88, 88, 185, 0.473);
+    }
+  // 左侧信息框
   .border {
+    background: rgba(255, 255, 255, 0.548);
+    padding-left: 10px;
     text-align: center;
     border-style:solid;
     border-width: thin;
     height:180px;
     border-color:#D3D3D3;
   }
-
+  // 时间轴
+  .timeline {
+    background:white;
+    padding:20px;
+    width:100%;
+    overflow:auto;
+    height:720px;
+  }
+  .timeline::-webkit-scrollbar {
+     width: 5px;
+    }
+  .timeline::-webkit-scrollbar-thumb {
+      background-color: rgba(88, 88, 185, 0.473);
+    }
+  // 设备监控图表
+  .charts {
+    padding-top: 10px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.342);
+  }
+  // 设备详情
+  .deviceborder {
+    background: rgba(255, 255, 255, 0.342);
+    height: 680px;
+    padding:0px 20px 20px 20px;
+    border:1px solid rgba(0, 0, 0, 0.151);
+  }
   .item {
     background:white;
   }
@@ -20,6 +70,10 @@
   }
   .item:focus {
     background-color: #00ff00;
+  }
+// 饼图
+  .pie {
+    background:white;
   }
 /*   .monitor{
     position: relative;

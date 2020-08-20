@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {connect} from 'umi';
 import {  Col, Row,Button} from 'antd';
 import {RightOutlined,LeftOutlined} from '@ant-design/icons'
 import DeviceList from './component/List'
@@ -6,12 +7,22 @@ import DeviceChart from './component/Content'
 import {getGateway} from './service'
 import styles from './index.less'
 
-const Monitor= ()=> {    
+const Monitor= (props)=> {    
+    const {dispatch} = props
+    useEffect(()=>{
+        dispatch({type:'monitor/init'})
+    },[])
     // const {chart_state,list_state,monitor_data} = props
     const [listshow,setShow] = useState({list:5,chart:18,buttonText:'>',icon:<LeftOutlined />})
     const [gatewyList,setGateway] = useState([])
     // 获取网关列表
     const test = [
+        {name:'测试网关1(本地数据)',description:'用于获取不到数据时的菜单测试',status:'running'},
+        {name:'测试网关2(本地数据)',description:'菜单测试2',status:'abnormal'},
+        {name:'测试网关1(本地数据)',description:'用于获取不到数据时的菜单测试',status:'running'},
+        {name:'测试网关2(本地数据)',description:'菜单测试2',status:'abnormal'},
+        {name:'测试网关1(本地数据)',description:'用于获取不到数据时的菜单测试',status:'running'},
+        {name:'测试网关2(本地数据)',description:'菜单测试2',status:'abnormal'},
         {name:'测试网关1(本地数据)',description:'用于获取不到数据时的菜单测试',status:'running'},
         {name:'测试网关2(本地数据)',description:'菜单测试2',status:'abnormal'}
     ]
@@ -50,8 +61,7 @@ const Monitor= ()=> {
                                 }}/>
                         </Col>
                         <Col span={listshow.chart} >
-                        <div style={{ overflow:'auto',height:'780px'}}
-                                >
+                            <div className={styles.content}>
                                 <DeviceChart/>
                             </div>
                         </Col>
@@ -60,4 +70,8 @@ const Monitor= ()=> {
         )
 }
 
-export default Monitor
+export default  connect((state) => {
+    return {
+        elect: state.monitor.elect,
+    }
+}, null)(Monitor)

@@ -56,9 +56,10 @@ const menuDataRender = (menuList) =>
       blankTarget: true,
     }
   ]} */
-const defaultFooterDom = <DefaultFooter
+const defaultFooterDom =  null
+{/* <DefaultFooter
   links = {[]}
-  copyright="2020 宁夏计算机技术与软件服务有限公司"/>;
+  copyright="2020 宁夏计算机技术与软件服务有限公司"/>; */}
 
 const BasicLayout = (props) => {
   const {

@@ -1,22 +1,31 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export default {
-    namespace:'list',
+    namespace:'monitor',
     state:{
-        list_state:'gateway',
-        chart_state:'gateway',
+        elect:'default',
+        gatewayId:'',
+        deviceName:'',
         monitor_data:{},
     },
     effects:{},
     reducers:{
-        // 列表状态
-        getList(state,{payload}){
-            return {...state,list_state:payload}
+        // 初始化
+        init(state){
+            return {...state,elect:'default'}
         },
-        // 选择设备
-        getDevice(state,{payload}){
-            return {...state,chart_state:payload}
+        // 选择状态
+        changeElect(state,{payload}){
+            return {...state,elect:payload}
         },
-        // 添加数据
+        // 改变网关id
+        changeGateway(state,{payload}){
+            return {...state,gatewayId:payload}
+        },
+        // 改变设备名称
+        changeDevice(state,{payload}){
+            return {...state,deviceName:payload}
+        },
+        // 获取数据结构
         getGatewayMonitor(state,{payload}){
             return {...state,monitor_data:payload}
         },
@@ -26,19 +35,20 @@ export default {
             const [a,b,c] = arr
            // const data = {...state.monitor_data}
            const data2 = {...state.monitor_data}
+           // 处理数据
            if (data2.ports){
                if (data2.ports[a].devices[b].properties[c].data.datas){
                    if (data2.ports[a].devices[b].properties[c].data.datas.length <= 15){
-                        const datalength = data2.ports[a].devices[b].properties[c].data.datas.push(payload)
+                        data2.ports[a].devices[b].properties[c].data.datas.push(payload)
                    }
                    else if (data2.ports[a].devices[b].properties[c].data.datas.length >15){
                     data2.ports[a].devices[b].properties[c].data.datas.shift()
-                    const datalength = data2.ports[a].devices[b].properties[c].data.datas.push(payload)
+                    data2.ports[a].devices[b].properties[c].data.datas.push(payload)
                    }
                }
                else {
                 data2.ports[a].devices[b].properties[c].data.datas = []
-                const datalength = data2.ports[a].devices[b].properties[c].data.datas.push(payload)
+                data2.ports[a].devices[b].properties[c].data.datas.push(payload)
                }
            }
 
