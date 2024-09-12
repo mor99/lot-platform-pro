@@ -1,5 +1,40 @@
 export default {
   'menu.welcome': '欢迎',
+  'menu.console':'控制台',
+  'menu.console.userdata':'用户数据',
+  'menu.console.device-state':'设备状态',
+
+  'menu.gateway-admin':'网关管理',
+  'menu.gateway-admin.gateway-list':'网关列表',
+  'menu.gateway-admin.gateway-add':'添加网关',
+  'menu.gateway-admin.gateway-edit':'编辑网关',
+
+  'menu.gateway-admin.model-list':'模型列表',
+  'menu.gateway-admin.model-add':'添加模型',
+  'menu.gateway-admin.model-edit':'编辑模型',
+
+  'menu.gateway-admin.attribute-list':'属性列表',
+  'menu.gateway-admin.attribute-add1':'添加属性(非线圈)',
+  'menu.gateway-admin.attribute-edit1':'更新属性(非线圈)',
+  'menu.gateway-admin.attribute-add2':'添加属性(线圈)',
+  'menu.gateway-admin.attribute-edit2':'更新属性(线圈)',
+
+  'menu.data-monitoring':'数据监控',
+  'menu.data-monitoring.real-time':'实时数据',
+  'menu.data-monitoring.history':'历史数据',
+
+  'menu.gateway-control':'网关控制',
+  'menu.gateway-control.order':'下发命令',
+  'menu.gateway-control.history':'历史记录',
+
+  'menu.gateway-admin.device-list':'设备列表',
+  'menu.gateway-admin.device-add':'添加子设备',
+  'menu.gateway-admin.device-edit':'更新设备',
+
+  'menu.attribute-list':'属性列表',
+
+  'menu.test':'测试',
+
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
   'menu.admin': '管理页',
@@ -45,8 +80,4 @@ export default {
   'menu.account.settings': '个人设置',
   'menu.account.trigger': '触发报错',
   'menu.account.logout': '退出登录',
-  'menu.editor': '图形编辑器',
-  'menu.editor.flow': '流程编辑器',
-  'menu.editor.mind': '脑图编辑器',
-  'menu.editor.koni': '拓扑编辑器',
 };

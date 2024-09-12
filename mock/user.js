@@ -5,8 +5,8 @@ function getFakeCaptcha(req, res) {
 export default {
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
-    name: 'Serati Ma',
-    avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
+    name: '张三',
+    avatar: 'http://img.bugu.18183.com/183acg/img/content/2017/03/1488511890-52539s1.jpg',
     userid: '00000001',
     email: 'antdesign@alipay.com',
     signature: '海纳百川，有容乃大',
@@ -54,44 +54,26 @@ export default {
     address: '西湖区工专路 77 号',
     phone: '0752-268888888',
   },
-  // GET POST 可省略
-  'GET /api/users': [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-    },
-  ],
-  'POST /api/login/account': (req, res) => {
+
+  'POST /api/user/login/123': (req, res) => {
     const { password, userName, type } = req.body;
 
-    if (password === 'ant.design' && userName === 'admin') {
+    if (password === '123456' && userName === 'admin') {
       res.send({
         status: 'ok',
         type,
         currentAuthority: 'admin',
+        accesstoken:'token123'
       });
       return;
     }
 
-    if (password === 'ant.design' && userName === 'user') {
+    if (password === '123456' && userName === 'user') {
       res.send({
         status: 'ok',
         type,
         currentAuthority: 'user',
+        accesstoken:'token123'
       });
       return;
     }

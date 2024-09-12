@@ -1,7 +1,5 @@
 # Lot Platform Pro
 
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
-
 ## Environment Prepare
 
 Install `node_modules`:
@@ -16,25 +14,32 @@ or
 yarn
 ```
 
-## Provided Scripts
 
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
-
-Scripts provided in `package.json`. It's safe to modify or add additional script:
-
-### Start project
+### 开始项目
 
 ```bash
 npm start
 ```
 
-### Build project
+or
+
+```bash
+yarn start
+```
+
+### 打包项目
 
 ```bash
 npm run build
 ```
 
-### Check code style
+or
+
+```bash
+yarn build
+```
+
+### 检查代码风格
 
 ```bash
 npm run lint
@@ -46,11 +51,10 @@ You can also use script to auto fix some lint error:
 npm run lint:fix
 ```
 
-### Test code
+### 测试
 
 ```bash
 npm test
 ```
 
 ## More
-

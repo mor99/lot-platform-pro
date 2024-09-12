@@ -8,16 +8,18 @@ const Model = {
   namespace: 'login',
   state: {
     status: undefined,
+    accessToken: 123
   },
   effects: {
     *login({ payload }, { call, put }) {
       const response = yield call(fakeAccountLogin, payload);
+      console.log(response)
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      if (response.accessToken) {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -43,8 +45,8 @@ const Model = {
 
     logout() {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
-
       if (window.location.pathname !== '/user/login' && !redirect) {
+        localStorage.removeItem("mytoken")
         history.replace({
           pathname: '/user/login',
           search: stringify({
@@ -59,6 +61,11 @@ const Model = {
       setAuthority(payload.currentAuthority);
       return { ...state, status: payload.status, type: payload.type };
     },
+    /* saveToken(state, { payload }) {
+      return {
+        ...state, accessToken: payload
+      }
+    } */
   },
 };
 export default Model;
